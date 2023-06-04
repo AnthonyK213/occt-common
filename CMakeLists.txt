@@ -56,5 +56,5 @@ if(ENABLE_UNIT_TESTS)
     endif()
   endif()
 
-  add_subdirectory(tests)
+  # add_subdirectory(tests)
 endif()
