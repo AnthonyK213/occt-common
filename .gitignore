@@ -1,0 +1,7 @@
+.cache
+.cmake
+.vscode
+__pycache__
+build/
+extern/
+main

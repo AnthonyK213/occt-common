@@ -13,8 +13,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
-include(FetchGTest)
-
 ### Require out-of-source builds
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
 if(EXISTS "${LOC_PATH}")
@@ -25,3 +23,4 @@ endif()
 
 add_subdirectory(src)
 add_subdirectory(apps)
+add_subdirectory(tests)
