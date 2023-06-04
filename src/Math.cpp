@@ -6,6 +6,10 @@
 
 using namespace OcctCommon;
 
-inline bool OcctMath::IsValidDouble(double x) { return x != UNSET_VALUE; }
+namespace OcctCommon {
 
-inline double OcctMath::UnsetValue() { return UNSET_VALUE; }
+bool OcctMath::IsValidDouble(double x) { return x != UNSET_VALUE; }
+
+double OcctMath::UnsetValue() { return UNSET_VALUE; }
+
+} // namespace OcctCommon

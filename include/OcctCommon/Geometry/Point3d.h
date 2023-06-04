@@ -1,30 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_POINT3D_H
 #define OCCTCOMMON_GEOMETRY_POINT3D_H
 
-#include <BRepBuilderAPI_MakeEdge.hxx>
-#include <BRepBuilderAPI_MakeWire.hxx>
-#include <BRepTools_WireExplorer.hxx>
-#include <BRep_Tool.hxx>
-#include <Geom_Circle.hxx>
-#include <Geom_Conic.hxx>
-#include <Geom_Curve.hxx>
-#include <Geom_Line.hxx>
-#include <Geom_OffsetCurve.hxx>
-#include <Geom_Transformation.hxx>
-#include <IntTools_EdgeEdge.hxx>
 #include <OcctCommon/Geometry/Transform.h>
-#include <Standard_Handle.hxx>
-#include <Standard_TypeDef.hxx>
-#include <TopoDS.hxx>
-#include <TopoDS_Builder.hxx>
-#include <TopoDS_Edge.hxx>
-#include <TopoDS_Shape.hxx>
-#include <TopoDS_Wire.hxx>
-#include <gp_Ax1.hxx>
-#include <gp_Ax2.hxx>
-#include <gp_Ax3.hxx>
-#include <gp_Dir.hxx>
-#include <gp_Pln.hxx>
 #include <gp_Pnt.hxx>
 #include <string>
 
@@ -60,6 +37,9 @@ public:
   bool Equals(const Point3d &other) const;
   std::string ToString() const;
   void Transform(Transform xform);
+
+public:
+  bool operator==(const Point3d &other);
 
 public:
   gp_Pnt Pnt() const;

@@ -21,40 +21,27 @@ if(EXISTS "${LOC_PATH}")
   build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-add_subdirectory(src)
-add_subdirectory(apps)
-
 option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
+find_package(OpenCASCADE COMPONENTS FoundationClasses REQUIRED)
+find_package(OpenCASCADE COMPONENTS ModelingAlgorithms REQUIRED)
+find_package(OpenCASCADE COMPONENTS ModelingData REQUIRED)
+find_package(OpenCASCADE COMPONENTS DataExchange REQUIRED)
+find_package(OpenCASCADE COMPONENTS Visualization REQUIRED)
+MESSAGE("OCC-Include-Dir: ${OpenCASCADE_INCLUDE_DIR}")
+MESSAGE("OCC-Lib-Dir: ${OpenCASCADE_LIBRARY_DIR}")
+MESSAGE("OCC-Libs: ${OpenCASCADE_LIBRARIES}")
+
+include_directories(
+  ${PROJECT_BINARY_DIR}
+  ${PROJECT_SOURCE_DIR}/include/
+  ${OpenCASCADE_INCLUDE_DIR}
+  ${OpenCASCADE_LIBRARY_DIR}
+  )
+
+add_subdirectory(src)
+
 if(ENABLE_UNIT_TESTS)
-  include(FetchGTest)
-
-  if(NOT googletest_POPULATED)
-    FetchContent_Populate(googletest)
-
-    # Prevent GoogleTest from overriding our compiler/linker options
-    # when building with Visual Studio
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    # Prevent GoogleTest from using PThreads
-    set(gtest_disable_pthreads ON CACHE BOOL "" FORCE)
-
-    # adds the targers: gtest, gtest_main, gmock, gmock_main
-    add_subdirectory(
-      ${googletest_SOURCE_DIR}
-      ${googletest_BINARY_DIR}
-      )
-
-    # Silence std::tr1 warning on MSVC
-    if(MSVC)
-      foreach(_tgt gtest gtest_main gmock gmock_main)
-        target_compile_definitions(${_tgt}
-          PRIVATE
-          "_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING"
-          )
-      endforeach()
-    endif()
-  endif()
-
-  # add_subdirectory(tests)
+  add_subdirectory(tests)
 endif()
