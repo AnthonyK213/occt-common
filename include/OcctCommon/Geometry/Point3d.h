@@ -40,6 +40,7 @@ public:
 
 public:
   bool operator==(const Point3d &other);
+  bool operator!=(const Point3d &other);
 
 public:
   gp_Pnt Pnt() const;

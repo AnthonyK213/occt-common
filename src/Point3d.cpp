@@ -12,18 +12,18 @@ Point3d::Point3d(const Point3d &point) : m_data(point.m_data) {}
 
 Point3d::Point3d(Point3d &&point) noexcept : m_data(std::move(point.m_data)) {}
 
-inline Point3d Point3d::Origin() { return Point3d{0.0, 0.0, 0.0}; }
+Point3d Point3d::Origin() { return Point3d{0.0, 0.0, 0.0}; }
 
-inline Point3d Point3d::Unset() {
+Point3d Point3d::Unset() {
   return Point3d{math::UnsetValue(), math::UnsetValue(), math::UnsetValue()};
 }
 
 Point3d Point3d::Add(const Point3d &point1, const Point3d &point2) {
-  return Point3d(point1.X() + point1.X(), point1.Y() + point1.Y(),
-                 point1.Z() + point1.Z());
+  return Point3d(point1.X() + point2.X(), point1.Y() + point2.Y(),
+                 point1.Z() + point2.Z());
 }
 
-inline bool Point3d::IsValid() const {
+bool Point3d::IsValid() const {
   return math::IsValidDouble(X()) && math::IsValidDouble(Y()) &&
          math::IsValidDouble(Z());
 }
@@ -38,7 +38,16 @@ bool Point3d::operator==(const Point3d &other) {
   if (!IsValid() || !other.IsValid())
     return false;
 
-  return X() == other.X() && Y() == other.Y() && Z() == other.Z();
+  return X() == other.X() && Y() == other.Y() &&
+         Z() == other.Z();
+}
+
+bool Point3d::operator!=(const Point3d &other) {
+  if (IsValid() ^ other.IsValid())
+    return false;
+
+  return !(X() == other.X() && Y() == other.Y() &&
+           Z() == other.Z());
 }
 
 gp_Pnt Point3d::Pnt() const { return m_data; }
