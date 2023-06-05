@@ -1,4 +1,4 @@
-#include "Point3d_Test.h"
+#include "Coord_Test.h"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

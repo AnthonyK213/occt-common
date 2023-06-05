@@ -20,6 +20,8 @@ public:
   static Point3d Origin();
   static Point3d Unset();
   static Point3d Add(__CPnt point1, __CPnt point2);
+  static Point3d Add(__CPnt point, __CVec vector);
+  static Point3d Add(__CVec vector, __CPnt point);
   static Point3d Divide(__CPnt point, double t);
   static Point3d Multiply(__CPnt point, double t);
   static Point3d Multiply(double t, __CPnt point);
@@ -62,10 +64,6 @@ public:
 public:
   const gp_Pnt &Data() const;
   gp_Pnt &DataMut();
-
-private:
-  const gp_XYZ &Coord() const;
-  gp_XYZ &ChangeCoord();
 
 private:
   gp_Pnt m_data;

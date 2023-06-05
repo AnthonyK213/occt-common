@@ -10,7 +10,7 @@ struct Vector3d {
 
 public:
   Vector3d(double x, double y, double z);
-  explicit Vector3d(const Point3d &point);
+  explicit Vector3d(__CPnt point);
   explicit Vector3d(const gp_Vec &vec);
   explicit Vector3d(const gp_XYZ &xyz);
   Vector3d(__CVec vector);
@@ -36,8 +36,31 @@ public:
   static bool AreOrthogonal(__CVec x, __CVec y, __CVec z);
   static bool AreOrithonormal(__CVec x, __CVec y, __CVec z);
   static bool AreRighthanded(__CVec x, __CVec y, __CVec z);
-  int CompareTo(__CVec other);
   static Vector3d CrossProduct(__CVec a, __CVec b);
+  static Vector3d Divide(__CVec vector, double t);
+  static Vector3d Mulitply(__CVec vector, double t);
+  static Vector3d Mulitply(double t, __CVec vector);
+  static Vector3d Negate(__CVec vector);
+  static Vector3d Subtract(__CVec vector1, __CVec vector2);
+  static double VectorAngle(__CVec a, __CVec b, __CPln plane);
+  static double VectorAngle(__CVec a, __CVec b, __CVec vNormal);
+  static double VectorAngle(__CVec a, __CVec b);
+  int CompareTo(__CVec other);
+  bool EpsilonEquals(__CVec other, double epsilon);
+  bool Equals(__CVec vector);
+  int IsParallelTo(__CVec other, double angleTolerance);
+  int IsParallelTo(__CVec other);
+  bool IsPerpendicularTo(__CVec other, double angleTolerance);
+  bool IsPerpendicularTo(__CVec other);
+  bool IsTiny();
+  bool PerpendicularTo(__CVec other);
+  bool Reverse();
+  bool Rotate(double angleRadiance, __CVec rotationAxis);
+  std::string ToString();
+  void Transform(__CTrsf transformation);
+  bool Unitize();
+
+public:
 
 public:
   const gp_Vec &Data() const;

@@ -1,12 +1,19 @@
 #ifndef OCCTCOMMON_GEOMETRY_H
 #define OCCTCOMMON_GEOMETRY_H
 
-#define NotImplemented() throw std::runtime_error("Not implemented");
-
+#include <Geom_BSplineCurve.hxx>
+#include <Geom_Circle.hxx>
+#include <Geom_Curve.hxx>
+#include <Geom_Geometry.hxx>
+#include <Geom_Line.hxx>
+#include <Standard_Handle.hxx>
 #include <gp_Pln.hxx>
 #include <gp_Pnt.hxx>
+#include <gp_Trsf.hxx>
 #include <gp_Vec.hxx>
 #include <gp_XYZ.hxx>
+#include <gp_Lin.hxx>
+#include <gp_Circ.hxx>
 #include <string>
 #include <vector>
 
@@ -14,9 +21,11 @@ namespace OcctCommon {
 namespace Geometry {
 
 struct Arc;
+struct BoundingBox;
 struct Box;
 struct Circle;
 class Curve;
+class GeometryBase;
 struct Line;
 class Mesh;
 class NurbsCurve;
