@@ -27,3 +27,10 @@ TEST(GeometryTests, coord_add) {
   EXPECT_TRUE(pt1 + pt2 == Point3d::Origin());
   EXPECT_TRUE(pt1 + vec1 == Point3d::Origin());
 }
+
+TEST(GeometryTests, vector_calc) {
+  Vector3d vec1(-2, 1, 3);
+  Vector3d vec2(0, 1, 4);
+  EXPECT_TRUE(Vector3d::CrossProduct(vec1, vec2) == Vector3d(1, 8, -2));
+  EXPECT_EQ(Vector3d::Mulitply(vec1, vec2), 13);
+}

@@ -40,6 +40,7 @@ public:
   static Vector3d Divide(__CVec vector, double t);
   static Vector3d Mulitply(__CVec vector, double t);
   static Vector3d Mulitply(double t, __CVec vector);
+  static double Mulitply(__CVec vector1, __CVec vector2);
   static Vector3d Negate(__CVec vector);
   static Vector3d Subtract(__CVec vector1, __CVec vector2);
   static double VectorAngle(__CVec a, __CVec b, __CPln plane);
@@ -61,6 +62,8 @@ public:
   bool Unitize();
 
 public:
+  bool operator!=(__CVec other);
+  bool operator==(__CVec other);
 
 public:
   const gp_Vec &Data() const;

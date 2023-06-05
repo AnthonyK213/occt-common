@@ -94,6 +94,10 @@ Vector3d Vector3d::Mulitply(double t, __CVec vector) {
   return Vector3d(vector.Data() * t);
 }
 
+double Vector3d::Mulitply(__CVec vector1, __CVec vector2) {
+  return vector1.Data().Dot(vector2.Data());
+}
+
 Vector3d Vector3d::Negate(__CVec vector) {
   return Vector3d(-vector.X(), -vector.Y(), -vector.Z());
 }
@@ -122,6 +126,14 @@ int Vector3d::CompareTo(__CVec other) {
   } else {
     return 1;
   }
+}
+
+bool Vector3d::operator!=(__CVec other) {
+  return X() != other.X() || Y() != other.Y() || Z() != other.Z();
+}
+
+bool Vector3d::operator==(__CVec other) {
+  return X() == other.X() && Y() == other.Y() && Z() == other.Z();
 }
 
 const gp_Vec &Vector3d::Data() const {
