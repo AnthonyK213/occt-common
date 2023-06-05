@@ -2,6 +2,7 @@
 #define OCCTCOMMON_GEOMETRY_POINT3D_H
 
 #include <OcctCommon/Geometry/Transform.h>
+#include <OcctCommon/Geometry/Vector3d.h>
 #include <gp_Pnt.hxx>
 #include <string>
 
@@ -11,6 +12,7 @@ namespace Geometry {
 struct Point3d {
 public:
   Point3d(double x, double y, double z);
+  explicit Point3d(const gp_Pnt &pnt);
   Point3d(const Point3d &point);
   Point3d(Point3d &&point) noexcept;
 
@@ -39,12 +41,27 @@ public:
   void Transform(Transform xform);
 
 public:
-  bool operator==(const Point3d &other);
-  bool operator!=(const Point3d &other);
+  Point3d &operator=(const Point3d &point);
+  Point3d &operator=(Point3d &&point) noexcept;
+  bool operator!=(const Point3d &other) const;
+  bool operator<(const Point3d &other) const;
+  bool operator<=(const Point3d &other) const;
+  bool operator==(const Point3d &other) const;
+  bool operator>(const Point3d &other) const;
+  bool operator>=(const Point3d &other) const;
+  const Point3d operator-(const Vector3d &vector) const;
+  const Point3d operator-() const;
+  const Point3d operator*(double t) const;
+  friend const Point3d operator*(double t, const Point3d &point);
+  const Point3d operator/(double t) const;
+  const Point3d operator+(const Vector3d &vector) const;
+  friend const Point3d operator+(const Vector3d &vector, const Point3d &point);
+  const Point3d operator+(const Point3d &other) const;
+  const Vector3d operator-(const Point3d &other) const;
 
 public:
-  gp_Pnt Pnt() const;
-  gp_Pnt &PntMut();
+  gp_Pnt Data() const;
+  gp_Pnt &DataMut();
 
 private:
   gp_Pnt m_data;

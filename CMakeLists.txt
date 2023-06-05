@@ -29,6 +29,7 @@ find_package(OpenCASCADE COMPONENTS ModelingAlgorithms REQUIRED)
 find_package(OpenCASCADE COMPONENTS ModelingData REQUIRED)
 find_package(OpenCASCADE COMPONENTS DataExchange REQUIRED)
 find_package(OpenCASCADE COMPONENTS Visualization REQUIRED)
+
 MESSAGE("OCC-Include-Dir: ${OpenCASCADE_INCLUDE_DIR}")
 MESSAGE("OCC-Lib-Dir: ${OpenCASCADE_LIBRARY_DIR}")
 MESSAGE("OCC-Libs: ${OpenCASCADE_LIBRARIES}")
@@ -43,5 +44,6 @@ include_directories(
 add_subdirectory(src)
 
 if(ENABLE_UNIT_TESTS)
+  enable_testing()
   add_subdirectory(tests)
 endif()

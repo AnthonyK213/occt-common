@@ -8,6 +8,8 @@ namespace Geometry {
 
 Point3d::Point3d(double x, double y, double z) : m_data(x, y, z) {}
 
+Point3d::Point3d(const gp_Pnt &pnt) : m_data(pnt) {}
+
 Point3d::Point3d(const Point3d &point) : m_data(point.m_data) {}
 
 Point3d::Point3d(Point3d &&point) noexcept : m_data(std::move(point.m_data)) {}
@@ -34,15 +36,17 @@ inline double Point3d::Y() const { return m_data.Y(); };
 
 inline double Point3d::Z() const { return m_data.Z(); };
 
-bool Point3d::operator==(const Point3d &other) {
-  if (!IsValid() || !other.IsValid())
-    return false;
-
-  return X() == other.X() && Y() == other.Y() &&
-         Z() == other.Z();
+Point3d &Point3d::operator=(const Point3d &point) {
+  this->m_data = point.m_data;
+  return *this;
 }
 
-bool Point3d::operator!=(const Point3d &other) {
+Point3d &Point3d::operator=(Point3d &&point) noexcept {
+  this->m_data = std::move(point.m_data);
+  return *this;
+}
+
+bool Point3d::operator!=(const Point3d &other) const {
   if (IsValid() ^ other.IsValid())
     return false;
 
@@ -50,9 +54,21 @@ bool Point3d::operator!=(const Point3d &other) {
            Z() == other.Z());
 }
 
-gp_Pnt Point3d::Pnt() const { return m_data; }
+bool Point3d::operator==(const Point3d &other) const {
+  if (!IsValid() || !other.IsValid())
+    return false;
 
-gp_Pnt &Point3d::PntMut() {
+  return X() == other.X() && Y() == other.Y() &&
+         Z() == other.Z();
+}
+
+const Point3d Point3d::operator+(const Point3d &other) const {
+  return Add(*this, other);
+}
+
+gp_Pnt Point3d::Data() const { return m_data; }
+
+gp_Pnt &Point3d::DataMut() {
   gp_Pnt &pnt = m_data;
   return pnt;
 }

@@ -1,5 +1,3 @@
-enable_testing()
-
 include(FetchContent)
 
 Fetchcontent_Declare(
@@ -45,12 +43,11 @@ add_executable(
 target_link_libraries(
   OcctCommonTest
   PRIVATE
-  gtest_main
+  gtest
   ${OpenCASCADE_LIBRARIES}
   ${PROJECT_NAME}
   )
 
-add_test(
-  OcctCommon_Tests
-  OcctCommonTest
-  )
+include(GoogleTest)
+
+gtest_discover_tests(OcctCommonTest)
