@@ -14,11 +14,12 @@ public:
   explicit Point3d(const gp_XYZ &xyz);
   explicit Point3d(const Vector3d &vector);
   Point3d(__CPnt point);
-  Point3d(Point3d &&point) noexcept;
+  Point3d(Point3d &&point) noexcept = default;
+  Point3d &operator=(__CPnt point) = default;
 
 public:
-  static Point3d Origin();
-  static Point3d Unset();
+  static __CPnt Origin();
+  static __CPnt Unset();
   static Point3d Add(__CPnt point1, __CPnt point2);
   static Point3d Add(__CPnt point, __CVec vector);
   static Point3d Add(__CVec vector, __CPnt point);
@@ -43,8 +44,6 @@ public:
   void Transform(Transform xform);
 
 public:
-  Point3d &operator=(__CPnt point);
-  Point3d &operator=(Point3d &&point) noexcept;
   bool operator!=(__CPnt other) const;
   bool operator<(__CPnt other) const;
   bool operator<=(__CPnt other) const;

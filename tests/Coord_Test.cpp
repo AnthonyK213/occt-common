@@ -16,7 +16,7 @@ TEST(GeometryTests, coord_mut) {
   Point3d pt(1, 2, 3);
   gp_Pnt &pnt = pt.DataMut();
   pnt.SetX(10);
-  EXPECT_EQ(pt.X(), 10);
+  EXPECT_TRUE(pt == Point3d(10, 2, 3));
 }
 
 TEST(GeometryTests, coord_add) {
@@ -33,4 +33,8 @@ TEST(GeometryTests, vector_calc) {
   Vector3d vec2(0, 1, 4);
   EXPECT_TRUE(Vector3d::CrossProduct(vec1, vec2) == Vector3d(1, 8, -2));
   EXPECT_EQ(Vector3d::Mulitply(vec1, vec2), 13);
+  Vector3d vec3 = vec2;
+  vec3.Unitize();
+  EXPECT_FALSE(vec2.IsUnitVector());
+  EXPECT_TRUE(vec3.IsUnitVector());
 }

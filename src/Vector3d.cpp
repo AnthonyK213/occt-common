@@ -8,16 +8,15 @@ namespace Geometry {
 
 Vector3d::Vector3d(double x, double y, double z) : m_data(x, y, z) {}
 
-Vector3d::Vector3d(__CPnt point) : m_data(point.X(), point.Y(), point.Z()) {}
+Vector3d::Vector3d(__CPnt point) : m_data(point.Data().Coord()) {}
 
 Vector3d::Vector3d(const gp_Vec &vec) : m_data(vec) {}
 
 Vector3d::Vector3d(const gp_XYZ &xyz) : m_data(xyz) {}
 
-Vector3d::Vector3d(__CVec vector) : m_data(vector.m_data) {}
+Vector3d::Vector3d(const gp_Dir &dir) : m_data(dir) {}
 
-Vector3d::Vector3d(Vector3d &&vector) noexcept
-    : m_data(std::move(vector.m_data)) {}
+Vector3d::Vector3d(__CVec vector) : m_data(vector.m_data) {}
 
 // Tolerance?
 inline bool Vector3d::IsUnitVector() const { return Length() == 1.0; }
@@ -48,13 +47,25 @@ inline double Vector3d::Y() const { return m_data.Y(); }
 
 inline double Vector3d::Z() const { return m_data.Z(); }
 
-Vector3d Vector3d::XAxis() { return Vector3d(1.0, 0.0, 0.0); }
+__CVec Vector3d::XAxis() {
+  static Vector3d Vector3d_XAxis(gp::DX());
+  return Vector3d_XAxis;
+}
 
-Vector3d Vector3d::YAxis() { return Vector3d(0.0, 1.0, 0.0); }
+__CVec Vector3d::YAxis() {
+  static Vector3d Vector3d_YAxis(gp::DY());
+  return Vector3d_YAxis;
+}
 
-Vector3d Vector3d::ZAxis() { return Vector3d(0.0, 0.0, 1.0); }
+__CVec Vector3d::ZAxis() {
+  static Vector3d Vector3d_ZAxis(gp::DZ());
+  return Vector3d_ZAxis;
+}
 
-Vector3d Vector3d::Zero() { return Vector3d(0.0, 0.0, 0.0); }
+__CVec Vector3d::Zero() {
+  static Vector3d Vector3d_Zero(0, 0, 0);
+  return Vector3d_Zero;
+}
 
 Vector3d Vector3d::Add(__CVec vector1, __CVec vector2) {
   return Vector3d(vector1.Data() + vector2.Data());
@@ -128,6 +139,32 @@ int Vector3d::CompareTo(__CVec other) {
   }
 }
 
+bool Vector3d::Reverse() {
+  if (!IsValid() || IsZero())
+    return false;
+  m_data.Reverse();
+  return true;
+}
+
+bool Vector3d::Rotate(double angleRadiance, __CVec rotationAxis) {
+  if (!rotationAxis.IsValid() || rotationAxis.IsZero())
+    return false;
+  gp_Ax1 axis(gp::Origin(), rotationAxis.Data().XYZ());
+  m_data.Rotate(axis, angleRadiance);
+  return true;
+}
+
+void Vector3d::Transform(__CTrsf transformation) {
+  m_data.Transform(transformation.Data());
+}
+
+bool Vector3d::Unitize() {
+  if (!IsValid() || IsZero())
+    return false;
+  m_data.Normalize();
+  return true;
+}
+
 bool Vector3d::operator!=(__CVec other) {
   return X() != other.X() || Y() != other.Y() || Z() != other.Z();
 }
@@ -136,15 +173,9 @@ bool Vector3d::operator==(__CVec other) {
   return X() == other.X() && Y() == other.Y() && Z() == other.Z();
 }
 
-const gp_Vec &Vector3d::Data() const {
-  const gp_Vec &vec = m_data;
-  return vec;
-}
+const gp_Vec &Vector3d::Data() const { return m_data; }
 
-gp_Vec &Vector3d::DataMut() {
-  gp_Vec &vec = m_data;
-  return vec;
-}
+gp_Vec &Vector3d::DataMut() { return m_data; }
 
 } // namespace Geometry
 } // namespace OcctCommon

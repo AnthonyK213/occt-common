@@ -1,6 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_VECTOR3D_H
 #define OCCTCOMMON_GEOMETRY_VECTOR3D_H
 
+#include "Standard_Macro.hxx"
 #include <OcctCommon/OcctCommon.h>
 
 namespace OcctCommon {
@@ -12,8 +13,10 @@ public:
   explicit Vector3d(__CPnt point);
   explicit Vector3d(const gp_Vec &vec);
   explicit Vector3d(const gp_XYZ &xyz);
+  explicit Vector3d(const gp_Dir &dir);
   Vector3d(__CVec vector);
-  Vector3d(Vector3d &&vector) noexcept;
+  Vector3d(Vector3d &&vector) noexcept = default;
+  Vector3d &operator=(__CVec vector) = default;
 
 public:
   bool IsUnitVector() const;
@@ -25,12 +28,12 @@ public:
   double X() const;
   double Y() const;
   double Z() const;
-  static Vector3d XAxis();
-  static Vector3d YAxis();
-  static Vector3d ZAxis();
-  static Vector3d Zero();
 
 public:
+  static __CVec XAxis();
+  static __CVec YAxis();
+  static __CVec ZAxis();
+  static __CVec Zero();
   static Vector3d Add(__CVec vector1, __CVec vector2);
   static bool AreOrthogonal(__CVec x, __CVec y, __CVec z);
   static bool AreOrithonormal(__CVec x, __CVec y, __CVec z);
@@ -45,6 +48,8 @@ public:
   static double VectorAngle(__CVec a, __CVec b, __CPln plane);
   static double VectorAngle(__CVec a, __CVec b, __CVec vNormal);
   static double VectorAngle(__CVec a, __CVec b);
+
+public:
   int CompareTo(__CVec other);
   bool EpsilonEquals(__CVec other, double epsilon);
   bool Equals(__CVec vector);

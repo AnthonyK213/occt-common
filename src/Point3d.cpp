@@ -1,7 +1,7 @@
-#include <OcctCommon/OcctCommon.h>
 #include <OcctCommon/Geometry/Point3d.h>
 #include <OcctCommon/Geometry/Vector3d.h>
 #include <OcctCommon/Math.h>
+#include <OcctCommon/OcctCommon.h>
 
 namespace OcctCommon {
 namespace Geometry {
@@ -16,13 +16,15 @@ Point3d::Point3d(__CVec vector) : m_data() {}
 
 Point3d::Point3d(__CPnt point) : m_data(point.m_data) {}
 
-Point3d::Point3d(Point3d &&point) noexcept : m_data(std::move(point.m_data)) {}
+__CPnt Point3d::Origin() {
+  static Point3d Point3d_Origin(gp::Origin());
+  return Point3d_Origin;
+}
 
-Point3d Point3d::Origin() { return Point3d{0.0, 0.0, 0.0}; }
-
-Point3d Point3d::Unset() {
-  return Point3d{__Math::UnsetValue(), __Math::UnsetValue(),
-                 __Math::UnsetValue()};
+__CPnt Point3d::Unset() {
+  static Point3d Point3d_Unset(__Math::UnsetValue(), __Math::UnsetValue(),
+                               __Math::UnsetValue());
+  return Point3d_Unset;
 }
 
 Point3d Point3d::Add(__CPnt point1, __CPnt point2) {
@@ -67,16 +69,6 @@ inline double Point3d::X() const { return m_data.X(); };
 inline double Point3d::Y() const { return m_data.Y(); };
 
 inline double Point3d::Z() const { return m_data.Z(); };
-
-Point3d &Point3d::operator=(__CPnt point) {
-  this->m_data = point.m_data;
-  return *this;
-}
-
-Point3d &Point3d::operator=(Point3d &&point) noexcept {
-  this->m_data = std::move(point.m_data);
-  return *this;
-}
 
 bool Point3d::operator!=(__CPnt other) const {
   if (IsValid() ^ other.IsValid())
@@ -126,15 +118,9 @@ const Vector3d Point3d::operator-(__CPnt other) const {
   return Point3d::Subtract(*this, other);
 }
 
-const gp_Pnt &Point3d::Data() const {
-  const gp_Pnt &pnt = m_data;
-  return pnt;
-}
+const gp_Pnt &Point3d::Data() const { return m_data; }
 
-gp_Pnt &Point3d::DataMut() {
-  gp_Pnt &pnt = m_data;
-  return pnt;
-}
+gp_Pnt &Point3d::DataMut() { return m_data; }
 
 } // namespace Geometry
 } // namespace OcctCommon

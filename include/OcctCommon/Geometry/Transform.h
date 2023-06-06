@@ -7,6 +7,10 @@ namespace OcctCommon {
 namespace Geometry {
 
 class Transform {
+public:
+  const gp_Trsf &Data() const;
+  gp_Trsf &Data();
+
 private:
   gp_Trsf m_data;
 };
