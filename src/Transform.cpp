@@ -1,5 +1,4 @@
 #include <OcctCommon/Geometry/Transform.h>
-#include <OcctCommon/OcctCommon.h>
 
 namespace OcctCommon {
 namespace Geometry {

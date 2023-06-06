@@ -1,7 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_TRANSFORM_H
 #define OCCTCOMMON_GEOMETRY_TRANSFORM_H
 
-#include <OcctCommon/OcctCommon.h>
+#include <OcctCommon/_decl.h>
 
 namespace OcctCommon {
 namespace Geometry {

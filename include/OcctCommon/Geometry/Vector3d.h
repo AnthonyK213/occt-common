@@ -1,8 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_VECTOR3D_H
 #define OCCTCOMMON_GEOMETRY_VECTOR3D_H
 
-#include "Standard_Macro.hxx"
-#include <OcctCommon/OcctCommon.h>
+#include <OcctCommon/_decl.h>
 
 namespace OcctCommon {
 namespace Geometry {

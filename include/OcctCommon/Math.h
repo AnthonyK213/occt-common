@@ -1,6 +1,7 @@
 #ifndef OCCTCOMMON_MATH_H
 #define OCCTCOMMON_MATH_H
 
+#include <OcctCommon/_decl.h>
 #include <cmath>
 
 namespace OcctCommon {

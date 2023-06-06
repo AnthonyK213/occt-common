@@ -1,7 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_POINT3D_H
 #define OCCTCOMMON_GEOMETRY_POINT3D_H
 
-#include <OcctCommon/OcctCommon.h>
+#include <OcctCommon/_decl.h>
 #include <OcctCommon/Geometry/Transform.h>
 
 namespace OcctCommon {

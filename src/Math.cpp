@@ -1,5 +1,4 @@
 #include <OcctCommon/Math.h>
-#include <OcctCommon/OcctCommon.h>
 
 namespace OcctCommon {
 

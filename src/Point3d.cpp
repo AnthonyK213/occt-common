@@ -1,7 +1,6 @@
 #include <OcctCommon/Geometry/Point3d.h>
 #include <OcctCommon/Geometry/Vector3d.h>
 #include <OcctCommon/Math.h>
-#include <OcctCommon/OcctCommon.h>
 
 namespace OcctCommon {
 namespace Geometry {
