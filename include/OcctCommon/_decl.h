@@ -27,7 +27,7 @@
 #include <string>
 #include <vector>
 
-const double OCCTCOMMON_UNSET_VALUE = -1.23432101234321e+308;
+static const double OCCTCOMMON_UNSET_VALUE = -1.23432101234321e+308;
 
 namespace OcctCommon {
 namespace Geometry {
