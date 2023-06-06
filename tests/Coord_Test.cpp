@@ -1,7 +1,4 @@
-#pragma once
-
-#include <OcctCommon/Geometry/Point3d.h>
-#include <OcctCommon/Geometry/Vector3d.h>
+#include <OcctCommon/OcctCommon.h>
 #include <gtest/gtest.h>
 
 using namespace OcctCommon::Geometry;
@@ -37,4 +34,14 @@ TEST(GeometryTests, vector_calc) {
   vec3.Unitize();
   EXPECT_FALSE(vec2.IsUnitVector());
   EXPECT_TRUE(vec3.IsUnitVector());
+}
+
+TEST(GeometryTests, plane_validation) {
+  Vector3d vec1(0, 0, 1);
+  Vector3d vec2(0, 0, 10);
+  Vector3d vec3(0, 7, 0);
+  Plane plane1(Point3d::Origin(), vec1, vec2);
+  Plane plane2(Point3d::Origin(), vec1, vec3);
+  EXPECT_FALSE(plane1.IsValid());
+  EXPECT_TRUE(plane2.IsValid());
 }

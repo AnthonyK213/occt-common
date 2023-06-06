@@ -1,4 +1,5 @@
 #include <OcctCommon/Geometry/Point3d.h>
+#include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/Geometry/Vector3d.h>
 #include <OcctCommon/OcctMath.h>
 
@@ -54,7 +55,7 @@ Vector3d Point3d::Subtract(__CPnt point1, __CPnt point2) {
   return Vector3d(point1.Data().Coord() - point2.Data().Coord());
 }
 
-Point3d Point3d::Subtract(__CPnt point, const Vector3d &vector) {
+Point3d Point3d::Subtract(__CPnt point, __CVec vector) {
   return Point3d(point.Data().Coord() - vector.Data().XYZ());
 }
 
@@ -83,37 +84,37 @@ bool Point3d::operator==(__CPnt other) const {
   return X() == other.X() && Y() == other.Y() && Z() == other.Z();
 }
 
-const Point3d Point3d::operator-(const Vector3d &vector) const {
+Point3d Point3d::operator-(__CVec vector) const {
   return Point3d::Subtract(*this, vector);
 }
 
-const Point3d Point3d::operator-() const { return Point3d(-X(), -Y(), -Z()); }
+Point3d Point3d::operator-() const { return Point3d(-X(), -Y(), -Z()); }
 
-const Point3d Point3d::operator*(double t) const {
+Point3d Point3d::operator*(double t) const {
   return Point3d::Multiply(*this, t);
 }
 
-const Point3d operator*(double t, __CPnt point) {
+Point3d operator*(double t, __CPnt point) {
   return Point3d::Multiply(point, t);
 }
 
-const Point3d Point3d::operator/(double t) const {
+Point3d Point3d::operator/(double t) const {
   return Point3d::Divide(*this, t);
 }
 
-const Point3d Point3d::operator+(__CVec vector) const {
+Point3d Point3d::operator+(__CVec vector) const {
   return Point3d::Add(*this, vector);
 }
 
-const Point3d operator+(const Vector3d &vector, __CPnt point) {
+Point3d operator+(__CVec vector, __CPnt point) {
   return Point3d::Add(vector, point);
 }
 
-const Point3d Point3d::operator+(__CPnt other) const {
+Point3d Point3d::operator+(__CPnt other) const {
   return Point3d::Add(*this, other);
 }
 
-const Vector3d Point3d::operator-(__CPnt other) const {
+Vector3d Point3d::operator-(__CPnt other) const {
   return Point3d::Subtract(*this, other);
 }
 

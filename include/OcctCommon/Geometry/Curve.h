@@ -1,7 +1,6 @@
 #ifndef OCCTCOMMON_GEOMETRY_CURVE_H
 #define OCCTCOMMON_GEOMETRY_CURVE_H
 
-#include <OcctCommon/_decl.h>
 #include <OcctCommon/Geometry/GeometryBase.h>
 
 namespace OcctCommon {

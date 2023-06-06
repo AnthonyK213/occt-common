@@ -8,17 +8,17 @@ namespace Geometry {
 
 class GeometryBase {
 public:
-  virtual bool HasBrepForm() = 0;
-  virtual bool IsDeformable() = 0;
-  virtual bool IsValid() = 0;
-  virtual int ObjectType() = 0;
+  virtual bool HasBrepForm() const = 0;
+  virtual bool IsDeformable() const = 0;
+  virtual bool IsValid() const = 0;
+  virtual int ObjectType() const = 0;
 
 public:
-  virtual Handle(GeometryBase) Duplicate() = 0;
-  virtual Handle(GeometryBase) DuplicateShallow() = 0;
-  virtual BoundingBox GetBoundingBox(__CPln plane) = 0;
-  virtual BoundingBox GetBouddingBox(bool accurate) = 0;
-  virtual BoundingBox GetBoundingBox(__CTrsf xform) = 0;
+  virtual Handle(GeometryBase) Duplicate() const = 0;
+  virtual Handle(GeometryBase) DuplicateShallow() const = 0;
+  virtual BoundingBox GetBoundingBox(__CPln plane) const = 0;
+  virtual BoundingBox GetBouddingBox(bool accurate) const = 0;
+  virtual BoundingBox GetBoundingBox(__CTrsf xform) const = 0;
   virtual bool Rotate(double angleRadiance, __CVec rotationAxis,
                       __CPnt rotationCenter) = 0;
   virtual bool Scale(double scaleFactor) = 0;

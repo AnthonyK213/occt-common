@@ -21,6 +21,7 @@
 #include <gp_Lin.hxx>
 #include <gp_Pln.hxx>
 #include <gp_Pnt.hxx>
+#include <gp_Quaternion.hxx>
 #include <gp_Trsf.hxx>
 #include <gp_Vec.hxx>
 #include <gp_XYZ.hxx>
@@ -31,6 +32,17 @@ static const double OCCTCOMMON_UNSET_VALUE = -1.23432101234321e+308;
 
 namespace OcctCommon {
 namespace Geometry {
+namespace Collections {
+
+class DllExport BrepCurveList;
+
+}
+
+namespace Intersect {
+
+class DllExport Intersection;
+
+} // namespace Intersect
 
 class DllExport Arc;
 class DllExport ArcCurve;
@@ -39,6 +51,7 @@ class DllExport Box;
 class DllExport Circle;
 class DllExport Curve;
 class DllExport GeometryBase;
+class DllExport Interval;
 class DllExport Line;
 class DllExport LineCurve;
 class DllExport Mesh;
@@ -48,6 +61,7 @@ class DllExport Point3d;
 class DllExport PolyCurve;
 class DllExport Polyline;
 class DllExport PolylineCurve;
+class DllExport Quaternion;
 class DllExport Surface;
 class DllExport Transform;
 class DllExport Vector3d;
@@ -65,6 +79,8 @@ using __CPln = const OcctCommon::Geometry::Plane &;
 using __CPnt = const OcctCommon::Geometry::Point3d &;
 using __CTrsf = const OcctCommon::Geometry::Transform &;
 using __CVec = const OcctCommon::Geometry::Vector3d &;
+using __CBB = const OcctCommon::Geometry::BoundingBox &;
+using __CBox = const OcctCommon::Geometry::Box &;
 using __Math = OcctCommon::OcctMath;
 
 #endif

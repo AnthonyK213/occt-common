@@ -16,6 +16,7 @@ public:
   Vector3d(__CVec vector);
   Vector3d(Vector3d &&vector) noexcept = default;
   Vector3d &operator=(__CVec vector) = default;
+  Vector3d &operator=(Vector3d &&vector) noexcept = default;
 
 public:
   bool IsUnitVector() const;
@@ -49,24 +50,40 @@ public:
   static double VectorAngle(__CVec a, __CVec b);
 
 public:
-  int CompareTo(__CVec other);
-  bool EpsilonEquals(__CVec other, double epsilon);
-  bool Equals(__CVec vector);
-  int IsParallelTo(__CVec other, double angleTolerance);
-  int IsParallelTo(__CVec other);
-  bool IsPerpendicularTo(__CVec other, double angleTolerance);
-  bool IsPerpendicularTo(__CVec other);
-  bool IsTiny();
+  int CompareTo(__CVec other) const;
+  bool EpsilonEquals(__CVec other, double epsilon) const;
+  bool Equals(__CVec vector) const;
+  int IsParallelTo(__CVec other, double angleTolerance) const;
+  int IsParallelTo(__CVec other) const;
+  bool IsPerpendicularTo(__CVec other, double angleTolerance) const;
+  bool IsPerpendicularTo(__CVec other) const;
+  bool IsTiny() const;
   bool PerpendicularTo(__CVec other);
   bool Reverse();
   bool Rotate(double angleRadiance, __CVec rotationAxis);
-  std::string ToString();
+  std::string ToString() const;
   void Transform(__CTrsf transformation);
   bool Unitize();
 
 public:
-  bool operator!=(__CVec other);
-  bool operator==(__CVec other);
+  bool operator!=(__CVec other) const;
+  bool operator<(__CVec other) const;
+  bool operator<=(__CVec other) const;
+  bool operator==(__CVec other) const;
+  bool operator>(__CVec other) const;
+  bool operator>=(__CVec other) const;
+  Vector3d operator*(__CVec vector) const;
+  Vector3d &operator*=(__CVec vector);
+  Vector3d operator*(double t) const;
+  Vector3d &operator*=(double t);
+  friend Vector3d operator*(double t, __CVec vector);
+  Vector3d operator-() const;
+  Vector3d operator-(__CVec vector) const;
+  Vector3d &operator-=(__CVec vector);
+  Vector3d operator/(double t) const;
+  Vector3d &operator/=(double t);
+  Vector3d operator+(__CVec vector) const;
+  Vector3d &operator+=(__CVec vector);
 
 public:
   const gp_Vec &Data() const;

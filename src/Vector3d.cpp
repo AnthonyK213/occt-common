@@ -1,5 +1,6 @@
 #include <OcctCommon/Geometry/Point3d.h>
 #include <OcctCommon/Geometry/Vector3d.h>
+#include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/OcctMath.h>
 
 namespace OcctCommon {
@@ -116,7 +117,7 @@ Vector3d Vector3d::Subtract(__CVec vector1, __CVec vector2) {
   return Vector3d(vector1.Data() - vector2.Data());
 }
 
-int Vector3d::CompareTo(__CVec other) {
+int Vector3d::CompareTo(__CVec other) const {
   if (X() < other.X()) {
     return -1;
   } else if (X() == other.X()) {
@@ -164,11 +165,11 @@ bool Vector3d::Unitize() {
   return true;
 }
 
-bool Vector3d::operator!=(__CVec other) {
+bool Vector3d::operator!=(__CVec other) const {
   return X() != other.X() || Y() != other.Y() || Z() != other.Z();
 }
 
-bool Vector3d::operator==(__CVec other) {
+bool Vector3d::operator==(__CVec other) const {
   return X() == other.X() && Y() == other.Y() && Z() == other.Z();
 }
 
