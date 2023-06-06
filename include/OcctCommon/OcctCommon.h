@@ -16,4 +16,4 @@
 #include <OcctCommon/Geometry/Surface.h>
 #include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/Geometry/Vector3d.h>
-#include <OcctCommon/Math.h>
+#include <OcctCommon/OcctMath.h>
