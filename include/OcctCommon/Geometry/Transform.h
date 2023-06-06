@@ -9,7 +9,7 @@ namespace Geometry {
 class Transform {
 public:
   const gp_Trsf &Data() const;
-  gp_Trsf &Data();
+  gp_Trsf &DataMut();
 
 private:
   gp_Trsf m_data;
