@@ -46,7 +46,7 @@ class DllExport Vector3d;
 
 } // namespace Geometry
 
-class OcctMath;
+class DllExport OcctMath;
 
 } // namespace OcctCommon
 
