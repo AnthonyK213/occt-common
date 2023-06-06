@@ -1,22 +1,16 @@
 #include <OcctCommon/Geometry/Point3d.h>
-#include <OcctCommon/Geometry/Vector3d.h>
 #include <OcctCommon/Geometry/Transform.h>
+#include <OcctCommon/Geometry/Vector3d.h>
 #include <OcctCommon/OcctMath.h>
 
 namespace OcctCommon {
 namespace Geometry {
 
-Vector3d::Vector3d(double x, double y, double z) : m_data(x, y, z) {}
+Vector3d::Vector3d(double x, double y, double z) : _gpWrapper({x, y, z}) {}
 
-Vector3d::Vector3d(__CPnt point) : m_data(point.Data().Coord()) {}
+Vector3d::Vector3d(__CPnt point) : _gpWrapper(point.Data().Coord()) {}
 
-Vector3d::Vector3d(const gp_Vec &vec) : m_data(vec) {}
-
-Vector3d::Vector3d(const gp_XYZ &xyz) : m_data(xyz) {}
-
-Vector3d::Vector3d(const gp_Dir &dir) : m_data(dir) {}
-
-Vector3d::Vector3d(__CVec vector) : m_data(vector.m_data) {}
+Vector3d::Vector3d(__CVec vector) : _gpWrapper(vector.m_data) {}
 
 // Tolerance?
 inline bool Vector3d::IsUnitVector() const { return Length() == 1.0; }
@@ -37,8 +31,8 @@ inline double Vector3d::SquareLength() const {
 }
 
 Vector3d Vector3d::Unset() {
-  return Vector3d(OCCTCOMMON_UNSET_VALUE, OCCTCOMMON_UNSET_VALUE,
-                  OCCTCOMMON_UNSET_VALUE);
+  return Vector3d(OcctMath::UnsetValue(), OcctMath::UnsetValue(),
+                  OcctMath::UnsetValue());
 }
 
 inline double Vector3d::X() const { return m_data.X(); }
@@ -63,7 +57,7 @@ __CVec Vector3d::ZAxis() {
 }
 
 __CVec Vector3d::Zero() {
-  static Vector3d Vector3d_Zero(0, 0, 0);
+  static Vector3d Vector3d_Zero(gp::Origin());
   return Vector3d_Zero;
 }
 
@@ -172,10 +166,6 @@ bool Vector3d::operator!=(__CVec other) const {
 bool Vector3d::operator==(__CVec other) const {
   return X() == other.X() && Y() == other.Y() && Z() == other.Z();
 }
-
-const gp_Vec &Vector3d::Data() const { return m_data; }
-
-gp_Vec &Vector3d::DataMut() { return m_data; }
 
 } // namespace Geometry
 } // namespace OcctCommon

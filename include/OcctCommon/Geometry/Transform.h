@@ -6,13 +6,15 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Transform {
+class Transform final : public _gpWrapper<gp_Trsf> {
+  GP_BASE
+
 public:
   Transform(double diagonalValue);
-  explicit Transform(const gp_Trsf &trsf);
   Transform(__CTrsf transform);
   Transform(Transform &&transform) noexcept = default;
-  Transform &operator=(__CTrsf transform) noexcept = default;
+  Transform &operator=(__CTrsf transform) = default;
+  Transform &operator=(Transform &&transform) noexcept = default;
 
 public:
   static __CTrsf Identity() noexcept;
@@ -113,13 +115,6 @@ public:
   Point3d operator*(__CPnt point) const;
   Vector3d operator*(__CVec vector) const;
   Transform &operator*=(__CTrsf transform);
-
-public:
-  const gp_Trsf &Data() const;
-  gp_Trsf &DataMut();
-
-private:
-  gp_Trsf m_data;
 };
 
 } // namespace Geometry

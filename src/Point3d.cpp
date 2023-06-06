@@ -6,15 +6,11 @@
 namespace OcctCommon {
 namespace Geometry {
 
-Point3d::Point3d(double x, double y, double z) : m_data(x, y, z) {}
+Point3d::Point3d(double x, double y, double z) : _gpWrapper({x, y, z}) {}
 
-Point3d::Point3d(const gp_Pnt &pnt) : m_data(pnt) {}
+Point3d::Point3d(__CVec vector) : _gpWrapper(vector.Data().XYZ()) {}
 
-Point3d::Point3d(const gp_XYZ &xyz) : m_data(xyz) {}
-
-Point3d::Point3d(__CVec vector) : m_data() {}
-
-Point3d::Point3d(__CPnt point) : m_data(point.m_data) {}
+Point3d::Point3d(__CPnt point) : _gpWrapper(point.m_data) {}
 
 __CPnt Point3d::Origin() {
   static Point3d Point3d_Origin(gp::Origin());
@@ -98,9 +94,7 @@ Point3d operator*(double t, __CPnt point) {
   return Point3d::Multiply(point, t);
 }
 
-Point3d Point3d::operator/(double t) const {
-  return Point3d::Divide(*this, t);
-}
+Point3d Point3d::operator/(double t) const { return Point3d::Divide(*this, t); }
 
 Point3d Point3d::operator+(__CVec vector) const {
   return Point3d::Add(*this, vector);
@@ -117,10 +111,6 @@ Point3d Point3d::operator+(__CPnt other) const {
 Vector3d Point3d::operator-(__CPnt other) const {
   return Point3d::Subtract(*this, other);
 }
-
-const gp_Pnt &Point3d::Data() const { return m_data; }
-
-gp_Pnt &Point3d::DataMut() { return m_data; }
 
 } // namespace Geometry
 } // namespace OcctCommon

@@ -9,6 +9,7 @@ namespace OcctCommon {
 class OcctMath {
 public:
   static bool IsValidDouble(double x);
+  static bool IsValidXYZ(const gp_XYZ &xyz);
 
 public:
   static double UnsetValue();

@@ -6,14 +6,15 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Line {
+class Line : public _gpWrapper<gp_Lin> {
+  GP_BASE
+
 public:
   Line(double x0, double y0, double z0, double x1, double y1, double z1);
   Line(__CPnt from, __CPnt to);
   Line(__CPnt start, __CVec direction, double length);
   Line(__CPnt start, __CVec span);
   Line(__CLin line);
-  explicit Line(const gp_Lin &lin);
   Line(Line &&line) noexcept = default;
   Line &operator=(__CLin line) = default;
   Line &operator=(Line &&line) noexcept = default;
@@ -61,13 +62,6 @@ public:
 public:
   bool operator!=(__CLin other) const;
   bool operator==(__CLin other) const;
-
-public:
-  const gp_Lin &Data() const;
-  gp_Lin &DataMut();
-
-private:
-  gp_Lin m_data;
 };
 
 } // namespace Geometry

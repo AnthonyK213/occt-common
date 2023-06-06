@@ -26,7 +26,7 @@ public:
   virtual bool Translate(double x, double y, double z) = 0;
   virtual bool Translate(__CVec translationVector) = 0;
 
-private:
+protected:
   Handle(Geom_Geometry) m_data;
 };
 

@@ -6,9 +6,8 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Circle {
-private:
-  gp_Circ m_data;
+class Circle final : public _gpWrapper<gp_Circ> {
+  GP_BASE
 };
 
 } // namespace Geometry

@@ -7,6 +7,11 @@
 #define DllExport __declspec(dllexport)
 #endif
 
+#define GP_BASE                                                                \
+public:                                                                        \
+  using _gpWrapper::_gpWrapper;
+
+#include <GeomPlate_BuildAveragePlane.hxx>
 #include <Geom_BSplineCurve.hxx>
 #include <Geom_Circle.hxx>
 #include <Geom_Curve.hxx>
@@ -27,8 +32,6 @@
 #include <gp_XYZ.hxx>
 #include <string>
 #include <vector>
-
-static const double OCCTCOMMON_UNSET_VALUE = -1.23432101234321e+308;
 
 namespace OcctCommon {
 namespace Geometry {
@@ -65,6 +68,18 @@ class DllExport Quaternion;
 class DllExport Surface;
 class DllExport Transform;
 class DllExport Vector3d;
+
+/// Transparent wrapper for gp_*.
+template <typename T> class _gpWrapper {
+public:
+  _gpWrapper() noexcept {}
+  _gpWrapper(const T &t) noexcept : m_data(t) {}
+  const T &Data() const { return m_data; }
+  T &DataMut() { return m_data; }
+
+protected:
+  T m_data;
+};
 
 } // namespace Geometry
 

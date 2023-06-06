@@ -6,13 +6,12 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Vector3d {
+class Vector3d final : public _gpWrapper<gp_Vec> {
+  GP_BASE
+
 public:
   Vector3d(double x, double y, double z);
   explicit Vector3d(__CPnt point);
-  explicit Vector3d(const gp_Vec &vec);
-  explicit Vector3d(const gp_XYZ &xyz);
-  explicit Vector3d(const gp_Dir &dir);
   Vector3d(__CVec vector);
   Vector3d(Vector3d &&vector) noexcept = default;
   Vector3d &operator=(__CVec vector) = default;
@@ -84,13 +83,6 @@ public:
   Vector3d &operator/=(double t);
   Vector3d operator+(__CVec vector) const;
   Vector3d &operator+=(__CVec vector);
-
-public:
-  const gp_Vec &Data() const;
-  gp_Vec &DataMut();
-
-private:
-  gp_Vec m_data;
 };
 
 } // namespace Geometry

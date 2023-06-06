@@ -6,17 +6,18 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Plane {
+class Plane final : public _gpWrapper<gp_Pln> {
+  GP_BASE
+
 public:
   Plane(double a, double b, double c, double d);
   Plane(__CPnt origin, __CPnt xPoint, __CPnt yPoint);
   Plane(__CPnt origin, __CVec xDirection, __CVec yDirection);
   Plane(__CPnt origin, __CVec normal);
-  explicit Plane(const gp_Pln &pln);
-  explicit Plane(const gp_Ax3 &ax3);
   Plane(__CPln plane);
   Plane(Plane &&plane) noexcept = default;
   Plane &operator=(__CPln plane) = default;
+  Plane &operator=(Plane &&plane) noexcept = default;
 
 public:
   static __CPln Unset() noexcept;
@@ -24,14 +25,14 @@ public:
   static __CPln WorldYZ() noexcept;
   static __CPln WorldZX() noexcept;
   bool IsValid() const;
-  __CVec Normal() const;
-  __CPnt Origin() const;
+  Vector3d Normal() const;
+  Point3d Origin() const;
   double OriginX() const;
   double OriginY() const;
   double OriginZ() const;
-  __CVec XAxis() const;
-  __CVec YAxis() const;
-  __CVec ZAxis() const;
+  Vector3d XAxis() const;
+  Vector3d YAxis() const;
+  Vector3d ZAxis() const;
 
 public:
   static Plane CreateFromFrame(__CPnt origin, __CVec xDirection,
@@ -39,11 +40,6 @@ public:
   static Plane CreateFromNormal(__CPnt origin, __CVec normal);
   static Plane CreateFromNormalYup(__CPnt origin, __CVec yDirection);
   static Plane CreateFromPoints(__CPnt origin, __CPnt xPoint, __CPnt yPoint);
-  template <typename T>
-  static int32_t FitPlaneToPoints(T first, T last, Plane &plane,
-                                  double &maximumDeviation);
-  template <typename T>
-  static int32_t FitPlaneToPoints(T first, T last, Plane &plane);
   Plane Clone() const;
   bool ClosestParameter(__CPnt testPoint, double &s, double &t) const;
   Point3d ClosestPoint(__CPnt testPoint) const;
@@ -69,11 +65,12 @@ public:
   double ValueAt(__CPnt p) const;
 
 public:
-  const gp_Pln &Data() const;
-  gp_Pln &DataMut();
+  template <typename T>
+  static int32_t FitPlaneToPoints(T first, T last, Plane &plane,
+                                  double &maximumDeviation);
 
-private:
-  gp_Pln m_data;
+  template <typename T>
+  static int32_t FitPlaneToPoints(T first, T last, Plane &plane);
 };
 
 } // namespace Geometry
