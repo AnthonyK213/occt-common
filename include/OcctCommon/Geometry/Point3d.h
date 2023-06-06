@@ -7,7 +7,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-struct Point3d {
+class Point3d {
 public:
   Point3d(double x, double y, double z);
   explicit Point3d(const gp_Pnt &pnt);

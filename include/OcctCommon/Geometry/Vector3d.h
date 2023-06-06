@@ -6,8 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-struct Vector3d {
-
+class Vector3d {
 public:
   Vector3d(double x, double y, double z);
   explicit Vector3d(__CPnt point);

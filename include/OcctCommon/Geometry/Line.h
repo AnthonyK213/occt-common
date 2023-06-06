@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-struct Line {
+class Line {
 private:
   gp_Lin m_data;
 };

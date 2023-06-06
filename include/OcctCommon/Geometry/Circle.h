@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-struct Circle {
+class Circle {
 private:
   gp_Circ m_data;
 };

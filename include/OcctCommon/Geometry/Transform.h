@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-struct Transform {
+class Transform {
 private:
   gp_Trsf m_data;
 };

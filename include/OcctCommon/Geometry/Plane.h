@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-struct Plane {
+class Plane {
 private:
   gp_Pln m_data;
 };
