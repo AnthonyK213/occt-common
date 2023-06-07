@@ -52,3 +52,8 @@ TEST(GeometryTests, plane_validation) {
   EXPECT_FALSE(plane1.IsValid());
   EXPECT_TRUE(plane2.IsValid());
 }
+
+TEST(GeometryTests, transform_test) {
+  auto tf1 = Transform::Unset();
+  auto tf2 = Transform::Unset();
+}

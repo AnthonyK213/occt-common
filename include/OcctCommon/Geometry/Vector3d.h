@@ -7,7 +7,7 @@ namespace OcctCommon {
 namespace Geometry {
 
 class Vector3d final : public _gpWrapper<gp_Vec> {
-  GP_BASE
+  GP_WRAPPER
 
 public:
   Vector3d(double x, double y, double z);

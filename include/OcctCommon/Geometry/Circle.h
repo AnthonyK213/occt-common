@@ -7,7 +7,7 @@ namespace OcctCommon {
 namespace Geometry {
 
 class Circle final : public _gpWrapper<gp_Circ> {
-  GP_BASE
+  GP_WRAPPER
 };
 
 } // namespace Geometry

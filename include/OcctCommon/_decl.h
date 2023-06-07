@@ -7,7 +7,7 @@
 #define DllExport __declspec(dllexport)
 #endif
 
-#define GP_BASE                                                                \
+#define GP_WRAPPER                                                             \
 public:                                                                        \
   using _gpWrapper::_gpWrapper;
 
@@ -23,7 +23,9 @@ public:                                                                        \
 #include <gp_Ax2.hxx>
 #include <gp_Ax3.hxx>
 #include <gp_Circ.hxx>
+#include <gp_GTrsf.hxx>
 #include <gp_Lin.hxx>
+#include <gp_Mat.hxx>
 #include <gp_Pln.hxx>
 #include <gp_Pnt.hxx>
 #include <gp_Quaternion.hxx>
@@ -39,7 +41,7 @@ namespace Collections {
 
 class DllExport BrepCurveList;
 
-}
+} // namespace Collections
 
 namespace Intersect {
 

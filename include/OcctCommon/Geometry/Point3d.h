@@ -7,7 +7,7 @@ namespace OcctCommon {
 namespace Geometry {
 
 class Point3d final : public _gpWrapper<gp_Pnt> {
-  GP_BASE
+  GP_WRAPPER
 
 public:
   Point3d(double x, double y, double z);

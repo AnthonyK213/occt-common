@@ -6,8 +6,8 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Transform final : public _gpWrapper<gp_Trsf> {
-  GP_BASE
+class Transform final : public _gpWrapper<gp_GTrsf> {
+  GP_WRAPPER
 
 public:
   Transform(double diagonalValue);

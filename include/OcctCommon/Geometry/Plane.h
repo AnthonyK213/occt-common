@@ -7,7 +7,7 @@ namespace OcctCommon {
 namespace Geometry {
 
 class Plane final : public _gpWrapper<gp_Pln> {
-  GP_BASE
+  GP_WRAPPER
 
 public:
   Plane(double a, double b, double c, double d);

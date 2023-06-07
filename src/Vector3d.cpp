@@ -198,7 +198,7 @@ bool Vector3d::Rotate(double angleRadians, __CVec rotationAxis) {
 }
 
 void Vector3d::Transform(__CTrsf transformation) {
-  m_data.Transform(transformation.Data());
+  m_data.Transform(transformation.Data().Trsf());
 }
 
 bool Vector3d::Unitize() {
