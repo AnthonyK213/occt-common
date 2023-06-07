@@ -23,7 +23,7 @@ public:
   bool IsZero() const;
   double Length() const;
   double SquareLength() const;
-  static Vector3d Unset();
+  static __CVec Unset();
   double X() const;
   double Y() const;
   double Z() const;
@@ -56,10 +56,11 @@ public:
   int IsParallelTo(__CVec other) const;
   bool IsPerpendicularTo(__CVec other, double angleTolerance) const;
   bool IsPerpendicularTo(__CVec other) const;
+  bool IsTiny(double tolerance) const;
   bool IsTiny() const;
   bool PerpendicularTo(__CVec other);
   bool Reverse();
-  bool Rotate(double angleRadiance, __CVec rotationAxis);
+  bool Rotate(double angleRadians, __CVec rotationAxis);
   std::string ToString() const;
   void Transform(__CTrsf transformation);
   bool Unitize();
@@ -83,6 +84,7 @@ public:
   Vector3d &operator/=(double t);
   Vector3d operator+(__CVec vector) const;
   Vector3d &operator+=(__CVec vector);
+  double operator[](int index);
 };
 
 } // namespace Geometry

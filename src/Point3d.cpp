@@ -18,8 +18,8 @@ __CPnt Point3d::Origin() {
 }
 
 __CPnt Point3d::Unset() {
-  static Point3d Point3d_Unset(__Math::UnsetValue(), __Math::UnsetValue(),
-                               __Math::UnsetValue());
+  static Point3d Point3d_Unset(__Math::UnsetValue, __Math::UnsetValue,
+                               __Math::UnsetValue);
   return Point3d_Unset;
 }
 
@@ -67,17 +67,15 @@ inline double Point3d::Y() const { return m_data.Y(); };
 inline double Point3d::Z() const { return m_data.Z(); };
 
 bool Point3d::operator!=(__CPnt other) const {
-  if (IsValid() ^ other.IsValid())
-    return false;
-
-  return !(X() == other.X() && Y() == other.Y() && Z() == other.Z());
+  if (X() == other.X() && Y() == other.Y())
+    return Z() != other.Z();
+  return true;
 }
 
 bool Point3d::operator==(__CPnt other) const {
-  if (!IsValid() || !other.IsValid())
-    return false;
-
-  return X() == other.X() && Y() == other.Y() && Z() == other.Z();
+  if (X() == other.X() && Y() == other.Y())
+    return Z() == other.Z();
+  return false;
 }
 
 Point3d Point3d::operator-(__CVec vector) const {

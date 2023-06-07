@@ -36,6 +36,13 @@ TEST(GeometryTests, vector_calc) {
   EXPECT_TRUE(vec3.IsUnitVector());
 }
 
+TEST(GeometryTests, vector_relation) {
+  Vector3d vec1(-2, 1, 3);
+  Vector3d vec2(0, 1, 4);
+  EXPECT_TRUE(vec1.PerpendicularTo(vec2));
+  EXPECT_TRUE(vec1.IsPerpendicularTo(vec2));
+}
+
 TEST(GeometryTests, plane_validation) {
   Vector3d vec1(0, 0, 1);
   Vector3d vec2(0, 0, 10);

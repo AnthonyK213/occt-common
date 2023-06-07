@@ -19,7 +19,7 @@ public:
   virtual BoundingBox GetBoundingBox(__CPln plane) const = 0;
   virtual BoundingBox GetBouddingBox(bool accurate) const = 0;
   virtual BoundingBox GetBoundingBox(__CTrsf xform) const = 0;
-  virtual bool Rotate(double angleRadiance, __CVec rotationAxis,
+  virtual bool Rotate(double angleRadians, __CVec rotationAxis,
                       __CPnt rotationCenter) = 0;
   virtual bool Scale(double scaleFactor) = 0;
   virtual bool Transform(__CTrsf xform) = 0;
