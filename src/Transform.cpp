@@ -28,8 +28,40 @@ __CTrsf Transform::ZeroTransformation() noexcept {
 }
 
 double Transform::Determinant() const {
-  throw std::runtime_error("Not implemented");
+  return m_data.VectorialPart().Determinant();
 }
+
+double Transform::M00() const { return m_data.Value(1, 1); }
+
+double Transform::M01() const { return m_data.Value(1, 2); }
+
+double Transform::M02() const { return m_data.Value(1, 3); }
+
+double Transform::M03() const { return m_data.Value(1, 4); }
+
+double Transform::M10() const { return m_data.Value(2, 1); }
+
+double Transform::M11() const { return m_data.Value(2, 2); }
+
+double Transform::M12() const { return m_data.Value(2, 3); }
+
+double Transform::M13() const { return m_data.Value(2, 4); }
+
+double Transform::M20() const { return m_data.Value(3, 1); }
+
+double Transform::M21() const { return m_data.Value(3, 2); }
+
+double Transform::M22() const { return m_data.Value(3, 3); }
+
+double Transform::M23() const { return m_data.Value(3, 4); }
+
+double Transform::M30() const { return 0.0; }
+
+double Transform::M31() const { return 0.0; }
+
+double Transform::M32() const { return 0.0; }
+
+double Transform::M33() const { return 1.0; }
 
 } // namespace Geometry
 } // namespace OcctCommon

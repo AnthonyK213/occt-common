@@ -35,14 +35,20 @@ public:                                                                        \
 #include <string>
 #include <vector>
 
+/// @brief Contains commonly-used types used in OcctCommon.
 namespace OcctCommon {
+
+/// @brief The Geometry namespace contains geometric types used in OcctCommon.
 namespace Geometry {
+
+/// @brief 
 namespace Collections {
 
 class DllExport BrepCurveList;
 
 } // namespace Collections
 
+/// @brief 
 namespace Intersect {
 
 class DllExport Intersection;
@@ -71,7 +77,7 @@ class DllExport Surface;
 class DllExport Transform;
 class DllExport Vector3d;
 
-/// Transparent wrapper for gp_*.
+/// @brief Transparent wrapper for gp_*.
 template <typename T> class _gpWrapper {
 public:
   _gpWrapper() noexcept {}
