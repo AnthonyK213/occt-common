@@ -78,35 +78,35 @@ bool Point3d::operator==(__CPnt other) const {
   return false;
 }
 
-Point3d Point3d::operator-(__CVec vector) const {
+const Point3d Point3d::operator-(__CVec vector) const {
   return Point3d::Subtract(*this, vector);
 }
 
-Point3d Point3d::operator-() const { return Point3d(-X(), -Y(), -Z()); }
+const Point3d Point3d::operator-() const { return Point3d(-X(), -Y(), -Z()); }
 
-Point3d Point3d::operator*(double t) const {
+const Point3d Point3d::operator*(double t) const {
   return Point3d::Multiply(*this, t);
 }
 
-Point3d operator*(double t, __CPnt point) {
+const Point3d operator*(double t, __CPnt point) {
   return Point3d::Multiply(point, t);
 }
 
-Point3d Point3d::operator/(double t) const { return Point3d::Divide(*this, t); }
+const Point3d Point3d::operator/(double t) const { return Point3d::Divide(*this, t); }
 
-Point3d Point3d::operator+(__CVec vector) const {
+const Point3d Point3d::operator+(__CVec vector) const {
   return Point3d::Add(*this, vector);
 }
 
-Point3d operator+(__CVec vector, __CPnt point) {
+const Point3d operator+(__CVec vector, __CPnt point) {
   return Point3d::Add(vector, point);
 }
 
-Point3d Point3d::operator+(__CPnt other) const {
+const Point3d Point3d::operator+(__CPnt other) const {
   return Point3d::Add(*this, other);
 }
 
-Vector3d Point3d::operator-(__CPnt other) const {
+const Vector3d Point3d::operator-(__CPnt other) const {
   return Point3d::Subtract(*this, other);
 }
 

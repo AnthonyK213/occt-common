@@ -482,17 +482,17 @@ public:
   /// @brief
   /// @param transform
   /// @return
-  Transform operator*(__CTrsf transform) const;
+  const Transform operator*(__CTrsf transform) const;
 
   /// @brief
   /// @param point
   /// @return
-  Point3d operator*(__CPnt point) const;
+  const Point3d operator*(__CPnt point) const;
 
   /// @brief
   /// @param vector
   /// @return
-  Vector3d operator*(__CVec vector) const;
+  const Vector3d operator*(__CVec vector) const;
 
   /// @brief
   /// @param transform
