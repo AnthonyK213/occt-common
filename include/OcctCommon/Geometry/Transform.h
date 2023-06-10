@@ -13,7 +13,8 @@ class Transform final : public _gpWrapper<gp_GTrsf> {
 public:
   /// @brief Constructor.
   /// Initializes a new transform matrix with a specified value along the
-  /// diagonal.
+  /// diagona.
+  /// @param diagonalValue 
   Transform(double diagonalValue);
 
   /// @brief Copy constructor.
@@ -171,7 +172,8 @@ public:
 public:
   /// @brief Computes a change of basis transformation.
   /// A basis change is essentially a remapping of geometry from one coordinate
-  /// system to another. @param plane0 Coordinate system in which the geometry
+  /// system to another.
+  /// @param plane0 Coordinate system in which the geometry
   /// is currently described.
   /// @param plane1 Target coordinate system in which we want the geometry to be
   /// described.
