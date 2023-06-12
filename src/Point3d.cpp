@@ -92,7 +92,9 @@ const Point3d operator*(double t, __CPnt point) {
   return Point3d::Multiply(point, t);
 }
 
-const Point3d Point3d::operator/(double t) const { return Point3d::Divide(*this, t); }
+const Point3d Point3d::operator/(double t) const {
+  return Point3d::Divide(*this, t);
+}
 
 const Point3d Point3d::operator+(__CVec vector) const {
   return Point3d::Add(*this, vector);

@@ -14,7 +14,7 @@ public:
   /// @brief Constructor.
   /// Initializes a new transform matrix with a specified value along the
   /// diagona.
-  /// @param diagonalValue 
+  /// @param diagonalValue
   Transform(double diagonalValue);
 
   /// @brief Copy constructor.
@@ -91,68 +91,68 @@ public:
   /// @return
   bool IsZeroTransformation() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M00() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M01() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M02() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M03() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M10() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M11() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M12() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M13() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M20() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M21() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M22() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M23() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M30() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M31() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M32() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double M33() const;
 
   /// @brief Gets a value indicating whether or not the Transform is rigid.
@@ -198,8 +198,8 @@ public:
 
   /// @brief Constructs a new transformation with diagonal (d0, d1, d2, 1.0).
   /// @param d0 Transform::M00 value.
-  /// @param d1 Transform::M00 value.
-  /// @param d2 Transform::M00 value.
+  /// @param d1 Transform::M11 value.
+  /// @param d2 Transform::M22 value.
   /// @return A transformation with diagonal (d0, d1, d2, 1.0).
   static Transform Diagonal(double d0, double d1, double d2);
 
@@ -497,7 +497,7 @@ public:
   /// @brief
   /// @param transform
   /// @return
-  Transform &operator*=(__CTrsf transform);
+  void operator*=(__CTrsf transform);
 };
 
 } // namespace Geometry

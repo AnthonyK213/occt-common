@@ -297,8 +297,7 @@ public:
 
   /// @brief
   /// @param vector
-  /// @return
-  Vector3d &operator*=(__CVec vector);
+  void operator*=(__CVec vector);
 
   /// @brief
   /// @param t
@@ -307,8 +306,7 @@ public:
 
   /// @brief
   /// @param t
-  /// @return
-  Vector3d &operator*=(double t);
+  void operator*=(double t);
 
   /// @brief
   /// @return
@@ -322,7 +320,7 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  Vector3d &operator-=(__CVec vector);
+  void operator-=(__CVec vector);
 
   /// @brief
   /// @param t
@@ -332,7 +330,7 @@ public:
   /// @brief
   /// @param t
   /// @return
-  Vector3d &operator/=(double t);
+  void operator/=(double t);
 
   /// @brief
   /// @param vector
@@ -342,7 +340,7 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  Vector3d &operator+=(__CVec vector);
+  void operator+=(__CVec vector);
 
   /// @brief
   /// @param index

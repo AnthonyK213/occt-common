@@ -83,7 +83,7 @@ public:
   _gpWrapper() noexcept {}
   _gpWrapper(const T &t) noexcept : m_data(t) {}
   const T &Data() const { return m_data; }
-  T &DataMut() { return m_data; }
+  // T &DataMut() { return m_data; }
 
 protected:
   T m_data;

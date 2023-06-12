@@ -9,12 +9,12 @@ TEST(GeometryTests, coord_eq) {
   EXPECT_TRUE(pt1 == pt2);
 }
 
-TEST(GeometryTests, coord_mut) {
-  Point3d pt(1, 2, 3);
-  gp_Pnt &pnt = pt.DataMut();
-  pnt.SetX(10);
-  EXPECT_TRUE(pt == Point3d(10, 2, 3));
-}
+// TEST(GeometryTests, coord_mut) {
+// Point3d pt(1, 2, 3);
+// gp_Pnt &pnt = pt.DataMut();
+// pnt.SetX(10);
+// EXPECT_TRUE(pt == Point3d(10, 2, 3));
+// }
 
 TEST(GeometryTests, coord_add) {
   Point3d pt1(1, 2, 3);
