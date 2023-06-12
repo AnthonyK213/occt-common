@@ -212,12 +212,6 @@ public:
 
   /// @brief 
   /// @param t 
-  /// @param point 
-  /// @return 
-  friend const Point3d operator*(double t, __CPnt point);
-
-  /// @brief 
-  /// @param t 
   /// @return 
   const Point3d operator/(double t) const;
 
@@ -237,12 +231,6 @@ public:
   Point3d &operator+=(__CVec vector);
 
   /// @brief 
-  /// @param vector 
-  /// @param point 
-  /// @return 
-  friend const Point3d operator+(__CVec vector, __CPnt point);
-
-  /// @brief 
   /// @param other 
   /// @return 
   const Point3d operator+(__CPnt other) const;
@@ -257,6 +245,18 @@ public:
   /// @return 
   const Vector3d operator-(__CPnt other) const;
 };
+
+/// @brief 
+/// @param vector 
+/// @param point 
+/// @return 
+const Point3d operator+(__CVec vector, __CPnt point);
+
+/// @brief 
+/// @param t 
+/// @param point 
+/// @return 
+const Point3d operator*(double t, __CPnt point);
 
 } // namespace Geometry
 } // namespace OcctCommon

@@ -311,12 +311,6 @@ public:
   Vector3d &operator*=(double t);
 
   /// @brief
-  /// @param t
-  /// @param vector
-  /// @return
-  friend const Vector3d operator*(double t, __CVec vector);
-
-  /// @brief
   /// @return
   const Vector3d operator-() const;
 
@@ -355,6 +349,12 @@ public:
   /// @return
   double operator[](int index);
 };
+
+/// @brief
+/// @param t
+/// @param vector
+/// @return
+const Vector3d operator*(double t, __CVec vector);
 
 } // namespace Geometry
 } // namespace OcctCommon
