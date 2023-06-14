@@ -106,9 +106,10 @@ int32_t Transform::RigidType() const { return 0; }
 // TODO
 int32_t Transform::SimilarityType() const { return 0; }
 
-// TODO
 Transform Transform::ChangeBasis(__CPln plane0, __CPln plane1) {
-  return Transform::Identity();
+  gp_Trsf result{};
+  result.SetTransformation(plane0.Data().Position(), plane1.Data().Position());
+  return Transform{result};
 }
 
 // TODO
@@ -145,6 +146,42 @@ Transform Transform::Mirror(__CPnt pointOnMirrorPlane,
 
 Transform Transform::Multiply(__CTrsf a, __CTrsf b) {
   return Transform(a.Data() * b.Data());
+}
+
+Transform Transform::PlaneToPlane(__CPln plane0, __CPln plane1) {
+  gp_Trsf result{};
+  result.SetDisplacement(plane0.Data().Position(), plane1.Data().Position());
+  return Transform{result};
+}
+
+Transform Transform::Rotation(double angleRadians, __CPnt rotationCenter) {
+  return Transform::Rotation(angleRadians, Vector3d::ZAxis(), rotationCenter);
+}
+
+Transform Transform::Rotation(double angleRadians, __CVec rotationAxis,
+                              __CPnt rotationCenter) {
+  gp_Trsf rotation{};
+  rotation.SetRotation(gp_Ax1(rotationCenter.Data(), rotationAxis.Data()),
+                       angleRadians);
+  return Transform{rotation};
+}
+
+Transform Transform::Scale(__CPnt anchor, double scaleFactor) {
+  gp_Trsf scale{};
+  scale.SetScale(anchor.Data(), scaleFactor);
+  return Transform{scale};
+}
+
+Transform Transform::Translation(double x, double y, double z) {
+  gp_Trsf translation{};
+  translation.SetTranslation(gp_Vec(x, y, z));
+  return Transform{translation};
+}
+
+Transform Transform::Translation(__CVec motion) {
+  gp_Trsf translation{};
+  translation.SetTranslation(motion.Data());
+  return Transform{translation};
 }
 
 bool Transform::operator==(__CTrsf other) const {

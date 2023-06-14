@@ -57,3 +57,9 @@ TEST(GeometryTests, transform_test) {
   auto tf1 = Transform::Unset();
   auto tf2 = Transform::Unset();
 }
+
+TEST(GeometryTests, transform_plane2plane) {
+  Plane pln1{Point3d(3, 1, 4), Vector3d(1, 5, 9), Vector3d(2, 6, 5)};
+  Plane pln2{Point3d(3, 5, 8), Vector3d(9, 7, 9), Vector3d(3, 2, 3)};
+  Transform tf = Transform::PlaneToPlane(pln1, pln2);
+}
