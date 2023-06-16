@@ -63,3 +63,11 @@ TEST(GeometryTests, transform_plane2plane) {
   Plane pln2{Point3d(3, 5, 8), Vector3d(9, 7, 9), Vector3d(3, 2, 3)};
   Transform tf = Transform::PlaneToPlane(pln1, pln2);
 }
+
+TEST(GeometryTests, line_closestpoint) {
+  Line line{0, 0, 0, 1, 1, 0};
+  EXPECT_FLOAT_EQ(line.ClosestParameter({0, 0, 0}), 0);
+  EXPECT_FLOAT_EQ(line.ClosestParameter({0, 1, 0}), 0.5);
+  EXPECT_FLOAT_EQ(line.ClosestParameter({0, -1, 0}), -0.5);
+  EXPECT_FLOAT_EQ(line.ClosestParameter({0, 3, 0}), 1.5);
+}

@@ -1,14 +1,13 @@
 #ifndef OCCTCOMMON_GEOMETRY_LINE_H
 #define OCCTCOMMON_GEOMETRY_LINE_H
 
+#include <OcctCommon/Geometry/Point3d.h>
 #include <OcctCommon/_decl.h>
 
 namespace OcctCommon {
 namespace Geometry {
 
-class Line : public _gpWrapper<gp_Lin> {
-  GP_WRAPPER
-
+class Line final {
 public:
   /// @brief
   /// @param x0
@@ -60,7 +59,7 @@ public:
 
   /// @brief
   /// @return
-  BoundingBox GetBoundingBox() const;
+  BoundingBox BoundingBox() const;
 
   /// @brief
   /// @return
@@ -112,6 +111,19 @@ public:
 
 public:
   /// @brief
+  /// @param curve0
+  /// @param curve1
+  /// @param t0
+  /// @param t1
+  /// @param perpendicular0
+  /// @param perpendicular1
+  /// @param line
+  /// @return
+  static bool TryCreateBetweenCurves(__CCrv curve0, __CCrv curve1, double &t0,
+                                     double &t1, bool perpendicular0,
+                                     bool perpendicular1, Line &line);
+
+  /// @brief
   /// @tparam T
   /// @param first
   /// @param last
@@ -129,7 +141,7 @@ public:
   /// @param testPoint
   /// @param limitToFiniteSegment
   /// @return
-  double ClosestParameter(__CPnt testPoint, bool limitToFiniteSegment) const;
+  Point3d ClosestParameter(__CPnt testPoint, bool limitToFiniteSegment) const;
 
   /// @brief
   /// @param testPoint
@@ -233,7 +245,8 @@ public:
   bool operator==(__CLin other) const;
 
 private:
-  gp_Pnt m_end;
+  Point3d m_from;
+  Point3d m_to;
 };
 
 } // namespace Geometry

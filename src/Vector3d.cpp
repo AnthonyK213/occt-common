@@ -221,7 +221,35 @@ bool Vector3d::operator==(__CVec other) const {
   return false;
 }
 
+const double Vector3d::operator*(__CVec vector) const {
+  return Vector3d::Mulitply(*this, vector);
+}
+
+const Vector3d Vector3d::operator*(double t) const {
+  return Vector3d::Mulitply(*this, t);
+}
+
+const Vector3d Vector3d::operator-() const {
+  return Vector3d::Negate(*this);
+}
+
+const Vector3d Vector3d::operator-(__CVec vector) const {
+  return Vector3d::Subtract(*this, vector);
+}
+
+const Vector3d Vector3d::operator/(double t) const {
+  return Vector3d::Divide(*this, t);
+}
+
+const Vector3d Vector3d::operator+(__CVec vector) const {
+  return Vector3d::Add(*this, vector);
+}
+
 double Vector3d::operator[](int index) { return m_data.Coord(index + 1); }
+
+const Vector3d operator*(double t, __CVec vector) {
+  return Vector3d::Mulitply(t, vector);
+}
 
 } // namespace Geometry
 } // namespace OcctCommon

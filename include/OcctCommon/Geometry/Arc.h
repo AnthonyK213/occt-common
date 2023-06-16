@@ -1,12 +1,16 @@
 #ifndef OCCTCOMMON_GEOMETRY_ARC_H
 #define OCCTCOMMON_GEOMETRY_ARC_H
 
+#include <OcctCommon/Geometry/Circle.h>
 #include <OcctCommon/_decl.h>
 
 namespace OcctCommon {
 namespace Geometry {
 
-class Arc {};
+class Arc final {
+private:
+  Circle m_circ;
+};
 
 } // namespace Geometry
 } // namespace OcctCommon

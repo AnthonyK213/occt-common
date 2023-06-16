@@ -293,7 +293,7 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  const Vector3d operator*(__CVec vector) const;
+  const double operator*(__CVec vector) const;
 
   /// @brief
   /// @param vector

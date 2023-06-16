@@ -2,11 +2,16 @@
 #define OCCTCOMMON_GEOMETRY_BOUNDINGBOX_H
 
 #include <OcctCommon/_decl.h>
+#include <OcctCommon/Geometry/Point3d.h>
 
 namespace OcctCommon {
 namespace Geometry {
 
-class BoundingBox {};
+class BoundingBox {
+private:
+  Point3d m_max;
+  Point3d m_min;
+};
 
 } // namespace Geometry
 } // namespace OcctCommon

@@ -66,6 +66,14 @@ inline double Point3d::Y() const { return m_data.Y(); };
 
 inline double Point3d::Z() const { return m_data.Z(); };
 
+double Point3d::DistanceTo(__CPnt point) const {
+  return m_data.Distance(point.Data());
+}
+
+double Point3d::DistanceToSquared(__CPnt point) const {
+  return m_data.SquareDistance(point.Data());
+}
+
 bool Point3d::operator!=(__CPnt other) const {
   if (X() == other.X() && Y() == other.Y())
     return Z() != other.Z();

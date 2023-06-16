@@ -11,6 +11,8 @@
 public:                                                                        \
   using _gpWrapper::_gpWrapper;
 
+#include <Extrema_ExtPC.hxx>
+#include <GeomAdaptor_Curve.hxx>
 #include <GeomPlate_BuildAveragePlane.hxx>
 #include <Geom_BSplineCurve.hxx>
 #include <Geom_Circle.hxx>
@@ -41,14 +43,14 @@ namespace OcctCommon {
 /// @brief The Geometry namespace contains geometric types used in OcctCommon.
 namespace Geometry {
 
-/// @brief 
+/// @brief
 namespace Collections {
 
 class DllExport BrepCurveList;
 
 } // namespace Collections
 
-/// @brief 
+/// @brief
 namespace Intersect {
 
 class DllExport Intersection;
@@ -97,6 +99,7 @@ class DllExport OcctMath;
 
 using __CArc = const OcctCommon::Geometry::Arc &;
 using __CCirc = const OcctCommon::Geometry::Circle &;
+using __CCrv = const OcctCommon::Geometry::Curve &;
 using __CLin = const OcctCommon::Geometry::Line &;
 using __CPln = const OcctCommon::Geometry::Plane &;
 using __CPnt = const OcctCommon::Geometry::Point3d &;
