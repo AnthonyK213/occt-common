@@ -71,3 +71,13 @@ TEST(GeometryTests, line_closestpoint) {
   EXPECT_FLOAT_EQ(line.ClosestParameter({0, -1, 0}), -0.5);
   EXPECT_FLOAT_EQ(line.ClosestParameter({0, 3, 0}), 1.5);
 }
+
+TEST(GeometryTests, interval_test) {
+  Interval a{0, 1};
+  Interval b{-10, 0.5};
+  Interval c = a;
+  c.Reverse();
+  EXPECT_TRUE(Interval::FromIntersection(a, b) == Interval(0, 0.5));
+  EXPECT_TRUE(Interval::FromUnion(a, b) == Interval(-10, 1));
+  EXPECT_TRUE(c == Interval(-1, 0));
+}
