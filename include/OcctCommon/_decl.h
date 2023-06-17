@@ -6,7 +6,7 @@
 #elif _WIN32
 #define DllExport __declspec(dllexport)
 #endif
-
+#define Rc(T) std::shared_ptr<T>
 #define GP_WRAPPER                                                             \
 public:                                                                        \
   using _gpWrapper::_gpWrapper;
@@ -37,6 +37,7 @@ public:                                                                        \
 #include <gp_XYZ.hxx>
 #include <string>
 #include <vector>
+#include <memory>
 
 /// @brief Contains commonly-used types used in OcctCommon.
 namespace OcctCommon {
