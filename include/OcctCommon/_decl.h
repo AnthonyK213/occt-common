@@ -12,6 +12,7 @@ public:                                                                        \
   using _gpWrapper::_gpWrapper;
 
 #include <Extrema_ExtPC.hxx>
+#include <GC_MakeCircle.hxx>
 #include <GeomAdaptor_Curve.hxx>
 #include <GeomPlate_BuildAveragePlane.hxx>
 #include <Geom_BSplineCurve.hxx>
@@ -98,15 +99,16 @@ class DllExport OcctMath;
 } // namespace OcctCommon
 
 using __CArc = const OcctCommon::Geometry::Arc &;
+using __CBB = const OcctCommon::Geometry::BoundingBox &;
+using __CBox = const OcctCommon::Geometry::Box &;
 using __CCirc = const OcctCommon::Geometry::Circle &;
 using __CCrv = const OcctCommon::Geometry::Curve &;
+using __CIntv = const OcctCommon::Geometry::Interval &;
 using __CLin = const OcctCommon::Geometry::Line &;
 using __CPln = const OcctCommon::Geometry::Plane &;
 using __CPnt = const OcctCommon::Geometry::Point3d &;
 using __CTrsf = const OcctCommon::Geometry::Transform &;
 using __CVec = const OcctCommon::Geometry::Vector3d &;
-using __CBB = const OcctCommon::Geometry::BoundingBox &;
-using __CBox = const OcctCommon::Geometry::Box &;
 using __Math = OcctCommon::OcctMath;
 
 #endif

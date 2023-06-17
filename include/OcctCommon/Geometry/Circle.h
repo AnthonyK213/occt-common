@@ -24,10 +24,18 @@ public:
 
   Circle(__CPnt startPoint, __CVec tangentAtP, __CPnt pointOnCircle);
 
+  Circle(__CCirc circle) = default;
+
+  Circle(Circle &&circle) noexcept = default;
+
+  Circle &operator=(__CCirc circle) = default;
+
+  Circle &operator=(Circle &&circle) noexcept = default;
+
 public:
   static __CCirc Unset();
 
-  BoundingBox BoundingBox() const;
+  BoundingBox GetBoundingBox() const;
 
   Point3d Center() const;
 
@@ -39,7 +47,7 @@ public:
 
   Vector3d Normal() const;
 
-  Plane Plane() const;
+  Plane GetPlane() const;
 
   double Radius() const;
 

@@ -59,7 +59,7 @@ public:
 
   /// @brief
   /// @return
-  BoundingBox BoundingBox() const;
+  BoundingBox GetBoundingBox() const;
 
   /// @brief
   /// @return

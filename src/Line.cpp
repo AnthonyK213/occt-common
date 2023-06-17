@@ -27,7 +27,7 @@ __CLin Line::Unset() {
 }
 
 // TODO
-BoundingBox Line::BoundingBox() const { return BoundingBox(); }
+BoundingBox Line::GetBoundingBox() const { return BoundingBox(); }
 
 Vector3d Line::Direction() const { return m_to - m_from; }
 
