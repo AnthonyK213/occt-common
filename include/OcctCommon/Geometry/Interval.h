@@ -8,150 +8,150 @@ namespace Geometry {
 
 class Interval final {
 public:
-  /// @brief 
-  /// @param t0 
-  /// @param t1 
+  /// @brief
+  /// @param t0
+  /// @param t1
   Interval(double t0, double t1);
 
-  /// @brief 
-  /// @param interval 
+  /// @brief
+  /// @param interval
   Interval(__CIntv interval) = default;
 
-  /// @brief 
-  /// @param interval 
+  /// @brief
+  /// @param interval
   Interval(Interval &&interval) noexcept = default;
 
-  /// @brief 
-  /// @param interval 
-  /// @return 
+  /// @brief
+  /// @param interval
+  /// @return
   Interval &operator=(__CIntv interval) = default;
 
-  /// @brief 
-  /// @param interval 
-  /// @return 
+  /// @brief
+  /// @param interval
+  /// @return
   Interval &operator=(Interval &&interval) noexcept = default;
 
 public:
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   static __CIntv Unset() noexcept;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   bool IsDecreasing() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   bool IsIncreasing() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   bool IsSingleton() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   bool IsValid() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double Length() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double Max() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double Mid() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double Min() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double T0() const;
 
-  /// @brief 
-  /// @return 
+  /// @brief
+  /// @return
   double T1() const;
 
 public:
-  /// @brief 
-  /// @param a 
-  /// @param b 
-  /// @return 
+  /// @brief
+  /// @param a
+  /// @param b
+  /// @return
   static Interval FromIntersection(__CIntv a, __CIntv b);
 
-  /// @brief 
-  /// @param a 
-  /// @param b 
-  /// @return 
+  /// @brief
+  /// @param a
+  /// @param b
+  /// @return
   static Interval FromUnion(__CIntv a, __CIntv b);
 
-  /// @brief 
-  /// @param other 
-  /// @return 
+  /// @brief
+  /// @param other
+  /// @return
   int CompareTo(__CIntv other) const;
 
-  /// @brief 
-  /// @param other 
-  /// @param epsilon 
-  /// @return 
+  /// @brief
+  /// @param other
+  /// @param epsilon
+  /// @return
   bool EpsilonEquals(__CIntv other, double epsilon) const;
 
-  /// @brief 
-  /// @param other 
-  /// @return 
+  /// @brief
+  /// @param other
+  /// @return
   bool Equals(__CIntv other) const;
 
-  /// @brief 
-  /// @param value 
+  /// @brief
+  /// @param value
   void Grow(double value);
 
-  /// @brief 
-  /// @param interval 
-  /// @return 
+  /// @brief
+  /// @param interval
+  /// @return
   bool IncludesInterval(__CIntv interval) const;
 
-  /// @brief 
-  /// @param interval 
-  /// @param strict 
-  /// @return 
+  /// @brief
+  /// @param interval
+  /// @param strict
+  /// @return
   bool IncludesInterval(__CIntv interval, bool strict) const;
-  
-  /// @brief 
-  /// @param t 
-  /// @return 
+
+  /// @brief
+  /// @param t
+  /// @return
   bool IncludesParameter(double t) const;
 
-  /// @brief 
-  /// @param t 
-  /// @param strict 
-  /// @return 
+  /// @brief
+  /// @param t
+  /// @param strict
+  /// @return
   bool IncludesParameter(double t, bool strict) const;
 
-  /// @brief 
+  /// @brief
   void MakeIncreasing();
 
-  /// @brief 
-  /// @param intervalParameter 
-  /// @return 
+  /// @brief
+  /// @param intervalParameter
+  /// @return
   Interval NormalizedIntervalAt(__CIntv intervalParameter) const;
 
-  /// @brief 
-  /// @param intervalParameter 
-  /// @return 
+  /// @brief
+  /// @param intervalParameter
+  /// @return
   double NormalizedParameterAt(double intervalParameter) const;
 
-  /// @brief 
-  /// @param normalizedParameter 
-  /// @return 
+  /// @brief
+  /// @param normalizedParameter
+  /// @return
   double ParameterAt(double normalizedParameter) const;
 
-  /// @brief 
-  /// @param normalizedInterval 
-  /// @return 
+  /// @brief
+  /// @param normalizedInterval
+  /// @return
   Interval ParameterIntervalAt(__CIntv normalizedInterval) const;
 
   /// @brief Changes interval to [-T1, -T0].
@@ -159,7 +159,7 @@ public:
 
   /// @brief Exchanges T0 and T1.
   void Swap();
-  
+
 public:
   bool operator!=(__CIntv other) const;
 
@@ -177,9 +177,9 @@ public:
 
   const Interval operator+(double number) const;
 
-  void operator-=(double number);
+  Interval &operator-=(double number);
 
-  void operator+=(double number);
+  Interval &operator+=(double number);
 
 private:
   double m_t0;

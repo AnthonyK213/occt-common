@@ -229,9 +229,7 @@ const Vector3d Vector3d::operator*(double t) const {
   return Vector3d::Mulitply(*this, t);
 }
 
-const Vector3d Vector3d::operator-() const {
-  return Vector3d::Negate(*this);
-}
+const Vector3d Vector3d::operator-() const { return Vector3d::Negate(*this); }
 
 const Vector3d Vector3d::operator-(__CVec vector) const {
   return Vector3d::Subtract(*this, vector);

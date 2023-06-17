@@ -179,14 +179,16 @@ const Interval Interval::operator+(double number) const {
   return Interval(m_t0 + number, m_t1 + number);
 }
 
-void Interval::operator-=(double number) {
+Interval &Interval::operator-=(double number) {
   m_t0 -= number;
   m_t1 -= number;
+  return *this;
 }
 
-void Interval::operator+=(double number) {
+Interval &Interval::operator+=(double number) {
   m_t0 += number;
   m_t1 += number;
+  return *this;
 }
 
 const Interval operator-(double number, __CIntv interval) {

@@ -27,11 +27,11 @@ public:
 public:
   /// @brief
   /// @return
-  virtual Handle(GeometryBase) Duplicate() const = 0;
+  virtual GeometryBase Duplicate() const = 0;
 
   /// @brief
   /// @return
-  virtual Handle(GeometryBase) DuplicateShallow() const = 0;
+  virtual GeometryBase DuplicateShallow() const = 0;
 
   /// @brief
   /// @param plane

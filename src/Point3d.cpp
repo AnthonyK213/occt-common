@@ -96,10 +96,6 @@ const Point3d Point3d::operator*(double t) const {
   return Point3d::Multiply(*this, t);
 }
 
-const Point3d operator*(double t, __CPnt point) {
-  return Point3d::Multiply(point, t);
-}
-
 const Point3d Point3d::operator/(double t) const {
   return Point3d::Divide(*this, t);
 }
@@ -108,16 +104,44 @@ const Point3d Point3d::operator+(__CVec vector) const {
   return Point3d::Add(*this, vector);
 }
 
-const Point3d operator+(__CVec vector, __CPnt point) {
-  return Point3d::Add(vector, point);
-}
-
 const Point3d Point3d::operator+(__CPnt other) const {
   return Point3d::Add(*this, other);
 }
 
 const Vector3d Point3d::operator-(__CPnt other) const {
   return Point3d::Subtract(*this, other);
+}
+
+Point3d &Point3d::operator*=(double t) {
+  m_data.SetX(m_data.X() * t);
+  m_data.SetY(m_data.Y() * t);
+  m_data.SetZ(m_data.Z() * t);
+  return *this;
+}
+
+Point3d &Point3d::operator/=(double t) {
+  m_data.SetX(m_data.X() / t);
+  m_data.SetY(m_data.Y() / t);
+  m_data.SetZ(m_data.Z() / t);
+  return *this;
+}
+
+Point3d &Point3d::operator+=(__CVec vector) {
+  m_data.SetXYZ(m_data.Coord() + vector.Data().XYZ());
+  return *this;
+}
+
+Point3d &Point3d::operator+=(__CPnt other) {
+  m_data.SetXYZ(m_data.Coord() + other.Data().Coord());
+  return *this;
+}
+
+const Point3d operator+(__CVec vector, __CPnt point) {
+  return Point3d::Add(vector, point);
+}
+
+const Point3d operator*(double t, __CPnt point) {
+  return Point3d::Multiply(point, t);
 }
 
 } // namespace Geometry

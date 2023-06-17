@@ -296,17 +296,9 @@ public:
   const double operator*(__CVec vector) const;
 
   /// @brief
-  /// @param vector
-  void operator*=(__CVec vector);
-
-  /// @brief
   /// @param t
   /// @return
   const Vector3d operator*(double t) const;
-
-  /// @brief
-  /// @param t
-  void operator*=(double t);
 
   /// @brief
   /// @return
@@ -318,19 +310,9 @@ public:
   const Vector3d operator-(__CVec vector) const;
 
   /// @brief
-  /// @param vector
-  /// @return
-  void operator-=(__CVec vector);
-
-  /// @brief
   /// @param t
   /// @return
   const Vector3d operator/(double t) const;
-
-  /// @brief
-  /// @param t
-  /// @return
-  void operator/=(double t);
 
   /// @brief
   /// @param vector
@@ -340,7 +322,25 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  void operator+=(__CVec vector);
+  Vector3d &operator+=(__CVec vector);
+
+  /// @brief
+  /// @param vector
+  Vector3d &operator*=(__CVec vector);
+
+  /// @brief
+  /// @param t
+  Vector3d &operator*=(double t);
+
+  /// @brief
+  /// @param vector
+  /// @return
+  Vector3d &operator-=(__CVec vector);
+
+  /// @brief
+  /// @param t
+  /// @return
+  Vector3d &operator/=(double t);
 
   /// @brief
   /// @param index
