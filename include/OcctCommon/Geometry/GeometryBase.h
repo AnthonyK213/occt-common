@@ -22,16 +22,20 @@ public:
 
   /// @brief
   /// @return
-  virtual int ObjectType() const = 0;
+  virtual uint32_t ObjectType() const = 0;
 
 public:
   /// @brief
   /// @return
-  virtual Rc(GeometryBase) Duplicate() const = 0;
+  virtual ComponentIndex GetComponentIndex() const = 0;
 
   /// @brief
   /// @return
-  virtual Rc(GeometryBase) DuplicateShallow() const = 0;
+  virtual GeometryBase Duplicate() const = 0;
+
+  /// @brief
+  /// @return
+  virtual GeometryBase DuplicateShallow() const = 0;
 
   /// @brief
   /// @param plane
@@ -41,7 +45,7 @@ public:
   /// @brief
   /// @param accurate
   /// @return
-  virtual BoundingBox GetBouddingBox(bool accurate) const = 0;
+  virtual BoundingBox GetBoundingBox(bool accurate) const = 0;
 
   /// @brief
   /// @param xform
@@ -77,9 +81,6 @@ public:
   /// @param translationVector
   /// @return
   virtual bool Translate(__CVec translationVector) = 0;
-
-protected:
-  Handle(Geom_Geometry) m_data;
 };
 
 } // namespace Geometry

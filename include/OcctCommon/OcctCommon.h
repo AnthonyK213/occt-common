@@ -4,6 +4,7 @@
 #include <OcctCommon/Geometry/Box.h>
 #include <OcctCommon/Geometry/Circle.h>
 #include <OcctCommon/Geometry/Collections/BrepCurveList.h>
+#include <OcctCommon/Geometry/ComponentIndex.h>
 #include <OcctCommon/Geometry/Curve.h>
 #include <OcctCommon/Geometry/GeometryBase.h>
 #include <OcctCommon/Geometry/Intersect/Intersection.h>
