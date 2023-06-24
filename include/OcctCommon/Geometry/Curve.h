@@ -41,13 +41,13 @@ public:
 
   virtual bool ChangeDimension(int32_t desireDimension);
 
-  virtual uint32_t ClosedCurveOrientation() const;
+  virtual CurveOrientation ClosedCurveOrientation() const;
 
-  virtual uint32_t ClosedCurveOrientation(__CPln plane) const;
+  virtual CurveOrientation ClosedCurveOrientation(__CPln plane) const;
 
-  virtual uint32_t ClosedCurveOrientation(__CTrsf xform) const;
+  virtual CurveOrientation ClosedCurveOrientation(__CTrsf xform) const;
 
-  virtual uint32_t ClosedCurveOrientation(__CVec upDirection) const;
+  virtual CurveOrientation ClosedCurveOrientation(__CVec upDirection) const;
 
   virtual bool ClosestPoint(__CPnt testPoint, double &t,
                             double maximumDistance) const;
@@ -413,6 +413,184 @@ public:
              double tolerance, double angleTolerance, bool loose,
              CurveOffsetCornerStyle cornerStyle,
              CurveOffsetEndStyle endStyle) const;
+
+  virtual Curve OffsetNormalToSurface(__CSrf surface, double height) const;
+
+  // TODO
+  virtual Vec(Curve) OffsetOnSurface() const;
+
+  virtual bool PerpendicularFrameAt(double t, Plane &plane) const;
+
+  static RegionContainment PlanarClosedCurveRelationship(__CCrv curveA,
+                                                         __CCrv curveB,
+                                                         __CPln testPlane,
+                                                         double tolerance);
+
+  static bool PlanarCurveCollision(__CCrv curveA, __CCrv curveB,
+                                   __CPln testPlane, double tolerance);
+
+  virtual Point3d PointAt(double t) const;
+
+  virtual Point3d PointAtLength(double length) const;
+
+  virtual Point3d PointAtNormalizedLength(double length) const;
+
+  static Vec(Curve) ProjectToBrep(__CCrv curve, __CBrp brep, __CVec direction,
+                                  double tolerance);
+
+  template <typename T>
+  static Vec(Curve)
+      ProjectToBrep(__CCrv curve, T _first, T _last, __CVec direction,
+                    double tolerance, Vec(int32_t) & brepIndices);
+
+  template <typename T>
+  static Vec(Curve) ProjectToBrep(__CCrv curve, T _first, T _last,
+                                  __CVec direction, double tolerance);
+
+  template <typename T1, typename T2>
+  static Vec(Curve)
+      ProjectToBrep(T1 _first1, T1 _last1, T2 _first2, T2 _last2,
+                    __CVec direction, double tolerance,
+                    Vec(int32_t) & curveIndices, Vec(int32_t) brepIndices);
+
+  template <typename T1, typename T2>
+  static Vec(Curve) ProjectToBrep(T1 _first1, T1 _last1, T2 _first2, T2 _last2,
+                                  __CVec direction, double tolerance);
+
+  template <typename T>
+  static Vec(Curve) ProjectToMesh(__CCrv curve, T _first, T _last,
+                                  __CVec direction, double tolerance);
+
+  static Vec(Curve) ProjectToMesh(__CCrv curve, __CMsh mesh, __CVec direction,
+                                  double tolerance);
+
+  template <typename T1, typename T2>
+  static Vec(Curve)
+      ProjectToMesh(__CCrv curve, T1 _first1, T1 _last1, T2 _first2, T2 _last2,
+                    __CVec direction, double tolerance);
+
+  static Curve ProjectToPlane(__CCrv cruve, __CPln plane);
+
+  // TODO
+  virtual Vec(Curve) PullToBrepFace() const;
+
+  virtual Vec(PolylineCurve) PullToMesh(__CMsh mesh, double tolerance) const;
+
+  virtual NurbsCurve Rebuild(int32_t pointCount, int32_t degree,
+                             bool preserveTangents) const;
+
+  virtual bool RemoveShortSegments(double tolerance);
+
+  virtual bool Reverse();
+
+  // TODO
+  virtual Curve RibbonOffset() const;
+
+  virtual bool Rotate(double angleRadians, __CVec rotaionAxis,
+                      __CPnt rotationCenter) override;
+
+  virtual bool Scale(double scaleFactor) override;
+
+  virtual bool SetEndPoint(__CPnt point);
+
+  virtual bool SetStartPoint(__CPnt point);
+
+  virtual bool Simplify(CurveSimplifyOptions options, double distanceTolerance,
+                        double angleToleranceRadians);
+
+  virtual bool SimplifyEnd(CurveEnd end, CurveSimplifyOptions options,
+                           double distanceTolerance,
+                           double angleToleranceRadians);
+
+  virtual Curve Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
+                       bool bZSmooth, bool bFixBoundaries,
+                       SmoothingCoordinateSystem coordinateSystem,
+                       __CPln plane) const;
+
+  virtual Curve Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
+                       bool bZSmooth, bool bFixBoundaries,
+                       SmoothingCoordinateSystem coordinateSystem) const;
+
+  virtual Vec(Curve) Split(__CBrp cutter, double tolerance,
+                           double angleToleranceRadians) const;
+
+  virtual Vec(Curve) Split(Vec(double) t) const;
+
+  virtual Vec(Curve) Split(__CSrf cutter, double tolerance,
+                           double angleToleranceRadians) const;
+
+  virtual Vec(Curve) Split(double t) const;
+
+  virtual Vector3d TangentAt(double t) const;
+
+  virtual PolyCurve ToArcsAndLines(double tolerance, double angleTolerance,
+                                   double minimumLength,
+                                   double maximumLength) const;
+
+  virtual NurbsCurve ToNurbsCurve() const;
+
+  virtual NurbsCurve ToNurbsCurve(__CIntv subDomain) const;
+
+  virtual PolylineCurve ToPolyline(double tolerance, double angleTolerance,
+                                   double minimumLength,
+                                   double maximumLength) const;
+
+  virtual PolylineCurve
+  ToPolyline(int32_t mainSegmentCount, int32_t subSegmentCount,
+             double maxAngleRadians, double maxChordLengthRatio,
+             double maxAspectRatio, double tolerance, double minEdgeLength,
+             double maxEdgeLength, bool keepStartPoint,
+             __CIntv curveDomain) const;
+
+  virtual PolylineCurve
+  ToPolyline(int32_t mainSegmentCount, int32_t subSegmentCount,
+             double maxAngleRadians, double maxChordLengthRatio,
+             double maxAspectRatio, double tolerance, double minEdgeLength,
+             double maxEdgeLength, bool keepStartPoint) const;
+
+  virtual double TorsionAt(double t) const;
+
+  virtual bool Transform(__CTrsf xform) override;
+
+  virtual bool Translate(double x, double y, double z) override;
+
+  virtual bool Translate(__CVec translationVector) override;
+
+  virtual Curve Trim(CurveEnd side, double length) const;
+
+  virtual Curve Trim(__CIntv domain) const;
+
+  virtual Curve Trim(double t0, double t1) const;
+
+  virtual bool TryGetArc(Arc &arc, double tolerance) const;
+
+  virtual bool TryGetArc(Arc &arc) const;
+
+  virtual bool TryGetArc(__CPln plane, Arc &arc, double tolerance) const;
+
+  virtual bool TryGetArc(__CPln plane, Arc &arc) const;
+
+  virtual bool TryGetCircle(__CCirc &circle, double tolerance) const;
+
+  virtual bool TryGetCircle(__CCirc &circle) const;
+
+  virtual bool TryGetEllipse(Ellipse &ellipse, double tolerance) const;
+
+  virtual bool TryGetEllipse(Ellipse &ellipse) const;
+
+  virtual bool TryGetEllipse(__CPln plane, Ellipse &ellipse,
+                             double tolerance) const;
+
+  virtual bool TryGetEllipse(__CPln plane, Ellipse &ellipse) const;
+
+  virtual bool TryGetPlane(__CPln &plane, double tolerance) const;
+
+  virtual bool TryGetPlane(__CPln &plane) const;
+
+  virtual bool TryGetPolyline(Polyline &polyline,
+                              Vec(double) & parameters) const;
+
+  virtual bool TryGetPolyline(Polyline &polyline) const;
 
 private:
   Handle(ShapeExtend_ComplexCurve) m_data;

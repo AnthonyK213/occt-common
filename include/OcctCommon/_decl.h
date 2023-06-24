@@ -26,6 +26,7 @@
 #include <gp_Mat.hxx>
 #include <gp_Pln.hxx>
 #include <gp_Pnt.hxx>
+#include <gp_Elips.hxx>
 #include <gp_Quaternion.hxx>
 #include <gp_Trsf.hxx>
 #include <gp_Vec.hxx>
@@ -69,9 +70,11 @@ class DllExport Arc;
 class DllExport ArcCurve;
 class DllExport BoundingBox;
 class DllExport Box;
+class DllExport Brep;
 class DllExport Circle;
 class DllExport ComponentIndex;
 class DllExport Curve;
+class DllExport Ellipse;
 class DllExport GeometryBase;
 class DllExport Interval;
 class DllExport Line;
@@ -160,6 +163,23 @@ enum class CurveOffsetEndStyle : int32_t {
   Round = 2,
 };
 
+enum class CurveOrientation : int32_t {
+  Undefined = 0,
+  Clockwise = -1,
+  CounterClockwise = 1,
+};
+
+enum class CurveSimplifyOptions : int32_t {
+  None = 0x00,
+  SplitAtFullyMultipleKnots = 0x01,
+  RebuildLInes = 0x02,
+  RebuildArcs = 0x04,
+  RebuildRationals = 0x08,
+  AdjustG1 = 0x10,
+  Merge = 0x20,
+  All = 0x3F,
+};
+
 enum class PointContainment : int32_t {
   Unset,
   Inside,
@@ -172,6 +192,19 @@ enum class PreserveEnd : int32_t {
   Position = 1,
   Tangency = 2,
   Curvature = 3,
+};
+
+enum class RegionContainment : int32_t {
+  Disjoint = 0,
+  MutualIntersection = 1,
+  AInsideB = 2,
+  BInsideA = 3,
+};
+
+enum class SmoothingCoordinateSystem : int32_t {
+  World = 0,
+  CPlane = 1,
+  Object = 2,
 };
 
 /// @brief Transparent wrapper for gp_*.
@@ -203,6 +236,9 @@ using __CPln = const OcctCommon::Geometry::Plane &;
 using __CPnt = const OcctCommon::Geometry::Point3d &;
 using __CTrsf = const OcctCommon::Geometry::Transform &;
 using __CVec = const OcctCommon::Geometry::Vector3d &;
+using __CSrf = const OcctCommon::Geometry::Surface &;
+using __CBrp = const OcctCommon::Geometry::Brep &;
+using __CMsh = const OcctCommon::Geometry::Mesh &;
 using __Math = OcctCommon::OcctMath;
 
 #endif
