@@ -589,7 +589,7 @@ public:
   virtual bool TryGetPolyline(Polyline &polyline) const;
 
 private:
-  Handle(ShapeExtend_ComplexCurve) m_data;
+  BRepAdaptor_CompCurve m_data;
 };
 
 } // namespace Geometry

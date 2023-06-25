@@ -19,18 +19,18 @@ int32_t Curve::Degree() const { return 0; }
 int32_t Curve::Dimension() const { return 0; }
 
 Interval Curve::Domain() const {
-  return Interval(m_data->FirstParameter(), m_data->LastParameter());
+  return Interval(m_data.FirstParameter(), m_data.LastParameter());
 }
 
 // TODO
 bool Curve::HasBrepForm() const { return true; }
 
-bool Curve::IsClosed() const { return m_data->IsClosed(); }
+bool Curve::IsClosed() const { return m_data.IsClosed(); }
 
 // TODO
 bool Curve::IsDeformable() const { return true; }
 
-bool Curve::IsPeriodic() const { return m_data->IsPeriodic(); }
+bool Curve::IsPeriodic() const { return m_data.IsPeriodic(); }
 
 // TODO
 bool Curve::IsValid() const { return true; }
@@ -38,20 +38,20 @@ bool Curve::IsValid() const { return true; }
 // TODO
 uint32_t Curve::ObjectType() const { return 0; }
 
-Point3d Curve::PointAtEnd() const { return PointAt(m_data->LastParameter()); }
+Point3d Curve::PointAtEnd() const { return PointAt(m_data.LastParameter()); }
 
 Point3d Curve::PointAtStart() const {
-  return PointAt(m_data->FirstParameter());
+  return PointAt(m_data.FirstParameter());
 }
 
-int32_t Curve::SpanCount() const { return m_data->NbCurves(); }
+int32_t Curve::SpanCount() const { return m_data.NbIntervals(GeomAbs_Shape::GeomAbs_G2); }
 
 Vector3d Curve::TangentAtEnd() const {
-  return TangentAt(m_data->LastParameter());
+  return TangentAt(m_data.LastParameter());
 }
 
 Vector3d Curve::TangentAtStart() const {
-  return TangentAt(m_data->FirstParameter());
+  return TangentAt(m_data.FirstParameter());
 }
 
 bool Curve::ChangeClosedCurveSeam(double t) { NOT_IMPL }
@@ -377,7 +377,7 @@ Vec_(Curve) Curve::OffsetOnSurface() const {
 bool Curve::PerpendicularFrameAt(double t, Plane &plane) const {NOT_IMPL}
 
 Point3d Curve::PointAt(double t) const {
-  return Point3d{m_data->Value(t)};
+  return Point3d{m_data.Value(t)};
 }
 
 Point3d Curve::PointAtLength(double length) const {NOT_IMPL}
@@ -444,7 +444,7 @@ Vec_(Curve) Curve::Split(C_Srf cutter, double tolerance,
 Vec_(Curve) Curve::Split(double t) const {NOT_IMPL}
 
 Vector3d Curve::TangentAt(double t) const {
-  gp_Vec v1 = m_data->DN(t, 1);
+  gp_Vec v1 = m_data.DN(t, 1);
   return Vector3d{v1};
 }
 

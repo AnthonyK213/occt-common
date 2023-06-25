@@ -1,8 +1,11 @@
 #ifndef OCCTCOMMON_GEOMETRY_H
 #define OCCTCOMMON_GEOMETRY_H
 
+#include <Adaptor3d_Curve.hxx>
+#include <BRepAdaptor_CompCurve.hxx>
 #include <Extrema_ExtPC.hxx>
 #include <GC_MakeCircle.hxx>
+#include <GeomAbs_Shape.hxx>
 #include <GeomAdaptor_Curve.hxx>
 #include <GeomPlate_BuildAveragePlane.hxx>
 #include <Geom_BSplineCurve.hxx>
@@ -10,7 +13,6 @@
 #include <Geom_Curve.hxx>
 #include <Geom_Geometry.hxx>
 #include <Geom_Line.hxx>
-#include <ShapeExtend_ComplexCurve.hxx>
 #include <Standard.hxx>
 #include <Standard_Handle.hxx>
 #include <TopoDS.hxx>
