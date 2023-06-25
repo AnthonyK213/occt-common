@@ -205,7 +205,7 @@ public:
 
   virtual Curve Extend(double t0, double t1) const;
 
-  virtual Curve ExtendByARc_(CurveEnd side, Vec_(GeometryBase) geometry) const;
+  virtual Curve ExtendByArc(CurveEnd side, Vec_(GeometryBase) geometry) const;
 
   virtual Curve ExtendByLine(CurveEnd side, Vec_(GeometryBase) geometry) const;
 
@@ -300,9 +300,9 @@ public:
 
   virtual Vec_(Point3d) InflectionPoints() const;
 
-  virtual bool IsARc_() const;
+  virtual bool IsArc() const;
 
-  virtual bool IsARc_(double tolerance) const;
+  virtual bool IsArc(double tolerance) const;
 
   virtual bool IsCircle() const;
 
@@ -558,13 +558,13 @@ public:
 
   virtual Curve Trim(double t0, double t1) const;
 
-  virtual bool TryGetARc_(Arc &arc, double tolerance) const;
+  virtual bool TryGetArc(Arc &arc, double tolerance) const;
 
-  virtual bool TryGetARc_(Arc &arc) const;
+  virtual bool TryGetArc(Arc &arc) const;
 
-  virtual bool TryGetARc_(C_Pln plane, Arc &arc, double tolerance) const;
+  virtual bool TryGetArc(C_Pln plane, Arc &arc, double tolerance) const;
 
-  virtual bool TryGetARc_(C_Pln plane, Arc &arc) const;
+  virtual bool TryGetArc(C_Pln plane, Arc &arc) const;
 
   virtual bool TryGetCircle(C_Circ &circle, double tolerance) const;
 
@@ -579,9 +579,9 @@ public:
 
   virtual bool TryGetEllipse(C_Pln plane, Ellipse &ellipse) const;
 
-  virtual bool TryGetPlane(C_Pln &plane, double tolerance) const;
+  virtual bool TryGetPlane(Plane &plane, double tolerance) const;
 
-  virtual bool TryGetPlane(C_Pln &plane) const;
+  virtual bool TryGetPlane(Plane &plane) const;
 
   virtual bool TryGetPolyline(Polyline &polyline,
                               Vec_(double) & parameters) const;

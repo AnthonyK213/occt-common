@@ -145,7 +145,7 @@ Curve Curve::Extend(C_Intv domain) const {NOT_IMPL}
 
 Curve Curve::Extend(double t0, double t1) const {NOT_IMPL}
 
-Curve Curve::ExtendByARc_(CurveEnd side,
+Curve Curve::ExtendByArc(CurveEnd side,
                           Vec_(GeometryBase) geometry) const {NOT_IMPL}
 
 Curve Curve::ExtendByLine(CurveEnd side,
@@ -251,9 +251,9 @@ Vec_(Point3d) Curve::InflectionPoints() const {
   NOT_IMPL
 }
 
-bool Curve::IsARc_() const { NOT_IMPL }
+bool Curve::IsArc() const { NOT_IMPL }
 
-bool Curve::IsARc_(double tolerance) const { NOT_IMPL }
+bool Curve::IsArc(double tolerance) const { NOT_IMPL }
 
 bool Curve::IsCircle() const { NOT_IMPL }
 
@@ -493,15 +493,15 @@ Curve Curve::Trim(double t0, double t1) const {
   NOT_IMPL
 }
 
-bool Curve::TryGetARc_(Arc &arc, double tolerance) const { NOT_IMPL }
+bool Curve::TryGetArc(Arc &arc, double tolerance) const { NOT_IMPL }
 
-bool Curve::TryGetARc_(Arc &arc) const { NOT_IMPL }
+bool Curve::TryGetArc(Arc &arc) const { NOT_IMPL }
 
-bool Curve::TryGetARc_(C_Pln plane, Arc &arc, double tolerance) const {
+bool Curve::TryGetArc(C_Pln plane, Arc &arc, double tolerance) const {
   NOT_IMPL
 }
 
-bool Curve::TryGetARc_(C_Pln plane, Arc &arc) const { NOT_IMPL }
+bool Curve::TryGetArc(C_Pln plane, Arc &arc) const { NOT_IMPL }
 
 bool Curve::TryGetCircle(C_Circ &circle, double tolerance) const { NOT_IMPL }
 
@@ -518,9 +518,9 @@ bool Curve::TryGetEllipse(C_Pln plane, Ellipse &ellipse,
 
 bool Curve::TryGetEllipse(C_Pln plane, Ellipse &ellipse) const { NOT_IMPL }
 
-bool Curve::TryGetPlane(C_Pln &plane, double tolerance) const { NOT_IMPL }
+bool Curve::TryGetPlane(Plane &plane, double tolerance) const { NOT_IMPL }
 
-bool Curve::TryGetPlane(C_Pln &plane) const { NOT_IMPL }
+bool Curve::TryGetPlane(Plane &plane) const { NOT_IMPL }
 
 bool Curve::TryGetPolyline(Polyline &polyline,
                            Vec_(double) & parameters) const {
