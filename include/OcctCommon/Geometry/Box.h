@@ -1,7 +1,6 @@
 #ifndef OCCTCOMMON_GEOMETRY_BOX_H
 #define OCCTCOMMON_GEOMETRY_BOX_H
 
-#include <OcctCommon/_decl.h>
 #include <OcctCommon/Geometry/Interval.h>
 #include <OcctCommon/Geometry/Plane.h>
 

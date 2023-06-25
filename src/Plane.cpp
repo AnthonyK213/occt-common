@@ -9,7 +9,7 @@ namespace Geometry {
 Plane::Plane(double a, double b, double c, double d)
     : _gpWrapper({a, b, c, d}) {}
 
-Plane::Plane(__CPnt origin, __CPnt xPoint, __CPnt yPoint) {
+Plane::Plane(C_Pnt origin, C_Pnt xPoint, C_Pnt yPoint) {
   if (origin.IsValid() && xPoint.IsValid() && yPoint.IsValid()) {
     gp_Vec xDir = xPoint.Data().Coord() - origin.Data().Coord();
     gp_Vec yDir = yPoint.Data().Coord() - origin.Data().Coord();
@@ -22,7 +22,7 @@ Plane::Plane(__CPnt origin, __CPnt xPoint, __CPnt yPoint) {
   *this = Plane::Unset();
 }
 
-Plane::Plane(__CPnt origin, __CVec xDirection, __CVec yDirection) {
+Plane::Plane(C_Pnt origin, C_Vec xDirection, C_Vec yDirection) {
   if (origin.IsValid() && xDirection.IsValid() && yDirection.IsValid()) {
     gp_Vec normal = xDirection.Data() ^ yDirection.Data();
     if (normal.SquareMagnitude() != 0.0) {
@@ -33,7 +33,7 @@ Plane::Plane(__CPnt origin, __CVec xDirection, __CVec yDirection) {
   *this = Plane::Unset();
 }
 
-Plane::Plane(__CPnt origin, __CVec normal) {
+Plane::Plane(C_Pnt origin, C_Vec normal) {
   if (origin.IsValid() && normal.IsValid()) {
     m_data = gp_Pln(origin.Data(), normal.Data());
     return;
@@ -41,24 +41,24 @@ Plane::Plane(__CPnt origin, __CVec normal) {
   *this = Plane::Unset();
 }
 
-Plane::Plane(__CPln plane) : _gpWrapper(plane.m_data) {}
+Plane::Plane(C_Pln plane) : _gpWrapper(plane.m_data) {}
 
-__CPln Plane::Unset() noexcept {
+C_Pln Plane::Unset() noexcept {
   static Plane Plane_Unset(gp_Pln(Point3d::Unset().Data(), gp::DZ()));
   return Plane_Unset;
 }
 
-__CPln Plane::WorldXY() noexcept {
+C_Pln Plane::WorldXY() noexcept {
   static Plane Plane_WorldXY{gp_Ax3(gp::XOY())};
   return Plane_WorldXY;
 }
 
-__CPln Plane::WorldYZ() noexcept {
+C_Pln Plane::WorldYZ() noexcept {
   static Plane Plane_WorldYZ{gp_Ax3(gp::YOZ())};
   return Plane_WorldYZ;
 }
 
-__CPln Plane::WorldZX() noexcept {
+C_Pln Plane::WorldZX() noexcept {
   static Plane Plane_WorldZX{gp_Ax3(gp::ZOX())};
   return Plane_WorldZX;
 }
@@ -89,21 +89,21 @@ inline Vector3d Plane::ZAxis() const {
   return Vector3d(m_data.Axis().Direction());
 }
 
-Plane Plane::CreateFromFrame(__CPnt origin, __CVec xDirection,
-                             __CVec yDirection) {
+Plane Plane::CreateFromFrame(C_Pnt origin, C_Vec xDirection,
+                             C_Vec yDirection) {
   return Plane(origin, xDirection, yDirection);
 }
 
-Plane Plane::CreateFromNormal(__CPnt origin, __CVec normal) {
+Plane Plane::CreateFromNormal(C_Pnt origin, C_Vec normal) {
   return Plane(origin, normal);
 }
 
-Plane Plane::CreateFromNormalYup(__CPnt origin, __CVec yDirection) {
+Plane Plane::CreateFromNormalYup(C_Pnt origin, C_Vec yDirection) {
   gp_Ax3 ax3(origin.Data(), yDirection.Data());
   return Plane(gp_Ax3(origin.Data(), ax3.XDirection(), ax3.YDirection()));
 }
 
-Plane Plane::CreateFromPoints(__CPnt origin, __CPnt xPoint, __CPnt yPoint) {
+Plane Plane::CreateFromPoints(C_Pnt origin, C_Pnt xPoint, C_Pnt yPoint) {
   return Plane(origin, xPoint, yPoint);
 }
 

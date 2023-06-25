@@ -11,6 +11,7 @@
 #include <Geom_Geometry.hxx>
 #include <Geom_Line.hxx>
 #include <ShapeExtend_ComplexCurve.hxx>
+#include <Standard.hxx>
 #include <Standard_Handle.hxx>
 #include <TopoDS.hxx>
 #include <TopoDS_Edge.hxx>
@@ -21,12 +22,12 @@
 #include <gp_Ax2.hxx>
 #include <gp_Ax3.hxx>
 #include <gp_Circ.hxx>
+#include <gp_Elips.hxx>
 #include <gp_GTrsf.hxx>
 #include <gp_Lin.hxx>
 #include <gp_Mat.hxx>
 #include <gp_Pln.hxx>
 #include <gp_Pnt.hxx>
-#include <gp_Elips.hxx>
 #include <gp_Quaternion.hxx>
 #include <gp_Trsf.hxx>
 #include <gp_Vec.hxx>
@@ -35,16 +36,26 @@
 #include <string>
 #include <vector>
 
-#ifdef __linux__
-#define DllExport
-#elif _WIN32
-#define DllExport __declspec(dllexport)
+#ifndef DllExport
+#define DllExport Standard_EXPORT
 #endif
-#define Rc(T) std::shared_ptr<T>
-#define Vec(T) std::vector<T>
+#ifndef Box_
+#define Box_(T) std::unique_ptr<T>
+#endif
+#ifndef Rc_
+#define Rc_(T) std::shared_ptr<T>
+#endif
+#ifndef Vec_
+#define Vec_(T) std::vector<T>
+#endif
+#ifndef GP_WRAPPER
 #define GP_WRAPPER                                                             \
 public:                                                                        \
   using _gpWrapper::_gpWrapper;
+#endif
+#ifndef NOT_IMPL
+#define NOT_IMPL throw std::runtime_error("Not implemented.");
+#endif
 
 /// @brief Contains commonly-used types used in OcctCommon.
 namespace OcctCommon {
@@ -72,7 +83,6 @@ class DllExport BoundingBox;
 class DllExport Box;
 class DllExport Brep;
 class DllExport Circle;
-class DllExport ComponentIndex;
 class DllExport Curve;
 class DllExport Ellipse;
 class DllExport GeometryBase;
@@ -225,20 +235,20 @@ class DllExport OcctMath;
 
 } // namespace OcctCommon
 
-using __CArc = const OcctCommon::Geometry::Arc &;
-using __CBB = const OcctCommon::Geometry::BoundingBox &;
-using __CBox = const OcctCommon::Geometry::Box &;
-using __CCirc = const OcctCommon::Geometry::Circle &;
-using __CCrv = const OcctCommon::Geometry::Curve &;
-using __CIntv = const OcctCommon::Geometry::Interval &;
-using __CLin = const OcctCommon::Geometry::Line &;
-using __CPln = const OcctCommon::Geometry::Plane &;
-using __CPnt = const OcctCommon::Geometry::Point3d &;
-using __CTrsf = const OcctCommon::Geometry::Transform &;
-using __CVec = const OcctCommon::Geometry::Vector3d &;
-using __CSrf = const OcctCommon::Geometry::Surface &;
-using __CBrp = const OcctCommon::Geometry::Brep &;
-using __CMsh = const OcctCommon::Geometry::Mesh &;
-using __Math = OcctCommon::OcctMath;
+using C_Arc = const OcctCommon::Geometry::Arc &;
+using C_BB = const OcctCommon::Geometry::BoundingBox &;
+using C_Box = const OcctCommon::Geometry::Box &;
+using C_Circ = const OcctCommon::Geometry::Circle &;
+using C_Crv = const OcctCommon::Geometry::Curve &;
+using C_Intv = const OcctCommon::Geometry::Interval &;
+using C_Lin = const OcctCommon::Geometry::Line &;
+using C_Pln = const OcctCommon::Geometry::Plane &;
+using C_Pnt = const OcctCommon::Geometry::Point3d &;
+using C_Trsf = const OcctCommon::Geometry::Transform &;
+using C_Vec = const OcctCommon::Geometry::Vector3d &;
+using C_Srf = const OcctCommon::Geometry::Surface &;
+using C_Brp = const OcctCommon::Geometry::Brep &;
+using C_Msh = const OcctCommon::Geometry::Mesh &;
+using _Math = OcctCommon::OcctMath;
 
 #endif

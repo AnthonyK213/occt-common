@@ -10,30 +10,30 @@ class Circle final : public _gpWrapper<gp_Circ> {
   GP_WRAPPER
 
 public:
-  Circle(__CArc arc);
+  Circle(C_Arc arc);
 
   Circle(double radius);
 
-  Circle(__CPln plane, double radius);
+  Circle(C_Pln plane, double radius);
 
-  Circle(__CPln plane, __CPnt center, double radius);
+  Circle(C_Pln plane, C_Pnt center, double radius);
 
-  Circle(__CPnt center, double radius);
+  Circle(C_Pnt center, double radius);
 
-  Circle(__CPnt point1, __CPnt point2, __CPnt point3);
+  Circle(C_Pnt point1, C_Pnt point2, C_Pnt point3);
 
-  Circle(__CPnt startPoint, __CVec tangentAtP, __CPnt pointOnCircle);
+  Circle(C_Pnt startPoint, C_Vec tangentAtP, C_Pnt pointOnCircle);
 
-  Circle(__CCirc circle) = default;
+  Circle(C_Circ circle) = default;
 
   Circle(Circle &&circle) noexcept = default;
 
-  Circle &operator=(__CCirc circle) = default;
+  Circle &operator=(C_Circ circle) = default;
 
   Circle &operator=(Circle &&circle) noexcept = default;
 
 public:
-  static __CCirc Unset();
+  static C_Circ Unset();
 
   BoundingBox GetBoundingBox() const;
 
@@ -55,32 +55,32 @@ public:
   template <typename T>
   static bool TryFitCircleToPoints(T begin, T end, Circle &circle);
 
-  static Circle TryFitCircleTT(__CCrv c1, __CCrv c2, double t1, double t2);
+  static Circle TryFitCircleTT(C_Crv c1, C_Crv c2, double t1, double t2);
 
-  static Circle TryFitCircleTTT(__CCrv c1, __CCrv c2, __CCrv c3, double t1,
+  static Circle TryFitCircleTTT(C_Crv c1, C_Crv c2, C_Crv c3, double t1,
                                 double t2, double t3);
 
-  bool ClosestParameter(__CPnt testPoint, double &t);
+  bool ClosestParameter(C_Pnt testPoint, double &t);
 
-  Point3d ClosestPoint(__CPnt testPoint);
+  Point3d ClosestPoint(C_Pnt testPoint);
 
   Vector3d DerivativeAt(int32_t derivative, double t);
 
-  bool EpsilonEquals(__CCirc other, double epsilon);
+  bool EpsilonEquals(C_Circ other, double epsilon);
 
-  bool IsInPlane(__CPln plane, double tolerance);
+  bool IsInPlane(C_Pln plane, double tolerance);
 
   Point3d PointAt(double t);
 
   void Reverse();
 
-  bool Rotate(double angle, __CVec axis, __CPnt point);
+  bool Rotate(double angle, C_Vec axis, C_Pnt point);
 
-  bool Rotate(double angle, __CVec axis);
+  bool Rotate(double angle, C_Vec axis);
 
-  bool Rotate(double sinAngle, double conAngle, __CVec axis, __CPnt point);
+  bool Rotate(double sinAngle, double conAngle, C_Vec axis, C_Pnt point);
 
-  bool Rotate(double sinAngle, double conAngle, __CVec axis);
+  bool Rotate(double sinAngle, double conAngle, C_Vec axis);
 
   Vector3d TangentAt(double t);
 
@@ -88,9 +88,9 @@ public:
 
   NurbsCurve ToNurbsCurve(int32_t degree, int32_t cvCount);
 
-  bool Transform(__CTrsf xform);
+  bool Transform(C_Trsf xform);
 
-  bool Translate(__CVec delta);
+  bool Translate(C_Vec delta);
 };
 
 } // namespace Geometry

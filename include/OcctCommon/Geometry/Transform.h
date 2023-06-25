@@ -19,14 +19,14 @@ public:
 
   /// @brief Copy constructor.
   /// @param transform
-  Transform(__CTrsf transform);
+  Transform(C_Trsf transform);
 
   /// @brief Move constructor.
   /// @param transform
   Transform(Transform &&transform) noexcept = default;
 
   /// @brief Copy assignment.
-  Transform &operator=(__CTrsf transform) = default;
+  Transform &operator=(C_Trsf transform) = default;
 
   /// @brief Move assignment.
   Transform &operator=(Transform &&transform) noexcept = default;
@@ -35,15 +35,15 @@ public:
   /// @brief Gets a new identity transform matrix.
   /// An identity matrix defines no transformation.
   /// @return Identity transformation
-  static __CTrsf Identity() noexcept;
+  static C_Trsf Identity() noexcept;
 
   /// @brief Gets an transform filled with OcctMath::UnsetValue.
   /// @return Unset transformation
-  static __CTrsf Unset() noexcept;
+  static C_Trsf Unset() noexcept;
 
   /// @brief Zero transformation diagonal = (0, 0, 0, 1)
   /// @return Zero transformation
-  static __CTrsf ZeroTransformation() noexcept;
+  static C_Trsf ZeroTransformation() noexcept;
 
   /// @brief The determinant of this 4x4 matrix. (FIXME: not really...)
   /// @return Determinant of the matrix.
@@ -179,7 +179,7 @@ public:
   /// described.
   /// @return A transformation matrix which orients geometry from one coordinate
   /// system to another on success. Transform::Unset() on failure.
-  static Transform ChangeBasis(__CPln plane0, __CPln plane1);
+  static Transform ChangeBasis(C_Pln plane0, C_Pln plane1);
 
   /// @brief Computes a change of basis transformation.
   /// A basis change is essentially a remapping of geometry from one coordinate
@@ -192,9 +192,9 @@ public:
   /// @param finalBasisZ Can be any 3d basis.
   /// @return A transformation matrix which orients geometry from one coordinate
   /// system to another on success. Transform::Unset() on failure.
-  static Transform ChangeBasis(__CVec initialBasisX, __CVec initialBasisY,
-                               __CVec initialBasisZ, __CVec finalBasisX,
-                               __CVec finalBasisY, __CVec finalBasisZ);
+  static Transform ChangeBasis(C_Vec initialBasisX, C_Vec initialBasisY,
+                               C_Vec initialBasisZ, C_Vec finalBasisX,
+                               C_Vec finalBasisY, C_Vec finalBasisZ);
 
   /// @brief Constructs a new transformation with diagonal (d0, d1, d2, 1.0).
   /// @param d0 Transform::M00 value.
@@ -206,49 +206,48 @@ public:
   /// @brief Constructs a new transformation with diagonal (d0, d1, d2, 1.0).
   /// @param diagonal The diagonal values.
   /// @return A transformation with diagonal (d0, d1, d2, 1.0).
-  static Transform Diagonal(__CVec diagonal);
+  static Transform Diagonal(C_Vec diagonal);
 
   /// @brief Constructs a new Mirror transformation.
   /// @param mirrorPlane Plane that defines the mirror orientation and position.
   /// @return A transformation matrix which mirrors geometry in a specified
   /// plane.
-  static Transform Mirror(__CPln mirrorPlane);
+  static Transform Mirror(C_Pln mirrorPlane);
 
   /// @brief
   /// @param pointOnMirrorPlane
   /// @param normalToMirrorPlane
   /// @return
-  static Transform Mirror(__CPnt pointOnMirrorPlane,
-                          __CVec normalToMirrorPlane);
+  static Transform Mirror(C_Pnt pointOnMirrorPlane, C_Vec normalToMirrorPlane);
 
   /// @brief
   /// @param a
   /// @param b
   /// @return
-  static Transform Multiply(__CTrsf a, __CTrsf b);
+  static Transform Multiply(C_Trsf a, C_Trsf b);
 
   /// @brief
   /// @param plane
   /// @return
-  static Transform PlanarProjection(__CPln plane);
+  static Transform PlanarProjection(C_Pln plane);
 
   /// @brief
   /// @param plane0
   /// @param plane1
   /// @return
-  static Transform PlaneToPlane(__CPln plane0, __CPln plane1);
+  static Transform PlaneToPlane(C_Pln plane0, C_Pln plane1);
 
   /// @brief
   /// @param plane
   /// @param direction
   /// @return
-  static Transform ProjectAlong(__CPln plane, __CVec direction);
+  static Transform ProjectAlong(C_Pln plane, C_Vec direction);
 
   /// @brief
   /// @param angleRadians
   /// @param rotationCenter
   /// @return
-  static Transform Rotation(double angleRadians, __CPnt rotationCenter);
+  static Transform Rotation(double angleRadians, C_Pnt rotationCenter);
 
   /// @brief
   /// @param sinAngle
@@ -257,23 +256,23 @@ public:
   /// @param rotationCenter
   /// @return
   static Transform Rotation(double sinAngle, double cosAngle,
-                            __CVec rotationAxis, __CPnt rotationCenter);
+                            C_Vec rotationAxis, C_Pnt rotationCenter);
 
   /// @brief
   /// @param angleRadians
   /// @param rotationAxis
   /// @param rotationCenter
   /// @return
-  static Transform Rotation(double angleRadians, __CVec rotationAxis,
-                            __CPnt rotationCenter);
+  static Transform Rotation(double angleRadians, C_Vec rotationAxis,
+                            C_Pnt rotationCenter);
 
   /// @brief
   /// @param startDirection
   /// @param endDirection
   /// @param rotationCenter
   /// @return
-  static Transform Rotation(__CVec startDirection, __CVec endDirection,
-                            __CPnt rotationCenter);
+  static Transform Rotation(C_Vec startDirection, C_Vec endDirection,
+                            C_Pnt rotationCenter);
 
   /// @brief
   /// @param x0
@@ -283,8 +282,8 @@ public:
   /// @param y1
   /// @param z1
   /// @return
-  static Transform Rotation(__CVec x0, __CVec y0, __CVec z0, __CVec x1,
-                            __CVec y1, __CVec z1);
+  static Transform Rotation(C_Vec x0, C_Vec y0, C_Vec z0, C_Vec x1, C_Vec y1,
+                            C_Vec z1);
 
   /// @brief
   /// @param yaw
@@ -306,14 +305,14 @@ public:
   /// @param yScaleFactor
   /// @param zScaleFactor
   /// @return
-  static Transform Scale(__CPln plane, double xScaleFactor, double yScaleFactor,
+  static Transform Scale(C_Pln plane, double xScaleFactor, double yScaleFactor,
                          double zScaleFactor);
 
   /// @brief
   /// @param anchor
   /// @param scaleFactor
   /// @return
-  static Transform Scale(__CPnt anchor, double scaleFactor);
+  static Transform Scale(C_Pnt anchor, double scaleFactor);
 
   /// @brief
   /// @param plane
@@ -321,7 +320,7 @@ public:
   /// @param y
   /// @param z
   /// @return
-  static Transform Shear(__CPln plane, __CVec x, __CVec y, __CVec z);
+  static Transform Shear(C_Pln plane, C_Vec x, C_Vec y, C_Vec z);
 
   /// @brief
   /// @param x
@@ -333,7 +332,7 @@ public:
   /// @brief
   /// @param motion
   /// @return
-  static Transform Translation(__CVec motion);
+  static Transform Translation(C_Vec motion);
 
   /// @brief
   void Affineize();
@@ -345,7 +344,7 @@ public:
   /// @brief
   /// @param other
   /// @return
-  int32_t CompareTo(__CTrsf other) const;
+  int32_t CompareTo(C_Trsf other) const;
 
   /// @brief
   /// @param linear
@@ -394,7 +393,7 @@ public:
   /// @brief
   /// @param other
   /// @return
-  bool Equals(__CTrsf other) const;
+  bool Equals(C_Trsf other) const;
 
   /// @brief
   /// @param alpha
@@ -454,7 +453,7 @@ public:
   /// @brief
   /// @param bbox
   /// @return
-  BoundingBox TransformBoundingBox(__CBB bbox) const;
+  BoundingBox TransformBoundingBox(C_BB bbox) const;
 
   /// @brief
   template <typename T> std::vector<Point3d> TransformList(T first, T last);
@@ -472,32 +471,32 @@ public:
   /// @brief
   /// @param other
   /// @return
-  bool operator!=(__CTrsf other) const;
+  bool operator!=(C_Trsf other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator==(__CTrsf other) const;
+  bool operator==(C_Trsf other) const;
 
   /// @brief
   /// @param transform
   /// @return
-  const Transform operator*(__CTrsf transform) const;
+  const Transform operator*(C_Trsf transform) const;
 
   /// @brief
   /// @param point
   /// @return
-  const Point3d operator*(__CPnt point) const;
+  const Point3d operator*(C_Pnt point) const;
 
   /// @brief
   /// @param vector
   /// @return
-  const Vector3d operator*(__CVec vector) const;
+  const Vector3d operator*(C_Vec vector) const;
 
   /// @brief
   /// @param transform
   /// @return
-  void operator*=(__CTrsf transform);
+  void operator*=(C_Trsf transform);
 };
 
 } // namespace Geometry

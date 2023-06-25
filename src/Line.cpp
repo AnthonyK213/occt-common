@@ -10,18 +10,18 @@ namespace Geometry {
 Line::Line(double x0, double y0, double z0, double x1, double y1, double z1)
     : m_from(x0, y0, z0), m_to(x1, y1, z1) {}
 
-Line::Line(__CPnt from, __CPnt to) : m_from(from), m_to(to) {}
+Line::Line(C_Pnt from, C_Pnt to) : m_from(from), m_to(to) {}
 
-Line::Line(__CPnt start, __CVec direction, double length) {
+Line::Line(C_Pnt start, C_Vec direction, double length) {
   gp_Dir dir = direction.Data();
   m_from = start;
   m_to = Point3d(start.Data().XYZ() + dir.XYZ() * length);
 }
 
-Line::Line(__CPnt start, __CVec span)
+Line::Line(C_Pnt start, C_Vec span)
     : m_from(start), m_to(start.Data().XYZ() + span.Data().XYZ()) {}
 
-__CLin Line::Unset() {
+C_Lin Line::Unset() {
   static Line Line_Unset{Point3d::Unset(), Point3d::Unset()};
   return Line_Unset;
 }
@@ -31,7 +31,7 @@ BoundingBox Line::GetBoundingBox() const { return BoundingBox(); }
 
 Vector3d Line::Direction() const { return m_to - m_from; }
 
-__CPnt Line::From() const { return m_from; }
+C_Pnt Line::From() const { return m_from; }
 
 double Line::FromX() const { return m_from.X(); }
 
@@ -47,7 +47,7 @@ bool Line::IsValid() const {
 
 double Line::Length() const { return m_from.DistanceTo(m_to); }
 
-__CPnt Line::To() const { return m_to; }
+C_Pnt Line::To() const { return m_to; }
 
 double Line::ToX() const { return m_to.X(); }
 
@@ -61,7 +61,7 @@ Vector3d Line::UnitTangent() const {
   return tangent;
 }
 
-double Line::ClosestParameter(__CPnt testPoint) const {
+double Line::ClosestParameter(C_Pnt testPoint) const {
   Handle(Geom_Line) line = new Geom_Line(m_from.Data(), Direction().Data());
   GeomAdaptor_Curve adaptor = GeomAdaptor_Curve(line);
   Extrema_ExtPC extrema = Extrema_ExtPC(testPoint.Data(), adaptor);
@@ -75,7 +75,7 @@ double Line::ClosestParameter(__CPnt testPoint) const {
   return (point - m_from) * Direction() / m_from.DistanceToSquared(m_to);
 }
 
-Point3d Line::ClosestParameter(__CPnt testPoint,
+Point3d Line::ClosestParameter(C_Pnt testPoint,
                                bool limitToFiniteSegment) const {
   double t = ClosestParameter(testPoint);
   if (limitToFiniteSegment) {
@@ -93,11 +93,11 @@ Point3d Line::PointAtLength(double distance) const {
   return m_from + UnitTangent() * distance;
 }
 
-bool Line::operator!=(__CLin other) const {
+bool Line::operator!=(C_Lin other) const {
   return m_from != other.m_from || m_to != other.m_to;
 }
 
-bool Line::operator==(__CLin other) const {
+bool Line::operator==(C_Lin other) const {
   return m_from == other.m_from && m_to == other.m_to;
 }
 

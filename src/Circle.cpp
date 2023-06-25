@@ -7,37 +7,37 @@ namespace OcctCommon {
 namespace Geometry {
 
 // TODO
-Circle::Circle(__CArc arc) {}
+Circle::Circle(C_Arc arc) {}
 
 Circle::Circle(double radius) {
   m_data = gp_Circ(gp_Ax2(gp::Origin(), gp::DZ(), gp::DX()), radius);
 }
 
-Circle::Circle(__CPln plane, double radius) {
+Circle::Circle(C_Pln plane, double radius) {
   gp_Ax2 ax2{plane.Data().Location(), plane.Data().Axis().Direction(),
              plane.Data().XAxis().Direction()};
   m_data = gp_Circ(ax2, radius);
 }
 
-Circle::Circle(__CPln plane, __CPnt center, double radius) {
+Circle::Circle(C_Pln plane, C_Pnt center, double radius) {
   gp_Ax2 ax2{center.Data(), plane.Data().Axis().Direction(),
              plane.Data().XAxis().Direction()};
   m_data = gp_Circ(ax2, radius);
 }
 
-Circle::Circle(__CPnt center, double radius) {
+Circle::Circle(C_Pnt center, double radius) {
   gp_Ax2 ax2{center.Data(), gp::DZ(), gp::DX()};
   m_data = gp_Circ(ax2, radius);
 }
 
-Circle::Circle(__CPnt point1, __CPnt point2, __CPnt point3) {
+Circle::Circle(C_Pnt point1, C_Pnt point2, C_Pnt point3) {
   m_data = GC_MakeCircle(point1.Data(), point2.Data(), point3.Data())
                .Value()
                ->Circ();
 }
 
 // TODO
-Circle::Circle(__CPnt startPoint, __CVec tangentAtP, __CPnt pointOnCircle) {}
+Circle::Circle(C_Pnt startPoint, C_Vec tangentAtP, C_Pnt pointOnCircle) {}
 
 } // namespace Geometry
 } // namespace OcctCommon

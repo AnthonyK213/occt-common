@@ -21,11 +21,11 @@ public:
   /// Initializes a new instance of a vector, copying the three components from
   /// the three coordinates of a point.
   /// @param point The point to copy from.
-  explicit Vector3d(__CPnt point);
+  explicit Vector3d(C_Pnt point);
 
   /// @brief Copy constructor.
   /// @param vector
-  Vector3d(__CVec vector);
+  Vector3d(C_Vec vector);
 
   /// @brief Move constructor.
   /// @param vector
@@ -34,7 +34,7 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  Vector3d &operator=(__CVec vector) = default;
+  Vector3d &operator=(C_Vec vector) = default;
 
   /// @brief
   /// @param vector
@@ -64,7 +64,7 @@ public:
 
   /// @brief
   /// @return
-  static __CVec Unset();
+  static C_Vec Unset();
 
   /// @brief
   /// @return
@@ -81,146 +81,146 @@ public:
 public:
   /// @brief
   /// @return
-  static __CVec XAxis();
+  static C_Vec XAxis();
 
   /// @brief
   /// @return
-  static __CVec YAxis();
+  static C_Vec YAxis();
 
   /// @brief
   /// @return
-  static __CVec ZAxis();
+  static C_Vec ZAxis();
 
   /// @brief
   /// @return
-  static __CVec Zero();
+  static C_Vec Zero();
 
   /// @brief
   /// @param vector1
   /// @param vector2
   /// @return
-  static Vector3d Add(__CVec vector1, __CVec vector2);
+  static Vector3d Add(C_Vec vector1, C_Vec vector2);
 
   /// @brief
   /// @param x
   /// @param y
   /// @param z
   /// @return
-  static bool AreOrthogonal(__CVec x, __CVec y, __CVec z);
+  static bool AreOrthogonal(C_Vec x, C_Vec y, C_Vec z);
 
   /// @brief
   /// @param x
   /// @param y
   /// @param z
   /// @return
-  static bool AreOrithonormal(__CVec x, __CVec y, __CVec z);
+  static bool AreOrithonormal(C_Vec x, C_Vec y, C_Vec z);
 
   /// @brief
   /// @param x
   /// @param y
   /// @param z
   /// @return
-  static bool AreRighthanded(__CVec x, __CVec y, __CVec z);
+  static bool AreRighthanded(C_Vec x, C_Vec y, C_Vec z);
 
   /// @brief
   /// @param a
   /// @param b
   /// @return
-  static Vector3d CrossProduct(__CVec a, __CVec b);
+  static Vector3d CrossProduct(C_Vec a, C_Vec b);
 
   /// @brief
   /// @param vector
   /// @param t
   /// @return
-  static Vector3d Divide(__CVec vector, double t);
+  static Vector3d Divide(C_Vec vector, double t);
 
   /// @brief
   /// @param vector
   /// @param t
   /// @return
-  static Vector3d Mulitply(__CVec vector, double t);
+  static Vector3d Mulitply(C_Vec vector, double t);
 
   /// @brief
   /// @param t
   /// @param vector
   /// @return
-  static Vector3d Mulitply(double t, __CVec vector);
+  static Vector3d Mulitply(double t, C_Vec vector);
 
   /// @brief
   /// @param vector1
   /// @param vector2
   /// @return
-  static double Mulitply(__CVec vector1, __CVec vector2);
+  static double Mulitply(C_Vec vector1, C_Vec vector2);
 
   /// @brief
   /// @param vector
   /// @return
-  static Vector3d Negate(__CVec vector);
+  static Vector3d Negate(C_Vec vector);
 
   /// @brief
   /// @param vector1
   /// @param vector2
   /// @return
-  static Vector3d Subtract(__CVec vector1, __CVec vector2);
+  static Vector3d Subtract(C_Vec vector1, C_Vec vector2);
 
   /// @brief
   /// @param a
   /// @param b
   /// @param plane
   /// @return
-  static double VectorAngle(__CVec a, __CVec b, __CPln plane);
+  static double VectorAngle(C_Vec a, C_Vec b, C_Pln plane);
 
   /// @brief
   /// @param a
   /// @param b
   /// @param vNormal
   /// @return
-  static double VectorAngle(__CVec a, __CVec b, __CVec vNormal);
+  static double VectorAngle(C_Vec a, C_Vec b, C_Vec vNormal);
 
   /// @brief
   /// @param a
   /// @param b
   /// @return
-  static double VectorAngle(__CVec a, __CVec b);
+  static double VectorAngle(C_Vec a, C_Vec b);
 
 public:
   /// @brief
   /// @param other
   /// @return
-  int CompareTo(__CVec other) const;
+  int CompareTo(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @param epsilon
   /// @return
-  bool EpsilonEquals(__CVec other, double epsilon) const;
+  bool EpsilonEquals(C_Vec other, double epsilon) const;
 
   /// @brief
   /// @param vector
   /// @return
-  bool Equals(__CVec vector) const;
+  bool Equals(C_Vec vector) const;
 
   /// @brief
   /// @param other
   /// @param angleTolerance
   /// @return
-  int IsParallelTo(__CVec other, double angleTolerance) const;
+  int IsParallelTo(C_Vec other, double angleTolerance) const;
 
   /// @brief
   /// @param other
   /// @return
-  int IsParallelTo(__CVec other) const;
+  int IsParallelTo(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @param angleTolerance
   /// @return
-  bool IsPerpendicularTo(__CVec other, double angleTolerance) const;
+  bool IsPerpendicularTo(C_Vec other, double angleTolerance) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool IsPerpendicularTo(__CVec other) const;
+  bool IsPerpendicularTo(C_Vec other) const;
 
   /// @brief
   /// @param tolerance
@@ -234,7 +234,7 @@ public:
   /// @brief
   /// @param other
   /// @return
-  bool PerpendicularTo(__CVec other);
+  bool PerpendicularTo(C_Vec other);
 
   /// @brief
   /// @return
@@ -244,7 +244,7 @@ public:
   /// @param angleRadians
   /// @param rotationAxis
   /// @return
-  bool Rotate(double angleRadians, __CVec rotationAxis);
+  bool Rotate(double angleRadians, C_Vec rotationAxis);
 
   /// @brief
   /// @return
@@ -253,7 +253,7 @@ public:
   /// @brief
   /// @param transformation
   /// @return
-  void Transform(__CTrsf transformation);
+  void Transform(C_Trsf transformation);
 
   /// @brief
   /// @return
@@ -263,37 +263,37 @@ public:
   /// @brief
   /// @param other
   /// @return
-  bool operator!=(__CVec other) const;
+  bool operator!=(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator<(__CVec other) const;
+  bool operator<(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator<=(__CVec other) const;
+  bool operator<=(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator==(__CVec other) const;
+  bool operator==(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator>(__CVec other) const;
+  bool operator>(C_Vec other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator>=(__CVec other) const;
+  bool operator>=(C_Vec other) const;
 
   /// @brief
   /// @param vector
   /// @return
-  const double operator*(__CVec vector) const;
+  const double operator*(C_Vec vector) const;
 
   /// @brief
   /// @param t
@@ -307,7 +307,7 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  const Vector3d operator-(__CVec vector) const;
+  const Vector3d operator-(C_Vec vector) const;
 
   /// @brief
   /// @param t
@@ -317,16 +317,16 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  const Vector3d operator+(__CVec vector) const;
+  const Vector3d operator+(C_Vec vector) const;
 
   /// @brief
   /// @param vector
   /// @return
-  Vector3d &operator+=(__CVec vector);
+  Vector3d &operator+=(C_Vec vector);
 
   /// @brief
   /// @param vector
-  Vector3d &operator*=(__CVec vector);
+  Vector3d &operator*=(C_Vec vector);
 
   /// @brief
   /// @param t
@@ -335,7 +335,7 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  Vector3d &operator-=(__CVec vector);
+  Vector3d &operator-=(C_Vec vector);
 
   /// @brief
   /// @param t
@@ -352,7 +352,7 @@ public:
 /// @param t
 /// @param vector
 /// @return
-const Vector3d operator*(double t, __CVec vector);
+const Vector3d operator*(double t, C_Vec vector);
 
 } // namespace Geometry
 } // namespace OcctCommon

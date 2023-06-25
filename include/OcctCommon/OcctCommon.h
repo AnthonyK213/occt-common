@@ -2,10 +2,11 @@
 #include <OcctCommon/Geometry/ArcCurve.h>
 #include <OcctCommon/Geometry/BoundingBox.h>
 #include <OcctCommon/Geometry/Box.h>
+#include <OcctCommon/Geometry/Brep.h>
 #include <OcctCommon/Geometry/Circle.h>
 #include <OcctCommon/Geometry/Collections/BrepCurveList.h>
-#include <OcctCommon/Geometry/ComponentIndex.h>
 #include <OcctCommon/Geometry/Curve.h>
+#include <OcctCommon/Geometry/Ellipse.h>
 #include <OcctCommon/Geometry/GeometryBase.h>
 #include <OcctCommon/Geometry/Intersect/Intersection.h>
 #include <OcctCommon/Geometry/Interval.h>
@@ -18,6 +19,7 @@
 #include <OcctCommon/Geometry/PolyCurve.h>
 #include <OcctCommon/Geometry/Polyline.h>
 #include <OcctCommon/Geometry/PolylineCurve.h>
+#include <OcctCommon/Geometry/Quaternion.h>
 #include <OcctCommon/Geometry/Surface.h>
 #include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/Geometry/Vector3d.h>

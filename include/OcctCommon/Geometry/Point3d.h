@@ -18,11 +18,11 @@ public:
 
   /// @brief
   /// @param vector
-  explicit Point3d(__CVec vector);
+  explicit Point3d(C_Vec vector);
 
   /// @brief
   /// @param point
-  Point3d(__CPnt point);
+  Point3d(C_Pnt point);
 
   /// @brief
   /// @param point
@@ -31,7 +31,7 @@ public:
   /// @brief
   /// @param point
   /// @return
-  Point3d &operator=(__CPnt point) = default;
+  Point3d &operator=(C_Pnt point) = default;
 
   /// @brief
   /// @param point
@@ -41,59 +41,59 @@ public:
 public:
   /// @brief
   /// @return
-  static __CPnt Origin();
+  static C_Pnt Origin();
 
   /// @brief
   /// @return
-  static __CPnt Unset();
-
-  /// @brief
-  /// @param point1
-  /// @param point2
-  /// @return
-  static Point3d Add(__CPnt point1, __CPnt point2);
-
-  /// @brief
-  /// @param point
-  /// @param vector
-  /// @return
-  static Point3d Add(__CPnt point, __CVec vector);
-
-  /// @brief
-  /// @param vector
-  /// @param point
-  /// @return
-  static Point3d Add(__CVec vector, __CPnt point);
-
-  /// @brief
-  /// @param point
-  /// @param t
-  /// @return
-  static Point3d Divide(__CPnt point, double t);
-
-  /// @brief
-  /// @param point
-  /// @param t
-  /// @return
-  static Point3d Multiply(__CPnt point, double t);
-
-  /// @brief
-  /// @param t
-  /// @param point
-  /// @return
-  static Point3d Multiply(double t, __CPnt point);
+  static C_Pnt Unset();
 
   /// @brief
   /// @param point1
   /// @param point2
   /// @return
-  static Vector3d Subtract(__CPnt point1, __CPnt point2);
+  static Point3d Add(C_Pnt point1, C_Pnt point2);
 
   /// @brief
   /// @param point
   /// @param vector
   /// @return
-  static Point3d Subtract(__CPnt point, __CVec vector);
+  static Point3d Add(C_Pnt point, C_Vec vector);
+
+  /// @brief
+  /// @param vector
+  /// @param point
+  /// @return
+  static Point3d Add(C_Vec vector, C_Pnt point);
+
+  /// @brief
+  /// @param point
+  /// @param t
+  /// @return
+  static Point3d Divide(C_Pnt point, double t);
+
+  /// @brief
+  /// @param point
+  /// @param t
+  /// @return
+  static Point3d Multiply(C_Pnt point, double t);
+
+  /// @brief
+  /// @param t
+  /// @param point
+  /// @return
+  static Point3d Multiply(double t, C_Pnt point);
+
+  /// @brief
+  /// @param point1
+  /// @param point2
+  /// @return
+  static Vector3d Subtract(C_Pnt point1, C_Pnt point2);
+
+  /// @brief
+  /// @param point
+  /// @param vector
+  /// @return
+  static Point3d Subtract(C_Pnt point, C_Vec vector);
 
   /// @brief
   /// @param input
@@ -106,7 +106,7 @@ public:
   /// @param point2
   /// @param t
   /// @return
-  static void Interpolate(__CPnt point1, __CPnt point2, double t);
+  static void Interpolate(C_Pnt point1, C_Pnt point2, double t);
 
 public:
   /// @brief
@@ -128,23 +128,23 @@ public:
   /// @brief
   /// @param point
   /// @return
-  double DistanceTo(__CPnt point) const;
+  double DistanceTo(C_Pnt point) const;
 
   /// @brief
   /// @param point
   /// @return
-  double DistanceToSquared(__CPnt point) const;
+  double DistanceToSquared(C_Pnt point) const;
 
   /// @brief
   /// @param other
   /// @param epsilon
   /// @return
-  bool EpsilonEquals(__CPnt other, double epsilon) const;
+  bool EpsilonEquals(C_Pnt other, double epsilon) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool Equals(__CPnt other) const;
+  bool Equals(C_Pnt other) const;
 
   /// @brief
   /// @return
@@ -153,43 +153,43 @@ public:
   /// @brief
   /// @param xform
   /// @return
-  void Transform(__CTrsf xform);
+  void Transform(C_Trsf xform);
 
 public:
   /// @brief
   /// @param other
   /// @return
-  bool operator!=(__CPnt other) const;
+  bool operator!=(C_Pnt other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator<(__CPnt other) const;
+  bool operator<(C_Pnt other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator<=(__CPnt other) const;
+  bool operator<=(C_Pnt other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator==(__CPnt other) const;
+  bool operator==(C_Pnt other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator>(__CPnt other) const;
+  bool operator>(C_Pnt other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator>=(__CPnt other) const;
+  bool operator>=(C_Pnt other) const;
 
   /// @brief
   /// @param vector
   /// @return
-  const Point3d operator-(__CVec vector) const;
+  const Point3d operator-(C_Vec vector) const;
 
   /// @brief
   /// @return
@@ -208,17 +208,17 @@ public:
   /// @brief
   /// @param vector
   /// @return
-  const Point3d operator+(__CVec vector) const;
+  const Point3d operator+(C_Vec vector) const;
 
   /// @brief
   /// @param other
   /// @return
-  const Point3d operator+(__CPnt other) const;
+  const Point3d operator+(C_Pnt other) const;
 
   /// @brief
   /// @param other
   /// @return
-  const Vector3d operator-(__CPnt other) const;
+  const Vector3d operator-(C_Pnt other) const;
 
   /// @brief
   /// @param t
@@ -230,24 +230,24 @@ public:
 
   /// @brief
   /// @param vector
-  Point3d &operator+=(__CVec vector);
+  Point3d &operator+=(C_Vec vector);
 
   /// @brief
   /// @param other
-  Point3d &operator+=(__CPnt other);
+  Point3d &operator+=(C_Pnt other);
 };
 
 /// @brief
 /// @param vector
 /// @param point
 /// @return
-const Point3d operator+(__CVec vector, __CPnt point);
+const Point3d operator+(C_Vec vector, C_Pnt point);
 
 /// @brief
 /// @param t
 /// @param point
 /// @return
-const Point3d operator*(double t, __CPnt point);
+const Point3d operator*(double t, C_Pnt point);
 
 } // namespace Geometry
 } // namespace OcctCommon

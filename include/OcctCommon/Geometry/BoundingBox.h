@@ -1,7 +1,6 @@
 #ifndef OCCTCOMMON_GEOMETRY_BOUNDINGBOX_H
 #define OCCTCOMMON_GEOMETRY_BOUNDINGBOX_H
 
-#include <OcctCommon/_decl.h>
 #include <OcctCommon/Geometry/Point3d.h>
 
 namespace OcctCommon {

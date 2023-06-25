@@ -21,22 +21,22 @@ public:
   /// @brief
   /// @param from
   /// @param to
-  Line(__CPnt from, __CPnt to);
+  Line(C_Pnt from, C_Pnt to);
 
   /// @brief
   /// @param start
   /// @param direction
   /// @param length
-  Line(__CPnt start, __CVec direction, double length);
+  Line(C_Pnt start, C_Vec direction, double length);
 
   /// @brief
   /// @param start
   /// @param span
-  Line(__CPnt start, __CVec span);
+  Line(C_Pnt start, C_Vec span);
 
   /// @brief
   /// @param line
-  Line(__CLin line);
+  Line(C_Lin line);
 
   /// @brief
   /// @param line
@@ -45,7 +45,7 @@ public:
   /// @brief
   /// @param line
   /// @return
-  Line &operator=(__CLin line) = default;
+  Line &operator=(C_Lin line) = default;
 
   /// @brief
   /// @param line
@@ -55,7 +55,7 @@ public:
 public:
   /// @brief
   /// @return
-  static __CLin Unset();
+  static C_Lin Unset();
 
   /// @brief
   /// @return
@@ -67,7 +67,7 @@ public:
 
   /// @brief
   /// @return
-  __CPnt From() const;
+  C_Pnt From() const;
 
   /// @brief
   /// @return
@@ -91,7 +91,7 @@ public:
 
   /// @brief
   /// @return
-  __CPnt To() const;
+  C_Pnt To() const;
 
   /// @brief
   /// @return
@@ -119,7 +119,7 @@ public:
   /// @param perpendicular1
   /// @param line
   /// @return
-  static bool TryCreateBetweenCurves(__CCrv curve0, __CCrv curve1, double &t0,
+  static bool TryCreateBetweenCurves(C_Crv curve0, C_Crv curve1, double &t0,
                                      double &t1, bool perpendicular0,
                                      bool perpendicular1, Line &line);
 
@@ -135,30 +135,30 @@ public:
   /// @brief
   /// @param testPoint
   /// @return
-  double ClosestParameter(__CPnt testPoint) const;
+  double ClosestParameter(C_Pnt testPoint) const;
 
   /// @brief
   /// @param testPoint
   /// @param limitToFiniteSegment
   /// @return
-  Point3d ClosestParameter(__CPnt testPoint, bool limitToFiniteSegment) const;
+  Point3d ClosestParameter(C_Pnt testPoint, bool limitToFiniteSegment) const;
 
   /// @brief
   /// @param testPoint
   /// @param limitToFiniteSegment
   /// @return
-  double DistanceTo(__CPnt testPoint, bool limitToFiniteSegment) const;
+  double DistanceTo(C_Pnt testPoint, bool limitToFiniteSegment) const;
 
   /// @brief
   /// @param other
   /// @param epsilon
   /// @return
-  bool EpsilonEquals(__CLin other, double epsilon) const;
+  bool EpsilonEquals(C_Lin other, double epsilon) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool Equals(__CLin other) const;
+  bool Equals(C_Lin other) const;
 
   /// @brief
   /// @param startLength
@@ -170,17 +170,17 @@ public:
   /// @param box
   /// @param additionalLength
   /// @return
-  bool ExtendThroughBox(__CBB box, double additionalLength);
+  bool ExtendThroughBox(C_BB box, double additionalLength);
 
   /// @brief
   /// @param box
   /// @return
-  bool ExtendThroughBox(__CBB box);
+  bool ExtendThroughBox(C_BB box);
 
   /// @brief
   /// @param box
   /// @return
-  bool ExtendThroughBox(__CBox box);
+  bool ExtendThroughBox(C_Box box);
 
   /// @brief
   void Flip();
@@ -188,22 +188,22 @@ public:
   /// @brief
   /// @param testLine
   /// @return
-  double MaximumDistanceTo(__CLin testLine) const;
+  double MaximumDistanceTo(C_Lin testLine) const;
 
   /// @brief
   /// @param testPoint
   /// @return
-  double MaximumDistanceTo(__CPnt testPoint) const;
+  double MaximumDistanceTo(C_Pnt testPoint) const;
 
   /// @brief
   /// @param testLine
   /// @return
-  double MinimumDistanceTo(__CLin testLine) const;
+  double MinimumDistanceTo(C_Lin testLine) const;
 
   /// @brief
   /// @param testPoint
   /// @return
-  double MinimumDistanceTo(__CPnt testPoint) const;
+  double MinimumDistanceTo(C_Pnt testPoint) const;
 
   /// @brief
   /// @param t
@@ -226,7 +226,7 @@ public:
   /// @brief
   /// @param xform
   /// @return
-  bool Transform(__CTrsf xform);
+  bool Transform(C_Trsf xform);
 
   /// @brief
   /// @param plane
@@ -237,12 +237,12 @@ public:
   /// @brief
   /// @param other
   /// @return
-  bool operator!=(__CLin other) const;
+  bool operator!=(C_Lin other) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool operator==(__CLin other) const;
+  bool operator==(C_Lin other) const;
 
 private:
   Point3d m_from;

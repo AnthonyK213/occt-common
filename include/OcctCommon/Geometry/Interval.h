@@ -15,7 +15,7 @@ public:
 
   /// @brief
   /// @param interval
-  Interval(__CIntv interval) = default;
+  Interval(C_Intv interval) = default;
 
   /// @brief
   /// @param interval
@@ -24,7 +24,7 @@ public:
   /// @brief
   /// @param interval
   /// @return
-  Interval &operator=(__CIntv interval) = default;
+  Interval &operator=(C_Intv interval) = default;
 
   /// @brief
   /// @param interval
@@ -34,7 +34,7 @@ public:
 public:
   /// @brief
   /// @return
-  static __CIntv Unset() noexcept;
+  static C_Intv Unset() noexcept;
 
   /// @brief
   /// @return
@@ -81,29 +81,29 @@ public:
   /// @param a
   /// @param b
   /// @return
-  static Interval FromIntersection(__CIntv a, __CIntv b);
+  static Interval FromIntersection(C_Intv a, C_Intv b);
 
   /// @brief
   /// @param a
   /// @param b
   /// @return
-  static Interval FromUnion(__CIntv a, __CIntv b);
+  static Interval FromUnion(C_Intv a, C_Intv b);
 
   /// @brief
   /// @param other
   /// @return
-  int CompareTo(__CIntv other) const;
+  int CompareTo(C_Intv other) const;
 
   /// @brief
   /// @param other
   /// @param epsilon
   /// @return
-  bool EpsilonEquals(__CIntv other, double epsilon) const;
+  bool EpsilonEquals(C_Intv other, double epsilon) const;
 
   /// @brief
   /// @param other
   /// @return
-  bool Equals(__CIntv other) const;
+  bool Equals(C_Intv other) const;
 
   /// @brief
   /// @param value
@@ -112,13 +112,13 @@ public:
   /// @brief
   /// @param interval
   /// @return
-  bool IncludesInterval(__CIntv interval) const;
+  bool IncludesInterval(C_Intv interval) const;
 
   /// @brief
   /// @param interval
   /// @param strict
   /// @return
-  bool IncludesInterval(__CIntv interval, bool strict) const;
+  bool IncludesInterval(C_Intv interval, bool strict) const;
 
   /// @brief
   /// @param t
@@ -137,7 +137,7 @@ public:
   /// @brief
   /// @param intervalParameter
   /// @return
-  Interval NormalizedIntervalAt(__CIntv intervalParameter) const;
+  Interval NormalizedIntervalAt(C_Intv intervalParameter) const;
 
   /// @brief
   /// @param intervalParameter
@@ -152,7 +152,7 @@ public:
   /// @brief
   /// @param normalizedInterval
   /// @return
-  Interval ParameterIntervalAt(__CIntv normalizedInterval) const;
+  Interval ParameterIntervalAt(C_Intv normalizedInterval) const;
 
   /// @brief Changes interval to [-T1, -T0].
   void Reverse();
@@ -161,17 +161,17 @@ public:
   void Swap();
 
 public:
-  bool operator!=(__CIntv other) const;
+  bool operator!=(C_Intv other) const;
 
-  bool operator<(__CIntv other) const;
+  bool operator<(C_Intv other) const;
 
-  bool operator<=(__CIntv other) const;
+  bool operator<=(C_Intv other) const;
 
-  bool operator==(__CIntv other) const;
+  bool operator==(C_Intv other) const;
 
-  bool operator>(__CIntv other) const;
+  bool operator>(C_Intv other) const;
 
-  bool operator>=(__CIntv other) const;
+  bool operator>=(C_Intv other) const;
 
   const Interval operator-(double number) const;
 
@@ -186,9 +186,9 @@ private:
   double m_t1;
 };
 
-const Interval operator-(double number, __CIntv interval);
+const Interval operator-(double number, C_Intv interval);
 
-const Interval operator+(double number, __CIntv interval);
+const Interval operator+(double number, C_Intv interval);
 
 } // namespace Geometry
 } // namespace OcctCommon

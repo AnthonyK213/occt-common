@@ -6,8 +6,8 @@ namespace Geometry {
 
 Interval::Interval(double t0, double t1) : m_t0(t0), m_t1(t1) {}
 
-__CIntv Interval::Unset() noexcept {
-  static Interval Interval_Unset{__Math::UnsetValue, __Math::UnsetValue};
+C_Intv Interval::Unset() noexcept {
+  static Interval Interval_Unset{_Math::UnsetValue, _Math::UnsetValue};
   return Interval_Unset;
 }
 
@@ -18,7 +18,7 @@ bool Interval::IsIncreasing() const { return m_t0 < m_t1; }
 bool Interval::IsSingleton() const { return IsValid() && m_t0 == m_t1; }
 
 bool Interval::IsValid() const {
-  return __Math::IsValidDouble(m_t0) && __Math::IsValidDouble(m_t1);
+  return _Math::IsValidDouble(m_t0) && _Math::IsValidDouble(m_t1);
 }
 
 double Interval::Length() const { return m_t1 - m_t0; }
@@ -33,7 +33,7 @@ double Interval::T0() const { return m_t0; }
 
 double Interval::T1() const { return m_t1; }
 
-Interval Interval::FromIntersection(__CIntv a, __CIntv b) {
+Interval Interval::FromIntersection(C_Intv a, C_Intv b) {
   if (a.IsValid() && b.IsValid()) {
     double min_ = std::max(a.Min(), b.Min());
     double max_ = std::min(a.Max(), b.Max());
@@ -44,7 +44,7 @@ Interval Interval::FromIntersection(__CIntv a, __CIntv b) {
   return Interval::Unset();
 }
 
-Interval Interval::FromUnion(__CIntv a, __CIntv b) {
+Interval Interval::FromUnion(C_Intv a, C_Intv b) {
   if (a.IsValid() && b.IsValid()) {
     double min_ = std::min(a.Min(), b.Min());
     double max_ = std::max(a.Max(), b.Max());
@@ -53,7 +53,7 @@ Interval Interval::FromUnion(__CIntv a, __CIntv b) {
   return Interval::Unset();
 }
 
-int Interval::CompareTo(__CIntv other) const {
+int Interval::CompareTo(C_Intv other) const {
   if (m_t0 < other.m_t0) {
     return -1;
   }
@@ -69,12 +69,12 @@ int Interval::CompareTo(__CIntv other) const {
   return 0;
 }
 
-bool Interval::EpsilonEquals(__CIntv other, double epsilon) const {
-  return __Math::EpsilonEquals(m_t0, other.m_t0, epsilon) &&
-         __Math::EpsilonEquals(m_t1, other.m_t1, epsilon);
+bool Interval::EpsilonEquals(C_Intv other, double epsilon) const {
+  return _Math::EpsilonEquals(m_t0, other.m_t0, epsilon) &&
+         _Math::EpsilonEquals(m_t1, other.m_t1, epsilon);
 }
 
-bool Interval::Equals(__CIntv other) const { return *this == other; }
+bool Interval::Equals(C_Intv other) const { return *this == other; }
 
 void Interval::Grow(double value) {
   if (IsDecreasing()) {
@@ -88,11 +88,11 @@ void Interval::Grow(double value) {
   }
 }
 
-bool Interval::IncludesInterval(__CIntv interval) const {
+bool Interval::IncludesInterval(C_Intv interval) const {
   return IncludesInterval(interval, false);
 }
 
-bool Interval::IncludesInterval(__CIntv interval, bool strict) const {
+bool Interval::IncludesInterval(C_Intv interval, bool strict) const {
   return IncludesParameter(interval.m_t0, strict) &&
          IncludesParameter(interval.m_t1, strict);
 }
@@ -102,7 +102,7 @@ bool Interval::IncludesParameter(double t) const {
 }
 
 bool Interval::IncludesParameter(double t, bool strict) const {
-  if (!__Math::IsValidDouble(t)) {
+  if (!_Math::IsValidDouble(t)) {
     return false;
   }
   if (strict) {
@@ -120,14 +120,14 @@ void Interval::MakeIncreasing() {
   }
 }
 
-Interval Interval::NormalizedIntervalAt(__CIntv intervalParameter) const {
+Interval Interval::NormalizedIntervalAt(C_Intv intervalParameter) const {
   double t = NormalizedParameterAt(intervalParameter.m_t0);
   double t2 = NormalizedParameterAt(intervalParameter.m_t1);
   return Interval(t, t2);
 }
 
 double Interval::NormalizedParameterAt(double intervalParameter) const {
-  if (__Math::IsValidDouble(intervalParameter)) {
+  if (_Math::IsValidDouble(intervalParameter)) {
     if (m_t0 != m_t1) {
       return (intervalParameter == m_t1)
                  ? 1.0
@@ -135,17 +135,17 @@ double Interval::NormalizedParameterAt(double intervalParameter) const {
     }
     return m_t0;
   }
-  return __Math::UnsetValue;
+  return _Math::UnsetValue;
 }
 
 double Interval::ParameterAt(double normalizedParameter) const {
-  if (!__Math::IsValidDouble(normalizedParameter)) {
-    return __Math::UnsetValue;
+  if (!_Math::IsValidDouble(normalizedParameter)) {
+    return _Math::UnsetValue;
   }
   return (1.0 - normalizedParameter) * m_t0 + normalizedParameter * m_t1;
 }
 
-Interval Interval::ParameterIntervalAt(__CIntv normalizedInterval) const {
+Interval Interval::ParameterIntervalAt(C_Intv normalizedInterval) const {
   double t = ParameterAt(normalizedInterval.m_t0);
   double t2 = ParameterAt(normalizedInterval.m_t1);
   return Interval(t, t2);
@@ -159,17 +159,17 @@ void Interval::Reverse() {
 
 void Interval::Swap() { std::swap(m_t0, m_t1); }
 
-bool Interval::operator!=(__CIntv other) const { return CompareTo(other) != 0; }
+bool Interval::operator!=(C_Intv other) const { return CompareTo(other) != 0; }
 
-bool Interval::operator<(__CIntv other) const { return CompareTo(other) < 0; }
+bool Interval::operator<(C_Intv other) const { return CompareTo(other) < 0; }
 
-bool Interval::operator<=(__CIntv other) const { return CompareTo(other) <= 0; }
+bool Interval::operator<=(C_Intv other) const { return CompareTo(other) <= 0; }
 
-bool Interval::operator==(__CIntv other) const { return CompareTo(other) == 0; }
+bool Interval::operator==(C_Intv other) const { return CompareTo(other) == 0; }
 
-bool Interval::operator>(__CIntv other) const { return CompareTo(other) > 0; }
+bool Interval::operator>(C_Intv other) const { return CompareTo(other) > 0; }
 
-bool Interval::operator>=(__CIntv other) const { return CompareTo(other) >= 0; }
+bool Interval::operator>=(C_Intv other) const { return CompareTo(other) >= 0; }
 
 const Interval Interval::operator-(double number) const {
   return Interval(m_t0 - number, m_t1 - number);
@@ -191,11 +191,11 @@ Interval &Interval::operator+=(double number) {
   return *this;
 }
 
-const Interval operator-(double number, __CIntv interval) {
+const Interval operator-(double number, C_Intv interval) {
   return Interval(number - interval.T0(), number - interval.T1());
 }
 
-const Interval operator+(double number, __CIntv interval) {
+const Interval operator+(double number, C_Intv interval) {
   return Interval(number + interval.T0(), number + interval.T1());
 }
 

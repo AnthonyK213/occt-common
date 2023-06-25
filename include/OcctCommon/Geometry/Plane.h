@@ -21,22 +21,22 @@ public:
   /// @param origin
   /// @param xPoint
   /// @param yPoint
-  Plane(__CPnt origin, __CPnt xPoint, __CPnt yPoint);
+  Plane(C_Pnt origin, C_Pnt xPoint, C_Pnt yPoint);
 
   /// @brief
   /// @param origin
   /// @param xDirection
   /// @param yDirection
-  Plane(__CPnt origin, __CVec xDirection, __CVec yDirection);
+  Plane(C_Pnt origin, C_Vec xDirection, C_Vec yDirection);
 
   /// @brief
   /// @param origin
   /// @param normal
-  Plane(__CPnt origin, __CVec normal);
+  Plane(C_Pnt origin, C_Vec normal);
 
   /// @brief
   /// @param plane
-  Plane(__CPln plane);
+  Plane(C_Pln plane);
 
   /// @brief
   /// @param plane
@@ -45,7 +45,7 @@ public:
   /// @brief
   /// @param plane
   /// @return
-  Plane &operator=(__CPln plane) = default;
+  Plane &operator=(C_Pln plane) = default;
 
   /// @brief
   /// @param plane
@@ -55,19 +55,19 @@ public:
 public:
   /// @brief
   /// @return
-  static __CPln Unset() noexcept;
+  static C_Pln Unset() noexcept;
 
   /// @brief
   /// @return
-  static __CPln WorldXY() noexcept;
+  static C_Pln WorldXY() noexcept;
 
   /// @brief
   /// @return
-  static __CPln WorldYZ() noexcept;
+  static C_Pln WorldYZ() noexcept;
 
   /// @brief
   /// @return
-  static __CPln WorldZX() noexcept;
+  static C_Pln WorldZX() noexcept;
 
   /// @brief
   /// @return
@@ -111,27 +111,27 @@ public:
   /// @param xDirection
   /// @param yDirection
   /// @return
-  static Plane CreateFromFrame(__CPnt origin, __CVec xDirection,
-                               __CVec yDirection);
+  static Plane CreateFromFrame(C_Pnt origin, C_Vec xDirection,
+                               C_Vec yDirection);
 
   /// @brief
   /// @param origin
   /// @param normal
   /// @return
-  static Plane CreateFromNormal(__CPnt origin, __CVec normal);
+  static Plane CreateFromNormal(C_Pnt origin, C_Vec normal);
 
   /// @brief
   /// @param origin
   /// @param yDirection
   /// @return
-  static Plane CreateFromNormalYup(__CPnt origin, __CVec yDirection);
+  static Plane CreateFromNormalYup(C_Pnt origin, C_Vec yDirection);
 
   /// @brief
   /// @param origin
   /// @param xPoint
   /// @param yPoint
   /// @return
-  static Plane CreateFromPoints(__CPnt origin, __CPnt xPoint, __CPnt yPoint);
+  static Plane CreateFromPoints(C_Pnt origin, C_Pnt xPoint, C_Pnt yPoint);
 
   /// @brief
   /// @return
@@ -142,42 +142,42 @@ public:
   /// @param s
   /// @param t
   /// @return
-  bool ClosestParameter(__CPnt testPoint, double &s, double &t) const;
+  bool ClosestParameter(C_Pnt testPoint, double &s, double &t) const;
 
   /// @brief
   /// @param testPoint
   /// @return
-  Point3d ClosestPoint(__CPnt testPoint) const;
+  Point3d ClosestPoint(C_Pnt testPoint) const;
 
   /// @brief
   /// @param bbox
   /// @param min
   /// @param max
   /// @return
-  bool DistanceTo(__CBB bbox, double &min, double &max) const;
+  bool DistanceTo(C_BB bbox, double &min, double &max) const;
 
   /// @brief
   /// @param testPoint
   /// @return
-  double DistanceTo(__CPnt testPoint) const;
+  double DistanceTo(C_Pnt testPoint) const;
 
   /// @brief
   /// @param other
   /// @param epsilon
   /// @return
-  bool EpsilonEquals(__CPln other, double epsilon) const;
+  bool EpsilonEquals(C_Pln other, double epsilon) const;
 
   /// @brief
   /// @param plane
   /// @return
-  bool Equals(__CPln plane) const;
+  bool Equals(C_Pln plane) const;
 
   /// @brief
   /// @param box
   /// @param s
   /// @param t
   /// @return
-  bool ExtendThroughBox(__CBox box, Interval &s, Interval &t);
+  bool ExtendThroughBox(C_Box box, Interval &s, Interval &t);
 
   /// @brief
   void Flip();
@@ -190,7 +190,7 @@ public:
   /// @param plane
   /// @param tolerance
   /// @return
-  bool IsCoplanar(__CPln plane, double tolerance) const;
+  bool IsCoplanar(C_Pln plane, double tolerance) const;
 
   /// @brief
   /// @param u
@@ -202,27 +202,27 @@ public:
   /// @param ptSample
   /// @param ptPlane
   /// @return
-  bool RemapToPlaneSpace(__CPnt ptSample, Point3d &ptPlane) const;
+  bool RemapToPlaneSpace(C_Pnt ptSample, Point3d &ptPlane) const;
 
   /// @brief
   /// @param angle
   /// @param axis
   /// @return
-  bool Rotate(double angle, __CVec axis);
+  bool Rotate(double angle, C_Vec axis);
 
   /// @brief
   /// @param angle
   /// @param axis
   /// @param centerOfRotation
   /// @return
-  bool Rotate(double angle, __CVec axis, __CPnt centerOfRotation);
+  bool Rotate(double angle, C_Vec axis, C_Pnt centerOfRotation);
 
   /// @brief
   /// @param sinAngle
   /// @param cosAngle
   /// @param axis
   /// @return
-  bool Rotate(double sinAngle, double cosAngle, __CVec axis);
+  bool Rotate(double sinAngle, double cosAngle, C_Vec axis);
 
   /// @brief
   /// @param sinAngle
@@ -230,8 +230,8 @@ public:
   /// @param axis
   /// @param centerOfRotation
   /// @return
-  bool Rotate(double sinAngle, double cosAngle, __CVec axis,
-              __CPnt centerOfRotation);
+  bool Rotate(double sinAngle, double cosAngle, C_Vec axis,
+              C_Pnt centerOfRotation);
 
   /// @brief
   /// @return
@@ -240,12 +240,12 @@ public:
   /// @brief
   /// @param xform
   /// @return
-  bool Transform(__CTrsf xform);
+  bool Transform(C_Trsf xform);
 
   /// @brief
   /// @param delta
   /// @return
-  bool Translate(__CVec delta);
+  bool Translate(C_Vec delta);
 
   /// @brief
   /// @return
@@ -254,7 +254,7 @@ public:
   /// @brief
   /// @param p
   /// @return
-  double ValueAt(__CPnt p) const;
+  double ValueAt(C_Pnt p) const;
 
 public:
   /// @brief

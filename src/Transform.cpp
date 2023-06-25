@@ -7,23 +7,23 @@
 namespace OcctCommon {
 namespace Geometry {
 
-Transform::Transform(__CTrsf transform) : _gpWrapper(transform.m_data) {}
+Transform::Transform(C_Trsf transform) : _gpWrapper(transform.m_data) {}
 
-__CTrsf Transform::Identity() noexcept {
+C_Trsf Transform::Identity() noexcept {
   static Transform Transform_Identity{gp_GTrsf()};
   return Transform_Identity;
 }
 
-__CTrsf Transform::Unset() noexcept {
+C_Trsf Transform::Unset() noexcept {
   static Transform Transform_Unset{gp_GTrsf(
-      gp_Mat(__Math::UnsetValue, __Math::UnsetValue, __Math::UnsetValue,
-             __Math::UnsetValue, __Math::UnsetValue, __Math::UnsetValue,
-             __Math::UnsetValue, __Math::UnsetValue, __Math::UnsetValue),
-      gp_XYZ(__Math::UnsetValue, __Math::UnsetValue, __Math::UnsetValue))};
+      gp_Mat(_Math::UnsetValue, _Math::UnsetValue, _Math::UnsetValue,
+             _Math::UnsetValue, _Math::UnsetValue, _Math::UnsetValue,
+             _Math::UnsetValue, _Math::UnsetValue, _Math::UnsetValue),
+      gp_XYZ(_Math::UnsetValue, _Math::UnsetValue, _Math::UnsetValue))};
   return Transform_Unset;
 }
 
-__CTrsf Transform::ZeroTransformation() noexcept {
+C_Trsf Transform::ZeroTransformation() noexcept {
   static Transform Transform_Zero{
       gp_GTrsf(gp_Mat(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
                gp_XYZ(0.0, 0.0, 0.0))};
@@ -52,7 +52,7 @@ bool Transform::IsRotation() const {
 bool Transform::IsValid() const {
   for (int i = 1; i <= 3; ++i) {
     for (int j = 1; j <= 4; ++j) {
-      if (!__Math::IsValidDouble(m_data.Value(i, j))) {
+      if (!_Math::IsValidDouble(m_data.Value(i, j))) {
         return false;
       }
     }
@@ -106,16 +106,16 @@ int32_t Transform::RigidType() const { return 0; }
 // TODO
 int32_t Transform::SimilarityType() const { return 0; }
 
-Transform Transform::ChangeBasis(__CPln plane0, __CPln plane1) {
+Transform Transform::ChangeBasis(C_Pln plane0, C_Pln plane1) {
   gp_Trsf result{};
   result.SetTransformation(plane0.Data().Position(), plane1.Data().Position());
   return Transform{result};
 }
 
 // TODO
-Transform Transform::ChangeBasis(__CVec initialBasisX, __CVec initialBasisY,
-                                 __CVec initialBasisZ, __CVec finalBasisX,
-                                 __CVec finalBasisY, __CVec finalBasisZ) {
+Transform Transform::ChangeBasis(C_Vec initialBasisX, C_Vec initialBasisY,
+                                 C_Vec initialBasisZ, C_Vec finalBasisX,
+                                 C_Vec finalBasisY, C_Vec finalBasisZ) {
   return Transform::Identity();
 }
 
@@ -125,48 +125,48 @@ Transform Transform::Diagonal(double d0, double d1, double d2) {
   return result;
 }
 
-Transform Transform::Diagonal(__CVec diagonal) {
+Transform Transform::Diagonal(C_Vec diagonal) {
   return Transform::Diagonal(diagonal.X(), diagonal.Y(), diagonal.Z());
 }
 
-Transform Transform::Mirror(__CPln mirrorPlane) {
+Transform Transform::Mirror(C_Pln mirrorPlane) {
   gp_Trsf mirror{};
   mirror.SetMirror(gp_Ax2(mirrorPlane.Data().Location(),
                           mirrorPlane.Data().Axis().Direction()));
   return Transform{mirror};
 }
 
-Transform Transform::Mirror(__CPnt pointOnMirrorPlane,
-                            __CVec normalToMirrorPlane) {
+Transform Transform::Mirror(C_Pnt pointOnMirrorPlane,
+                            C_Vec normalToMirrorPlane) {
   gp_Trsf mirror{};
   mirror.SetMirror(
       gp_Ax2(pointOnMirrorPlane.Data(), normalToMirrorPlane.Data()));
   return Transform{mirror};
 }
 
-Transform Transform::Multiply(__CTrsf a, __CTrsf b) {
+Transform Transform::Multiply(C_Trsf a, C_Trsf b) {
   return Transform(a.Data() * b.Data());
 }
 
-Transform Transform::PlaneToPlane(__CPln plane0, __CPln plane1) {
+Transform Transform::PlaneToPlane(C_Pln plane0, C_Pln plane1) {
   gp_Trsf result{};
   result.SetDisplacement(plane0.Data().Position(), plane1.Data().Position());
   return Transform{result};
 }
 
-Transform Transform::Rotation(double angleRadians, __CPnt rotationCenter) {
+Transform Transform::Rotation(double angleRadians, C_Pnt rotationCenter) {
   return Transform::Rotation(angleRadians, Vector3d::ZAxis(), rotationCenter);
 }
 
-Transform Transform::Rotation(double angleRadians, __CVec rotationAxis,
-                              __CPnt rotationCenter) {
+Transform Transform::Rotation(double angleRadians, C_Vec rotationAxis,
+                              C_Pnt rotationCenter) {
   gp_Trsf rotation{};
   rotation.SetRotation(gp_Ax1(rotationCenter.Data(), rotationAxis.Data()),
                        angleRadians);
   return Transform{rotation};
 }
 
-Transform Transform::Scale(__CPnt anchor, double scaleFactor) {
+Transform Transform::Scale(C_Pnt anchor, double scaleFactor) {
   gp_Trsf scale{};
   scale.SetScale(anchor.Data(), scaleFactor);
   return Transform{scale};
@@ -178,13 +178,13 @@ Transform Transform::Translation(double x, double y, double z) {
   return Transform{translation};
 }
 
-Transform Transform::Translation(__CVec motion) {
+Transform Transform::Translation(C_Vec motion) {
   gp_Trsf translation{};
   translation.SetTranslation(motion.Data());
   return Transform{translation};
 }
 
-bool Transform::operator==(__CTrsf other) const {
+bool Transform::operator==(C_Trsf other) const {
   for (int i = 1; i <= 3; ++i) {
     for (int j = 1; j <= 4; ++j) {
       if (m_data.Value(i, j) != other.m_data.Value(i, j)) {

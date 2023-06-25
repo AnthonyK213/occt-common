@@ -27,20 +27,16 @@ public:
 public:
   /// @brief
   /// @return
-  virtual ComponentIndex GetComponentIndex() const = 0;
+  virtual GeometryBase *Duplicate() const = 0;
 
   /// @brief
   /// @return
-  virtual GeometryBase Duplicate() const = 0;
-
-  /// @brief
-  /// @return
-  virtual GeometryBase DuplicateShallow() const = 0;
+  virtual GeometryBase *DuplicateShallow() const = 0;
 
   /// @brief
   /// @param plane
   /// @return
-  virtual BoundingBox GetBoundingBox(__CPln plane) const = 0;
+  virtual BoundingBox GetBoundingBox(C_Pln plane) const = 0;
 
   /// @brief
   /// @param accurate
@@ -50,15 +46,15 @@ public:
   /// @brief
   /// @param xform
   /// @return
-  virtual BoundingBox GetBoundingBox(__CTrsf xform) const = 0;
+  virtual BoundingBox GetBoundingBox(C_Trsf xform) const = 0;
 
   /// @brief
   /// @param angleRadians
   /// @param rotationAxis
   /// @param rotationCenter
   /// @return
-  virtual bool Rotate(double angleRadians, __CVec rotationAxis,
-                      __CPnt rotationCenter) = 0;
+  virtual bool Rotate(double angleRadians, C_Vec rotationAxis,
+                      C_Pnt rotationCenter) = 0;
 
   /// @brief
   /// @param scaleFactor
@@ -68,7 +64,7 @@ public:
   /// @brief
   /// @param xform
   /// @return
-  virtual bool Transform(__CTrsf xform) = 0;
+  virtual bool Transform(C_Trsf xform) = 0;
 
   /// @brief
   /// @param x
@@ -80,7 +76,7 @@ public:
   /// @brief
   /// @param translationVector
   /// @return
-  virtual bool Translate(__CVec translationVector) = 0;
+  virtual bool Translate(C_Vec translationVector) = 0;
 };
 
 } // namespace Geometry
