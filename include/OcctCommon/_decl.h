@@ -38,18 +38,6 @@
 #include <string>
 #include <vector>
 
-#ifndef DllExport
-#define DllExport Standard_EXPORT
-#endif
-#ifndef Box_
-#define Box_(T) std::unique_ptr<T>
-#endif
-#ifndef Rc_
-#define Rc_(T) std::shared_ptr<T>
-#endif
-#ifndef Vec_
-#define Vec_(T) std::vector<T>
-#endif
 #ifndef GP_WRAPPER
 #define GP_WRAPPER                                                             \
 public:                                                                        \
@@ -58,6 +46,10 @@ public:                                                                        \
 #ifndef NOT_IMPL
 #define NOT_IMPL throw std::runtime_error("Not implemented.");
 #endif
+
+template <typename T> using Arc_ = std::shared_ptr<T>;
+template <typename T> using Box_ = std::unique_ptr<T>;
+template <typename T> using Vec_ = std::vector<T>;
 
 /// @brief Contains commonly-used types used in OcctCommon.
 namespace OcctCommon {
@@ -68,40 +60,40 @@ namespace Geometry {
 /// @brief
 namespace Collections {
 
-class DllExport BrepCurveList;
+class Standard_EXPORT BrepCurveList;
 
 } // namespace Collections
 
 /// @brief
 namespace Intersect {
 
-class DllExport Intersection;
+class Standard_EXPORT Intersection;
 
 } // namespace Intersect
 
-class DllExport Arc;
-class DllExport ArcCurve;
-class DllExport BoundingBox;
-class DllExport Box;
-class DllExport Brep;
-class DllExport Circle;
-class DllExport Curve;
-class DllExport Ellipse;
-class DllExport GeometryBase;
-class DllExport Interval;
-class DllExport Line;
-class DllExport LineCurve;
-class DllExport Mesh;
-class DllExport NurbsCurve;
-class DllExport Plane;
-class DllExport Point3d;
-class DllExport PolyCurve;
-class DllExport Polyline;
-class DllExport PolylineCurve;
-class DllExport Quaternion;
-class DllExport Surface;
-class DllExport Transform;
-class DllExport Vector3d;
+class Standard_EXPORT Arc;
+class Standard_EXPORT ArcCurve;
+class Standard_EXPORT BoundingBox;
+class Standard_EXPORT Box;
+class Standard_EXPORT Brep;
+class Standard_EXPORT Circle;
+class Standard_EXPORT Curve;
+class Standard_EXPORT Ellipse;
+class Standard_EXPORT GeometryBase;
+class Standard_EXPORT Interval;
+class Standard_EXPORT Line;
+class Standard_EXPORT LineCurve;
+class Standard_EXPORT Mesh;
+class Standard_EXPORT NurbsCurve;
+class Standard_EXPORT Plane;
+class Standard_EXPORT Point3d;
+class Standard_EXPORT PolyCurve;
+class Standard_EXPORT Polyline;
+class Standard_EXPORT PolylineCurve;
+class Standard_EXPORT Quaternion;
+class Standard_EXPORT Surface;
+class Standard_EXPORT Transform;
+class Standard_EXPORT Vector3d;
 
 enum class BlendContinuity : int32_t {
   Position = 0,
@@ -233,7 +225,7 @@ protected:
 
 } // namespace Geometry
 
-class DllExport OcctMath;
+class Standard_EXPORT OcctMath;
 
 } // namespace OcctCommon
 
