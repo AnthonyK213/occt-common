@@ -67,25 +67,25 @@ bool Plane::IsValid() const {
   return OcctMath::IsValidXYZ(m_data.Location().XYZ());
 }
 
-inline Vector3d Plane::Normal() const { return ZAxis(); }
+Vector3d Plane::Normal() const { return ZAxis(); }
 
-inline Point3d Plane::Origin() const { return Point3d(m_data.Location()); }
+Point3d Plane::Origin() const { return Point3d(m_data.Location()); }
 
-inline double Plane::OriginX() const { return m_data.Location().X(); }
+double Plane::OriginX() const { return m_data.Location().X(); }
 
-inline double Plane::OriginY() const { return m_data.Location().Y(); }
+double Plane::OriginY() const { return m_data.Location().Y(); }
 
-inline double Plane::OriginZ() const { return m_data.Location().Z(); }
+double Plane::OriginZ() const { return m_data.Location().Z(); }
 
-inline Vector3d Plane::XAxis() const {
+Vector3d Plane::XAxis() const {
   return Vector3d(m_data.XAxis().Direction());
 }
 
-inline Vector3d Plane::YAxis() const {
+Vector3d Plane::YAxis() const {
   return Vector3d(m_data.YAxis().Direction());
 }
 
-inline Vector3d Plane::ZAxis() const {
+Vector3d Plane::ZAxis() const {
   return Vector3d(m_data.Axis().Direction());
 }
 

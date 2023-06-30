@@ -1,0 +1,11 @@
+[ 12%]: cache compiling.debug tests/test.cpp
+[ 87%]: linking.debug test
+error: /usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `GeomLProp::Continuity(opencascade::handle<Geom_Curve> const&, opencascade::handle<Geom_Curve> const&, double, double, bool, bool)'
+/usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `GeomAdaptor_SurfaceOfLinearExtrusion::GeomAdaptor_SurfaceOfLinearExtrusion(opencascade::handle<Adaptor3d_Curve> const&, gp_Dir const&)'
+/usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `vtable for AdvApprox_PrefAndRec'
+/usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `GeomAdaptor_SurfaceOfRevolution::GeomAdaptor_SurfaceOfRevolution(opencascade::handle<Adaptor3d_Curve> const&, gp_Ax1 const&)'
+/usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `AdvApprox_PrefAndRec::AdvApprox_PrefAndRec(NCollection_Array1<double> const&, NCollection_Array1<double> const&, double)'
+/usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `GeomLProp::Continuity(opencascade::handle<Geom_Curve> const&, opencascade::handle<Geom_Curve> const&, double, double, bool, bool, double, double)'
+/usr/bin/ld: build/linux/x86_64/debug/libocctcommon.so: undefined reference to `GeomAdaptor::MakeSurface(Adaptor3d_Surface const&, bool)'
+collect2: error: ld returned 1 exit status
+

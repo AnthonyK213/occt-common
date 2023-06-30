@@ -1,0 +1,9 @@
+{
+    cmdlines = {
+        "xmake f -p linux -a x86_64 -m debug",
+        "xmake -w --all",
+        "xmake check",
+        "xmake check",
+        "xmake -w --all"
+    }
+}

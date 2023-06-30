@@ -60,11 +60,11 @@ bool Point3d::IsValid() const {
          _Math::IsValidDouble(Z());
 }
 
-inline double Point3d::X() const { return m_data.X(); };
+double Point3d::X() const { return m_data.X(); };
 
-inline double Point3d::Y() const { return m_data.Y(); };
+double Point3d::Y() const { return m_data.Y(); };
 
-inline double Point3d::Z() const { return m_data.Z(); };
+double Point3d::Z() const { return m_data.Z(); };
 
 double Point3d::DistanceTo(C_Pnt point) const {
   return m_data.Distance(point.Data());
