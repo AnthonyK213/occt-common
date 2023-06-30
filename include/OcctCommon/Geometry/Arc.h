@@ -2,7 +2,7 @@
 #define OCCTCOMMON_GEOMETRY_ARC_H
 
 #include <OcctCommon/Geometry/Circle.h>
-#include <OcctCommon/_decl.h>
+#include <OcctCommon/pch.h>
 
 namespace OcctCommon {
 namespace Geometry {

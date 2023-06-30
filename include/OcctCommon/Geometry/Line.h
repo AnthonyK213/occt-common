@@ -2,7 +2,7 @@
 #define OCCTCOMMON_GEOMETRY_LINE_H
 
 #include <OcctCommon/Geometry/Point3d.h>
-#include <OcctCommon/_decl.h>
+#include <OcctCommon/pch.h>
 
 namespace OcctCommon {
 namespace Geometry {

@@ -1,7 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_PLANE_H
 #define OCCTCOMMON_GEOMETRY_PLANE_H
 
-#include <OcctCommon/_decl.h>
+#include <OcctCommon/pch.h>
 
 namespace OcctCommon {
 namespace Geometry {

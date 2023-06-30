@@ -47,10 +47,6 @@ public:                                                                        \
 #define NOT_IMPL throw std::runtime_error("Not implemented.");
 #endif
 
-template <typename T> using Arc_ = std::shared_ptr<T>;
-template <typename T> using Box_ = std::unique_ptr<T>;
-template <typename T> using Vec_ = std::vector<T>;
-
 /// @brief Contains commonly-used types used in OcctCommon.
 namespace OcctCommon {
 
@@ -91,6 +87,7 @@ class Standard_EXPORT PolyCurve;
 class Standard_EXPORT Polyline;
 class Standard_EXPORT PolylineCurve;
 class Standard_EXPORT Quaternion;
+class Standard_EXPORT Rectangle3d;
 class Standard_EXPORT Surface;
 class Standard_EXPORT Transform;
 class Standard_EXPORT Vector3d;
@@ -228,6 +225,10 @@ protected:
 class Standard_EXPORT OcctMath;
 
 } // namespace OcctCommon
+
+template <typename T> using Arc_ = std::shared_ptr<T>;
+template <typename T> using Box_ = std::unique_ptr<T>;
+template <typename T> using Vec_ = std::vector<T>;
 
 using C_Arc = const OcctCommon::Geometry::Arc &;
 using C_BB = const OcctCommon::Geometry::BoundingBox &;

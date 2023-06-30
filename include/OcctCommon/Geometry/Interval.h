@@ -1,7 +1,7 @@
 #ifndef OCCTCOMMON_GEOMETRY_INTERVAL_H
 #define OCCTCOMMON_GEOMETRY_INTERVAL_H
 
-#include <OcctCommon/_decl.h>
+#include <OcctCommon/pch.h>
 
 namespace OcctCommon {
 namespace Geometry {
