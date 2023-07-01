@@ -7,3 +7,4 @@ extern/
 main
 out/
 vcpkg_installed/
+CMakePresets.json
