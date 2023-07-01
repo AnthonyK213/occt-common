@@ -6,12 +6,12 @@ A Rhinocommon-like geometry library based on OpenCASCADE
   - Add `CMakePresets.json` into project root directory to use `vcpkg`
     ``` json
     {
-    "version": 3,
-    "configurePresets": [
+      "version": 3,
+      "configurePresets": [
         {
             "name": "debug",
             "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-        },
+        }
       ]
     }
     ```
