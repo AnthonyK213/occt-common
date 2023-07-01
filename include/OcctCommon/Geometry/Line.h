@@ -27,7 +27,7 @@ public:
   /// @param start
   /// @param direction
   /// @param length
-  Line(C_Pnt start, C_Vec direction, double length);
+  explicit Line(C_Pnt start, C_Vec direction, double length);
 
   /// @brief
   /// @param start

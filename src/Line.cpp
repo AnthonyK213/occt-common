@@ -12,11 +12,9 @@ Line::Line(double x0, double y0, double z0, double x1, double y1, double z1)
 
 Line::Line(C_Pnt from, C_Pnt to) : m_from(from), m_to(to) {}
 
-Line::Line(C_Pnt start, C_Vec direction, double length) {
-  gp_Dir dir = direction.Data();
-  m_from = start;
-  m_to = Point3d(start.Data().XYZ() + dir.XYZ() * length);
-}
+Line::Line(C_Pnt start, C_Vec direction, double length)
+    : m_from(start),
+      m_to(start.Data().XYZ() + direction.Data().XYZ() * length) {}
 
 Line::Line(C_Pnt start, C_Vec span)
     : m_from(start), m_to(start.Data().XYZ() + span.Data().XYZ()) {}
@@ -27,9 +25,11 @@ C_Lin Line::Unset() {
 }
 
 // TODO
-BoundingBox Line::GetBoundingBox() const { return BoundingBox(); }
+BoundingBox Line::GetBoundingBox() const {NOT_IMPL}
 
-Vector3d Line::Direction() const { return m_to - m_from; }
+Vector3d Line::Direction() const {
+  return m_to - m_from;
+}
 
 C_Pnt Line::From() const { return m_from; }
 
