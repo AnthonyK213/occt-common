@@ -87,12 +87,25 @@ PointContainment Curve::Contains(C_Pnt testPoint, C_Pln plane,
 
 Vector3d Curve::CurvatureAt(double t) const {NOT_IMPL}
 
-Vec_<Vector3d> Curve::DerivativeAt(double t, uint32_t derivativeCount,
+// TODO: Curvature evaluation side.
+Vec_<Vector3d> Curve::DerivativeAt(double t, int32_t derivativeCount,
                                    CurvatureEvaluationSide side) const {
-    NOT_IMPL}
+  return DerivativeAt(t, derivativeCount);
+}
 
-Vec_<Vector3d> Curve::DerivativeAt(double t,
-                                   uint32_t derivativeCount) const {NOT_IMPL}
+// NOTE: Just `derivative` at t and `derivativeCount`.
+Vec_<Vector3d> Curve::DerivativeAt(double t, int32_t derivativeCount) const {
+  if (derivativeCount < 0) {
+    return Vec_<Vector3d>{};
+  }
+  if (derivativeCount == 0) {
+    gp_Pnt p;
+    m_data.D0(t, p);
+    return Vec_<Vector3d> { Vector3d(p) };
+  }
+  gp_Vec d = m_data.DN(t, derivativeCount);
+  return Vec_<Vector3d> { Vector3d(d) };
+}
 
 Vec_<Point3d> Curve::DivedeAsContour(C_Pnt contourStart, C_Pnt contourEnd,
                                      double interval) const {NOT_IMPL}

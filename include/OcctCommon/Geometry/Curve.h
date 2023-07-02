@@ -154,10 +154,19 @@ public:
 
   virtual Vector3d CurvatureAt(double t) const;
 
-  virtual Vec_<Vector3d> DerivativeAt(double t, uint32_t derivativeCount,
+  /// @brief Evaluate the derivatives at the specified curve parameter.
+  /// @param t Curve parameter to evaluate.
+  /// @param derivativeCount Number of derivatives to evaluate, must be at least 0.
+  /// @param side Side of parameter to evaluate. If the parameter is at a kink, it makes a big difference whether the evaluation is from below or above.
+  /// @return 
+  virtual Vec_<Vector3d> DerivativeAt(double t, int32_t derivativeCount,
                                       CurvatureEvaluationSide side) const;
 
-  virtual Vec_<Vector3d> DerivativeAt(double t, uint32_t derivativeCount) const;
+  /// @brief Evaluate the derivatives at the specified curve parameter.
+  /// @param t Curve parameter to evaluate.
+  /// @param derivativeCount Number of derivatives to evaluate, must be at least 0.
+  /// @return An array of vectors that represents all the derivatives starting at zero.
+  virtual Vec_<Vector3d> DerivativeAt(double t, int32_t derivativeCount) const;
 
   virtual Vec_<Point3d> DivedeAsContour(C_Pnt contourStart, C_Pnt contourEnd,
                                         double interval) const;
