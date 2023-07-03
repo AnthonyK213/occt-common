@@ -62,81 +62,82 @@ public:
   virtual PointContainment Contains(C_Pnt testPoint, C_Pln plane,
                                     double tolerance) const;
 
-  static Curve CreateArcBlend(C_Pnt startPt, C_Vec startDir, C_Pnt endPt,
-                              C_Vec endDir, double controlPointLengthRatio);
+  static Curve *CreateArcBlend(C_Pnt startPt, C_Vec startDir, C_Pnt endPt,
+                               C_Vec endDir, double controlPointLengthRatio);
 
-  static Curve CreateArcLineArcBlend(C_Pnt startPt, C_Vec startDir, C_Pnt endPt,
-                                     C_Vec endDir, double radius);
+  static Curve *CreateArcLineArcBlend(C_Pnt startPt, C_Vec startDir,
+                                      C_Pnt endPt, C_Vec endDir, double radius);
 
-  static Curve CreateBlendCurve(C_Crv curve0, double t0, bool reverse0,
-                                BlendContinuity continuity0, C_Crv curve1,
-                                double t1, bool reverse1,
-                                BlendContinuity continuity1);
+  static Curve *CreateBlendCurve(C_Crv curve0, double t0, bool reverse0,
+                                 BlendContinuity continuity0, C_Crv curve1,
+                                 double t1, bool reverse1,
+                                 BlendContinuity continuity1);
 
-  static Curve CreateBlendCurve(C_Crv curveA, C_Crv curveB,
-                                BlendContinuity continuity, double bulgeA,
-                                double bulgeB);
+  static Curve *CreateBlendCurve(C_Crv curveA, C_Crv curveB,
+                                 BlendContinuity continuity, double bulgeA,
+                                 double bulgeB);
 
-  static Curve CreateBlendCurve(C_Crv curveA, C_Crv curveB,
-                                BlendContinuity continuity);
+  static Curve *CreateBlendCurve(C_Crv curveA, C_Crv curveB,
+                                 BlendContinuity continuity);
 
-  static Vec_<Curve> CreateBooleanDifference(C_Crv curveA, C_Crv curveB,
-                                             double tolerance);
+  static Vec_<Arc_<Curve>> CreateBooleanDifference(C_Crv curveA, C_Crv curveB,
+                                                   double tolerance);
 
-  static Vec_<Curve> CreateBooleanIntersection(C_Crv curveA, C_Crv curveB,
-                                               double tolerance);
+  static Vec_<Arc_<Curve>> CreateBooleanIntersection(C_Crv curveA, C_Crv curveB,
+                                                     double tolerance);
 
   static void CreateBooleanRegions();
 
   template <typename T>
-  static Vec_<Curve> CreateBooleanUnion(T _first, T _last, double tolerance);
+  static Vec_<Vec_<Curve>> CreateBooleanUnion(T _first, T _last,
+                                              double tolerance);
 
   template <typename T>
-  static Curve CreateControlPointCurve(T _first, T _last, int32_t degree);
+  static Curve *CreateControlPointCurve(T _first, T _last, int32_t degree);
 
-  template <typename T> static Curve CreateControlPointCurve(T _first, T _last);
+  template <typename T>
+  static Curve *CreateControlPointCurve(T _first, T _last);
 
-  static Curve CreateCurve2View(C_Crv curveA, C_Crv curveB, C_Vec vectorA,
-                                C_Vec vectorB, double tolerance,
-                                double angleTolerance);
+  static Curve *CreateCurve2View(C_Crv curveA, C_Crv curveB, C_Vec vectorA,
+                                 C_Vec vectorB, double tolerance,
+                                 double angleTolerance);
 
   static Arc CreateFillet(C_Crv curve0, C_Crv curve1, double radius,
                           double t0Base, double t1Base);
 
-  static Curve CreateFilletCornersCurve(C_Crv curve, double radius,
-                                        double tolerance,
-                                        double angleTolerance);
+  static Curve *CreateFilletCornersCurve(C_Crv curve, double radius,
+                                         double tolerance,
+                                         double angleTolerance);
 
-  static Vec_<Curve> CreateFilletCurves(C_Crv curve0, C_Pnt point0,
-                                        C_Crv curve1, C_Pnt point1,
-                                        double radius, bool join, bool trim,
-                                        bool arcExtension, double tolerance,
-                                        double angleTolerance);
-
-  template <typename T>
-  static Curve CreateInterpolatedCurve(T _first, T _last, int32_t degree,
-                                       CurveKnotStyle knots, C_Vec startTangent,
-                                       C_Vec endTangent);
+  static Vec_<Arc_<Curve>>
+  CreateFilletCurves(C_Crv curve0, C_Pnt point0, C_Crv curve1, C_Pnt point1,
+                     double radius, bool join, bool trim, bool arcExtension,
+                     double tolerance, double angleTolerance);
 
   template <typename T>
-  static Curve CreateInterpolatedCurve(T _first, T _last, int32_t degree);
+  static Curve *CreateInterpolatedCurve(T _first, T _last, int32_t degree,
+                                        CurveKnotStyle knots,
+                                        C_Vec startTangent, C_Vec endTangent);
 
-  static Vec_<Curve> CreateMatchCurve(C_Crv curve0, bool reverse0,
-                                      BlendContinuity continuity, C_Crv curve1,
-                                      bool reverse1, PreserveEnd preserve,
-                                      bool average);
+  template <typename T>
+  static Curve *CreateInterpolatedCurve(T _first, T _last, int32_t degree);
 
-  static Curve CreateMeanCurve(C_Crv curveA, C_Crv curveB,
-                               double angleToleranceRadians);
+  static Vec_<Arc_<Curve>> CreateMatchCurve(C_Crv curve0, bool reverse0,
+                                            BlendContinuity continuity,
+                                            C_Crv curve1, bool reverse1,
+                                            PreserveEnd preserve, bool average);
 
-  static Curve CreateMeanCurve(C_Crv curveA, C_Crv curveB);
+  static Curve *CreateMeanCurve(C_Crv curveA, C_Crv curveB,
+                                double angleToleranceRadians);
 
-  static Curve CreatePeriodicCurve(C_Crv curve, bool smooth);
+  static Curve *CreateMeanCurve(C_Crv curveA, C_Crv curveB);
 
-  static Curve CreatePeriodicCurve(C_Crv curve);
+  static Curve *CreatePeriodicCurve(C_Crv curve, bool smooth);
 
-  static Curve CreateSoftEditCurve(C_Crv curve, double t, C_Vec delta,
-                                   double length, bool fixEnds);
+  static Curve *CreatePeriodicCurve(C_Crv curve);
+
+  static Curve *CreateSoftEditCurve(C_Crv curve, double t, C_Vec delta,
+                                    double length, bool fixEnds);
 
   static Vec_<Arc_<Curve>> CreateTextOutlines();
 
