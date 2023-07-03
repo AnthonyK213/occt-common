@@ -20,6 +20,7 @@
 #include <OcctCommon/Geometry/Polyline.h>
 #include <OcctCommon/Geometry/PolylineCurve.h>
 #include <OcctCommon/Geometry/Quaternion.h>
+#include <OcctCommon/Geometry/Rectangle3d.h>
 #include <OcctCommon/Geometry/Surface.h>
 #include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/Geometry/Vector3d.h>

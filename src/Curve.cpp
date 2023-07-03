@@ -8,29 +8,27 @@
 #include <OcctCommon/Geometry/Polyline.h>
 #include <OcctCommon/Geometry/PolylineCurve.h>
 #include <OcctCommon/Geometry/Vector3d.h>
+#include <OcctCommon/OcctMath.h>
 
 namespace OcctCommon {
 namespace Geometry {
 
 // TODO
-int32_t Curve::Degree() const { return 0; }
-
-// TODO
 int32_t Curve::Dimension() const { return 0; }
 
 Interval Curve::Domain() const {
-  return Interval(m_data.FirstParameter(), m_data.LastParameter());
+  return Interval(m_data->FirstParameter(), m_data->LastParameter());
 }
 
 // TODO
 bool Curve::HasBrepForm() const { return true; }
 
-bool Curve::IsClosed() const { return m_data.IsClosed(); }
+bool Curve::IsClosed() const { return m_data->IsClosed(); }
 
 // TODO
 bool Curve::IsDeformable() const { return true; }
 
-bool Curve::IsPeriodic() const { return m_data.IsPeriodic(); }
+bool Curve::IsPeriodic() const { return m_data->IsPeriodic(); }
 
 // TODO
 bool Curve::IsValid() const { return true; }
@@ -38,20 +36,18 @@ bool Curve::IsValid() const { return true; }
 // TODO
 uint32_t Curve::ObjectType() const { return 0; }
 
-Point3d Curve::PointAtEnd() const { return PointAt(m_data.LastParameter()); }
+Point3d Curve::PointAtEnd() const { return PointAt(m_data->LastParameter()); }
 
-Point3d Curve::PointAtStart() const { return PointAt(m_data.FirstParameter()); }
-
-int32_t Curve::SpanCount() const {
-  return m_data.NbIntervals(GeomAbs_Shape::GeomAbs_G2);
+Point3d Curve::PointAtStart() const {
+  return PointAt(m_data->FirstParameter());
 }
 
 Vector3d Curve::TangentAtEnd() const {
-  return TangentAt(m_data.LastParameter());
+  return TangentAt(m_data->LastParameter());
 }
 
 Vector3d Curve::TangentAtStart() const {
-  return TangentAt(m_data.FirstParameter());
+  return TangentAt(m_data->FirstParameter());
 }
 
 bool Curve::ChangeClosedCurveSeam(double t) { NOT_IMPL }
@@ -70,10 +66,27 @@ CurveOrientation Curve::ClosedCurveOrientation(C_Vec upDirection) const {
 
 bool Curve::ClosestPoint(C_Pnt testPoint, double &t,
                          double maximumDistance) const {
-  NOT_IMPL
+  Extrema_ExtPC extrema(testPoint.Data(), *m_data);
+  if (!extrema.IsDone()) {
+    return false;
+  }
+  int count = extrema.NbExt();
+  for (int i = 1; i <= count; ++i) {
+    if (extrema.IsMin(i)) {
+      if (maximumDistance >= 0.0 &&
+          extrema.SquareDistance(i) > maximumDistance * maximumDistance) {
+        continue;
+      }
+      t = extrema.Point(i).Parameter();
+      return true;
+    }
+  }
+  return false;
 }
 
-bool Curve::ClosestPoint(C_Pnt testPoint, double &t) const { NOT_IMPL }
+bool Curve::ClosestPoint(C_Pnt testPoint, double &t) const {
+  return ClosestPoint(testPoint, t, -1.0);
+}
 
 bool Curve::ClosestPoints(C_Crv otherCurve, Point3d &pointOnThisCurve,
                           Point3d &pointOnOtherCurve) const {
@@ -100,14 +113,14 @@ Vec_<Vector3d> Curve::DerivativeAt(double t, int32_t derivativeCount) const {
   }
   if (derivativeCount == 0) {
     gp_Pnt p;
-    m_data.D0(t, p);
-    return Vec_<Vector3d> { Vector3d(p) };
+    m_data->D0(t, p);
+    return Vec_<Vector3d>{Vector3d(p)};
   }
-  gp_Vec d = m_data.DN(t, derivativeCount);
-  return Vec_<Vector3d> { Vector3d(d) };
+  gp_Vec d = m_data->DN(t, derivativeCount);
+  return Vec_<Vector3d>{Vector3d(d)};
 }
 
-Vec_<Point3d> Curve::DivedeAsContour(C_Pnt contourStart, C_Pnt contourEnd,
+Vec_<Point3d> Curve::DivideAsContour(C_Pnt contourStart, C_Pnt contourEnd,
                                      double interval) const {NOT_IMPL}
 
 Vec_<double> Curve::DivideByCount(int32_t segmentCount, bool includeEnds,
@@ -136,42 +149,42 @@ GeometryBase *Curve::Duplicate() const {
   return nullptr;
 }
 
-Curve Curve::DuplicateCurve() const {NOT_IMPL}
+Curve *Curve::DuplicateCurve() const {NOT_IMPL}
 
-Vec_<Curve> Curve::DuplicateSegments() const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::DuplicateSegments() const {NOT_IMPL}
 
 // TODO
 GeometryBase *Curve::DuplicateShallow() const {
   return nullptr;
 }
 
-Curve Curve::Extend(CurveEnd side, CurveExtensionStyle style,
-                    Vec_<GeometryBase> geometry) const {NOT_IMPL}
+Curve *Curve::Extend(CurveEnd side, CurveExtensionStyle style,
+                     Vec_<GeometryBase *> geometry) const {NOT_IMPL}
 
-Curve Curve::Extend(CurveEnd side, CurveExtensionStyle style,
-                    C_Pnt endPoint) const {NOT_IMPL}
+Curve *Curve::Extend(CurveEnd side, CurveExtensionStyle style,
+                     C_Pnt endPoint) const {NOT_IMPL}
 
-Curve Curve::Extend(CurveEnd side, double length,
-                    CurveExtensionStyle style) const {NOT_IMPL}
+Curve *Curve::Extend(CurveEnd side, double length,
+                     CurveExtensionStyle style) const {NOT_IMPL}
 
-Curve Curve::Extend(C_Intv domain) const {NOT_IMPL}
+Curve *Curve::Extend(C_Intv domain) const {NOT_IMPL}
 
-Curve Curve::Extend(double t0, double t1) const {NOT_IMPL}
+Curve *Curve::Extend(double t0, double t1) const {NOT_IMPL}
 
-Curve Curve::ExtendByArc(CurveEnd side,
-                         Vec_<GeometryBase> geometry) const {NOT_IMPL}
+Curve *Curve::ExtendByArc(CurveEnd side,
+                          Vec_<GeometryBase *> geometry) const {NOT_IMPL}
 
-Curve Curve::ExtendByLine(CurveEnd side,
-                          Vec_<GeometryBase> geometry) const {NOT_IMPL}
+Curve *Curve::ExtendByLine(CurveEnd side,
+                           Vec_<GeometryBase *> geometry) const {NOT_IMPL}
 
 // TODO
-Curve Curve::ExtendOnSurface() const {NOT_IMPL}
+Curve *Curve::ExtendOnSurface() const {NOT_IMPL}
 
 Vec_<double> Curve::ExtremeParameters(C_Vec direction) const {NOT_IMPL}
 
-Curve Curve::Fair(double distanceTolerance, double angleTolerance,
-                  int32_t clampStart, int32_t clampEnd,
-                  int32_t iterations) const {
+Curve *Curve::Fair(double distanceTolerance, double angleTolerance,
+                   int32_t clampStart, int32_t clampEnd,
+                   int32_t iterations) const {
   NOT_IMPL
 }
 
@@ -184,8 +197,8 @@ bool Curve::FindLocalInflection(C_Vec N, C_Intv subDomain, double seed,
                                 double &curveParameter,
                                 double &angleError) const {NOT_IMPL}
 
-Curve Curve::Fit(int32_t degree, double fitTolerance,
-                 double angleTolerance) const {
+Curve *Curve::Fit(int32_t degree, double fitTolerance,
+                  double angleTolerance) const {
   NOT_IMPL
 }
 
@@ -211,15 +224,19 @@ bool Curve::GetCurveParameterFromNurbsFormParameter(
   NOT_IMPL
 }
 
-double Curve::GetLength() const { NOT_IMPL }
+double Curve::GetLength() const { return GetLength(Domain()); }
 
-double Curve::GetLength(C_Intv subdomain) const { NOT_IMPL }
-
-double Curve::GetLength(double factorialTolerance, C_Intv subDomain) const {
-  NOT_IMPL
+double Curve::GetLength(C_Intv subdomain) const {
+  return CPnts_AbscissaPoint::Length(*m_data, subdomain.T0(), subdomain.T1());
 }
 
-double Curve::GetLength(double factorialTolerance) const { NOT_IMPL }
+// TODO: `factorialTolerance`?
+double Curve::GetLength(double factorialTolerance, C_Intv subDomain) const {
+  return GetLength(subDomain);
+}
+
+// TODO: `factorialTolerance`?
+double Curve::GetLength(double factorialTolerance) const { return GetLength(); }
 
 bool Curve::GetLocalPerpPoint(C_Pnt testPoint, double seedParameter,
                               C_Intv subDomain, double &curveParameter) const {
@@ -285,9 +302,9 @@ bool Curve::IsEllipse() const { NOT_IMPL }
 
 bool Curve::IsEllipse(double tolerance) const { NOT_IMPL }
 
-bool Curve::IsInPlane(C_Pln testPlane, double tolerance) const { NOT_IMPL }
-
-bool Curve::IsInPlane(C_Pln testPlane) const { NOT_IMPL }
+bool Curve::IsInPlane(C_Pln testPlane) const {
+  return IsInPlane(testPlane, _Math::ZeroTolerance);
+}
 
 bool Curve::IsLinear() const { NOT_IMPL }
 
@@ -305,21 +322,43 @@ bool Curve::IsShort(double tolerance) const { NOT_IMPL }
 
 bool Curve::LengthParameter(double segmentLength, double &t,
                             C_Intv subDomain) const {
-  NOT_IMPL
+  return LengthParameter(segmentLength, t, 1e-8);
 }
 
 bool Curve::LengthParameter(double segmentLength, double &t,
                             double fractionalTolerance,
                             C_Intv subDomain) const {
-  NOT_IMPL
+  double length = GetLength(fractionalTolerance, subDomain);
+  if (segmentLength > length || segmentLength < 0.0 || length == 0.0) {
+    return false;
+  }
+  CPnts_AbscissaPoint pnt(*m_data, segmentLength, subDomain.T0(),
+                          fractionalTolerance);
+  if (!pnt.IsDone()) {
+    return false;
+  }
+  t = pnt.Parameter();
+  return true;
 }
 
 bool Curve::LengthParameter(double segmentLength, double &t,
                             double fractionalTolerance) const {
-  NOT_IMPL
+  double length = GetLength(fractionalTolerance);
+  if (segmentLength > length || segmentLength < 0.0 || length == 0.0) {
+    return false;
+  }
+  CPnts_AbscissaPoint pnt(*m_data, segmentLength, m_data->FirstParameter(),
+                          fractionalTolerance);
+  if (!pnt.IsDone()) {
+    return false;
+  }
+  t = pnt.Parameter();
+  return true;
 }
 
-bool Curve::LengthParameter(double segmentLength, double &t) const { NOT_IMPL }
+bool Curve::LengthParameter(double segmentLength, double &t) const {
+  return LengthParameter(segmentLength, t, 1e-8);
+}
 
 bool Curve::LocalClosestPoint(C_Pnt testPoint, double seed, double &t) const {
   NOT_IMPL
@@ -335,25 +374,31 @@ Vec_<Point3d> Curve::MaxCurvaturePoints() const {
 
 bool Curve::NormalizedLengthParameter(double s, double &t,
                                       C_Intv subDomain) const {
-  NOT_IMPL
+  return NormalizedLengthParameter(s, t, 1e-8, subDomain);
 }
 
+// TODO: `fractionalTolerance`?
 bool Curve::NormalizedLengthParameter(double s, double &t,
                                       double fractionalTolerance,
                                       C_Intv subDomain) const {
-  NOT_IMPL
+  double segmentLength = GetLength(fractionalTolerance, subDomain) * s;
+  return LengthParameter(segmentLength, t, fractionalTolerance, subDomain);
 }
 
+// TODO: `fractionalTolerance`?
 bool Curve::NormalizedLengthParameter(double s, double &t,
                                       double fractionalTolerance) const {
-  NOT_IMPL
+  double segmentLength = GetLength(fractionalTolerance) * s;
+  return LengthParameter(segmentLength, t, fractionalTolerance);
 }
 
-bool Curve::NormalizedLengthParameter(Vec_<double> s,
-                                      double &t) const {NOT_IMPL}
+bool Curve::NormalizedLengthParameter(double s, double &t) const {
+  return NormalizedLengthParameter(s, t, 1e-8);
+}
 
-Vec_<double> Curve::NormalizedLengthParameters(
-    Vec_<double> s, double absoluteTolerance, C_Intv subDomain) const {NOT_IMPL}
+Vec_<double>
+Curve::NormalizedLengthParameters(Vec_<double> s, double absoluteTolerance,
+                                  C_Intv subDomain) const {NOT_IMPL}
 
 Vec_<double> Curve::NormalizedLengthParameters(
     Vec_<double> s, double absoluteTolerance, double fractionalTolerance,
@@ -367,30 +412,33 @@ Vec_<double> Curve::NormalizedLengthParameters(Vec_<double>,
                                                double absoluteTolerance) const {
     NOT_IMPL}
 
-Vec_<Curve> Curve::Offset(C_Pln plane, double distance, double tolerance,
-                          CurveOffsetCornerStyle cornerStyle) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Offset(C_Pln plane, double distance, double tolerance,
+                                CurveOffsetCornerStyle cornerStyle) const {
+    NOT_IMPL}
 
-Vec_<Curve> Curve::Offset(C_Pnt directionPoint, C_Vec normal, double distance,
-                          double tolerance,
-                          CurveOffsetCornerStyle cornerStyle) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Offset(C_Pnt directionPoint, C_Vec normal,
+                                double distance, double tolerance,
+                                CurveOffsetCornerStyle cornerStyle) const {
+    NOT_IMPL}
 
-Vec_<Curve> Curve::Offset(C_Pnt directionPoint, C_Vec normal, double distance,
-                          double tolerance, double angleTolerance, bool loose,
-                          CurveOffsetCornerStyle cornerStyle,
-                          CurveOffsetEndStyle endStyle) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Offset(C_Pnt directionPoint, C_Vec normal,
+                                double distance, double tolerance,
+                                double angleTolerance, bool loose,
+                                CurveOffsetCornerStyle cornerStyle,
+                                CurveOffsetEndStyle endStyle) const {NOT_IMPL}
 
-Curve Curve::OffsetNormalToSurface(C_Srf surface,
-                                   double height) const {NOT_IMPL}
+Curve *Curve::OffsetNormalToSurface(C_Srf surface,
+                                    double height) const {NOT_IMPL}
 
 // TODO
-Vec_<Curve> Curve::OffsetOnSurface() const {
+Vec_<Arc_<Curve>> Curve::OffsetOnSurface() const {
   NOT_IMPL
 }
 
 bool Curve::PerpendicularFrameAt(double t, Plane &plane) const {NOT_IMPL}
 
 Point3d Curve::PointAt(double t) const {
-  return Point3d{m_data.Value(t)};
+  return Point3d{m_data->Value(t)};
 }
 
 Point3d Curve::PointAtLength(double length) const {NOT_IMPL}
@@ -398,13 +446,13 @@ Point3d Curve::PointAtLength(double length) const {NOT_IMPL}
 Point3d Curve::PointAtNormalizedLength(double length) const {NOT_IMPL}
 
 // TODO
-Vec_<Curve> Curve::PullToBrepFace() const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::PullToBrepFace() const {NOT_IMPL}
 
 Vec_<PolylineCurve> Curve::PullToMesh(C_Msh mesh,
                                       double tolerance) const {NOT_IMPL}
 
-NurbsCurve Curve::Rebuild(int32_t pointCount, int32_t degree,
-                          bool preserveTangents) const {
+NurbsCurve *Curve::Rebuild(int32_t pointCount, int32_t degree,
+                           bool preserveTangents) const {
   NOT_IMPL
 }
 
@@ -413,7 +461,7 @@ bool Curve::RemoveShortSegments(double tolerance) { NOT_IMPL }
 bool Curve::Reverse(){NOT_IMPL}
 
 // TODO
-Curve Curve::RibbonOffset() const {
+Curve *Curve::RibbonOffset() const {
   NOT_IMPL
 }
 
@@ -437,56 +485,53 @@ bool Curve::SimplifyEnd(CurveEnd end, CurveSimplifyOptions options,
                         double distanceTolerance,
                         double angleToleranceRadians){NOT_IMPL}
 
-Curve Curve::Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
-                    bool bZSmooth, bool bFixBoundaries,
-                    SmoothingCoordinateSystem coordinateSystem,
-                    C_Pln plane) const {NOT_IMPL}
+Curve *Curve::Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
+                     bool bZSmooth, bool bFixBoundaries,
+                     SmoothingCoordinateSystem coordinateSystem,
+                     C_Pln plane) const {NOT_IMPL}
 
-Curve Curve::Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
-                    bool bZSmooth, bool bFixBoundaries,
-                    SmoothingCoordinateSystem coordinateSystem) const {NOT_IMPL}
+Curve *Curve::Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
+                     bool bZSmooth, bool bFixBoundaries,
+                     SmoothingCoordinateSystem coordinateSystem) const {
+    NOT_IMPL}
 
-Vec_<Curve> Curve::Split(C_Brp cutter, double tolerance,
-                         double angleToleranceRadians) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Split(C_Brp cutter, double tolerance,
+                               double angleToleranceRadians) const {NOT_IMPL}
 
-Vec_<Curve> Curve::Split(Vec_<double> t) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Split(Vec_<double> t) const {NOT_IMPL}
 
-Vec_<Curve> Curve::Split(C_Srf cutter, double tolerance,
-                         double angleToleranceRadians) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Split(C_Srf cutter, double tolerance,
+                               double angleToleranceRadians) const {NOT_IMPL}
 
-Vec_<Curve> Curve::Split(double t) const {NOT_IMPL}
+Vec_<Arc_<Curve>> Curve::Split(double t) const {NOT_IMPL}
 
 Vector3d Curve::TangentAt(double t) const {
-  gp_Vec v1 = m_data.DN(t, 1);
+  gp_Vec v1 = m_data->DN(t, 1);
   return Vector3d{v1};
 }
 
-PolyCurve Curve::ToArcsAndLines(double tolerance, double angleTolerance,
-                                double minimumLength,
-                                double maximumLength) const {NOT_IMPL}
+PolyCurve *Curve::ToArcsAndLines(double tolerance, double angleTolerance,
+                                 double minimumLength,
+                                 double maximumLength) const {NOT_IMPL}
 
-NurbsCurve Curve::ToNurbsCurve() const {NOT_IMPL}
+NurbsCurve *Curve::ToNurbsCurve() const {NOT_IMPL}
 
-NurbsCurve Curve::ToNurbsCurve(C_Intv subDomain) const {NOT_IMPL}
+NurbsCurve *Curve::ToNurbsCurve(C_Intv subDomain) const {NOT_IMPL}
 
-PolylineCurve Curve::ToPolyline(double tolerance, double angleTolerance,
-                                double minimumLength,
-                                double maximumLength) const {NOT_IMPL}
+PolylineCurve *Curve::ToPolyline(double tolerance, double angleTolerance,
+                                 double minimumLength,
+                                 double maximumLength) const {NOT_IMPL}
 
-PolylineCurve Curve::ToPolyline(int32_t mainSegmentCount,
-                                int32_t subSegmentCount, double maxAngleRadians,
-                                double maxChordLengthRatio,
-                                double maxAspectRatio, double tolerance,
-                                double minEdgeLength, double maxEdgeLength,
-                                bool keepStartPoint,
-                                C_Intv curveDomain) const {NOT_IMPL}
+PolylineCurve *Curve::ToPolyline(
+    int32_t mainSegmentCount, int32_t subSegmentCount, double maxAngleRadians,
+    double maxChordLengthRatio, double maxAspectRatio, double tolerance,
+    double minEdgeLength, double maxEdgeLength, bool keepStartPoint,
+    C_Intv curveDomain) const {NOT_IMPL}
 
-PolylineCurve Curve::ToPolyline(int32_t mainSegmentCount,
-                                int32_t subSegmentCount, double maxAngleRadians,
-                                double maxChordLengthRatio,
-                                double maxAspectRatio, double tolerance,
-                                double minEdgeLength, double maxEdgeLength,
-                                bool keepStartPoint) const {
+PolylineCurve *Curve::ToPolyline(
+    int32_t mainSegmentCount, int32_t subSegmentCount, double maxAngleRadians,
+    double maxChordLengthRatio, double maxAspectRatio, double tolerance,
+    double minEdgeLength, double maxEdgeLength, bool keepStartPoint) const {
   NOT_IMPL
 }
 
@@ -498,12 +543,33 @@ bool Curve::Translate(double x, double y, double z) { NOT_IMPL }
 
 bool Curve::Translate(C_Vec translationVector){NOT_IMPL}
 
-Curve Curve::Trim(CurveEnd side, double length) const {NOT_IMPL}
+Curve *Curve::Trim(CurveEnd side, double length) const {
+  if (length <= 0) {
+    throw std::runtime_error("length must be > 0");
+  }
+  double curveLength = GetLength();
+  if (IsClosed() || length >= curveLength) {
+    return nullptr;
+  }
+  // NOTE: WTF? Rhinocommon is wrong?
+  if (side == CurveEnd::Both && 2.0 * length >= curveLength) {
+    return nullptr;
+  }
+  double t0 = m_data->FirstParameter();
+  double t1 = m_data->LastParameter();
+  if (side == CurveEnd::Start || side == CurveEnd::Both) {
+    double s0 = length / curveLength;
+    NormalizedLengthParameter(s0, t0);
+  }
+  if (side == CurveEnd::End || side == CurveEnd::Both) {
+    double s1 = (curveLength - length) / curveLength;
+    NormalizedLengthParameter(s1, t1);
+  }
+  return Trim(t0, t1);
+}
 
-Curve Curve::Trim(C_Intv domain) const {NOT_IMPL}
-
-Curve Curve::Trim(double t0, double t1) const {
-  NOT_IMPL
+Curve *Curve::Trim(C_Intv domain) const {
+  return Trim(domain.T0(), domain.T1());
 }
 
 bool Curve::TryGetArc(Arc &arc, double tolerance) const { NOT_IMPL }

@@ -3,6 +3,7 @@
 
 #include <opencascade/Adaptor3d_Curve.hxx>
 #include <opencascade/BRepAdaptor_CompCurve.hxx>
+#include <opencascade/CPnts_AbscissaPoint.hxx>
 #include <opencascade/Extrema_ExtPC.hxx>
 #include <opencascade/GC_MakeCircle.hxx>
 #include <opencascade/GeomAbs_Shape.hxx>
@@ -34,6 +35,7 @@
 #include <opencascade/gp_Trsf.hxx>
 #include <opencascade/gp_Vec.hxx>
 #include <opencascade/gp_XYZ.hxx>
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -243,6 +245,7 @@ using C_Vec = const OcctCommon::Geometry::Vector3d &;
 using C_Srf = const OcctCommon::Geometry::Surface &;
 using C_Brp = const OcctCommon::Geometry::Brep &;
 using C_Msh = const OcctCommon::Geometry::Mesh &;
+using C_Rect = const OcctCommon::Geometry::Rectangle3d &;
 using _Math = OcctCommon::OcctMath;
 
 #endif
