@@ -325,10 +325,6 @@ public:
   Vector3d &operator+=(C_Vec vector);
 
   /// @brief
-  /// @param vector
-  Vector3d &operator*=(C_Vec vector);
-
-  /// @brief
   /// @param t
   Vector3d &operator*=(double t);
 

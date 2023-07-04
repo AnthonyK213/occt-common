@@ -1,3 +1,4 @@
+#include <OcctCommon/Geometry/Plane.h>
 #include <OcctCommon/Geometry/Point3d.h>
 #include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/Geometry/Vector3d.h>
@@ -12,27 +13,25 @@ Vector3d::Vector3d(C_Pnt point) : _gpWrapper(point.Data().Coord()) {}
 
 Vector3d::Vector3d(C_Vec vector) : _gpWrapper(vector.m_data) {}
 
-inline bool Vector3d::IsUnitVector() const {
+bool Vector3d::IsUnitVector() const {
   return std::abs(m_data.Magnitude() - 1.0) <= _Math::SqrtEpsilon;
 }
 
-inline bool Vector3d::IsValid() const {
+bool Vector3d::IsValid() const {
   if (_Math::IsValidDouble(X()) && _Math::IsValidDouble(Y()))
     return _Math::IsValidDouble(Z());
   return false;
 }
 
-inline bool Vector3d::IsZero() const {
+bool Vector3d::IsZero() const {
   if (X() == 0.0 && Y() == 0.0)
     return Z() == 0.0;
   return false;
 }
 
-inline double Vector3d::Length() const { return m_data.Magnitude(); }
+double Vector3d::Length() const { return m_data.Magnitude(); }
 
-inline double Vector3d::SquareLength() const {
-  return m_data.SquareMagnitude();
-}
+double Vector3d::SquareLength() const { return m_data.SquareMagnitude(); }
 
 C_Vec Vector3d::Unset() {
   static Vector3d Vector3d_Unset(_Math::UnsetValue, _Math::UnsetValue,
@@ -40,11 +39,11 @@ C_Vec Vector3d::Unset() {
   return Vector3d_Unset;
 }
 
-inline double Vector3d::X() const { return m_data.X(); }
+double Vector3d::X() const { return m_data.X(); }
 
-inline double Vector3d::Y() const { return m_data.Y(); }
+double Vector3d::Y() const { return m_data.Y(); }
 
-inline double Vector3d::Z() const { return m_data.Z(); }
+double Vector3d::Z() const { return m_data.Z(); }
 
 C_Vec Vector3d::XAxis() {
   static Vector3d Vector3d_XAxis(gp::DX());
@@ -114,6 +113,18 @@ Vector3d Vector3d::Negate(C_Vec vector) {
 
 Vector3d Vector3d::Subtract(C_Vec vector1, C_Vec vector2) {
   return Vector3d(vector1.Data() - vector2.Data());
+}
+
+double Vector3d::VectorAngle(C_Vec a, C_Vec b, C_Pln plane) {
+  return VectorAngle(a, b, plane.Normal());
+}
+
+double Vector3d::VectorAngle(C_Vec a, C_Vec b, C_Vec vNormal) {
+  return a.Data().AngleWithRef(b.Data(), vNormal.Data());
+}
+
+double Vector3d::VectorAngle(C_Vec a, C_Vec b) {
+  return a.Data().Angle(b.Data());
 }
 
 int Vector3d::CompareTo(C_Vec other) const {
@@ -213,11 +224,19 @@ bool Vector3d::operator!=(C_Vec other) const {
   return true;
 }
 
+bool Vector3d::operator<(C_Vec other) const { return CompareTo(other) < 0; }
+
+bool Vector3d::operator<=(C_Vec other) const { return CompareTo(other) <= 0; }
+
 bool Vector3d::operator==(C_Vec other) const {
   if (X() == other.X() && Y() == other.Y())
     return Z() == other.Z();
   return false;
 }
+
+bool Vector3d::operator>(C_Vec other) const { return CompareTo(other) > 0; }
+
+bool Vector3d::operator>=(C_Vec other) const { return CompareTo(other) >= 0; }
 
 const double Vector3d::operator*(C_Vec vector) const {
   return Vector3d::Mulitply(*this, vector);
@@ -239,6 +258,26 @@ const Vector3d Vector3d::operator/(double t) const {
 
 const Vector3d Vector3d::operator+(C_Vec vector) const {
   return Vector3d::Add(*this, vector);
+}
+
+Vector3d &Vector3d::operator+=(C_Vec vector) {
+  m_data += vector.Data();
+  return *this;
+}
+
+Vector3d &Vector3d::operator*=(double t) {
+  m_data *= t;
+  return *this;
+}
+
+Vector3d &Vector3d::operator-=(C_Vec vector) {
+  m_data -= vector.Data();
+  return *this;
+}
+
+Vector3d &Vector3d::operator/=(double t) {
+  m_data /= t;
+  return *this;
 }
 
 double Vector3d::operator[](int index) { return m_data.Coord(index + 1); }

@@ -1,5 +1,6 @@
 #include <OcctCommon/Geometry/Plane.h>
 #include <OcctCommon/Geometry/Point3d.h>
+#include <OcctCommon/Geometry/Transform.h>
 #include <OcctCommon/Geometry/Vector3d.h>
 #include <OcctCommon/OcctMath.h>
 
@@ -67,30 +68,23 @@ bool Plane::IsValid() const {
   return OcctMath::IsValidXYZ(m_data.Location().XYZ());
 }
 
-inline Vector3d Plane::Normal() const { return ZAxis(); }
+Vector3d Plane::Normal() const { return ZAxis(); }
 
-inline Point3d Plane::Origin() const { return Point3d(m_data.Location()); }
+Point3d Plane::Origin() const { return Point3d(m_data.Location()); }
 
-inline double Plane::OriginX() const { return m_data.Location().X(); }
+double Plane::OriginX() const { return m_data.Location().X(); }
 
-inline double Plane::OriginY() const { return m_data.Location().Y(); }
+double Plane::OriginY() const { return m_data.Location().Y(); }
 
-inline double Plane::OriginZ() const { return m_data.Location().Z(); }
+double Plane::OriginZ() const { return m_data.Location().Z(); }
 
-inline Vector3d Plane::XAxis() const {
-  return Vector3d(m_data.XAxis().Direction());
-}
+Vector3d Plane::XAxis() const { return Vector3d(m_data.XAxis().Direction()); }
 
-inline Vector3d Plane::YAxis() const {
-  return Vector3d(m_data.YAxis().Direction());
-}
+Vector3d Plane::YAxis() const { return Vector3d(m_data.YAxis().Direction()); }
 
-inline Vector3d Plane::ZAxis() const {
-  return Vector3d(m_data.Axis().Direction());
-}
+Vector3d Plane::ZAxis() const { return Vector3d(m_data.Axis().Direction()); }
 
-Plane Plane::CreateFromFrame(C_Pnt origin, C_Vec xDirection,
-                             C_Vec yDirection) {
+Plane Plane::CreateFromFrame(C_Pnt origin, C_Vec xDirection, C_Vec yDirection) {
   return Plane(origin, xDirection, yDirection);
 }
 
@@ -107,8 +101,101 @@ Plane Plane::CreateFromPoints(C_Pnt origin, C_Pnt xPoint, C_Pnt yPoint) {
   return Plane(origin, xPoint, yPoint);
 }
 
-Plane Plane::Clone() const {
-  return *this;
+Plane Plane::Clone() const { return *this; }
+
+bool Plane::ClosestParameter(C_Pnt testPoint, double &s, double &t) const {
+  Vector3d v = testPoint - Origin();
+  s = v * XAxis();
+  t = v * YAxis();
+  return true;
+}
+
+Point3d Plane::ClosestPoint(C_Pnt testPoint) const {
+  double s, t;
+  if (ClosestParameter(testPoint, s, t)) {
+    return PointAt(s, t);
+  }
+  return Point3d::Unset();
+}
+
+double Plane::DistanceTo(C_Pnt testPoint) const {
+  return m_data.Distance(testPoint.Data());
+}
+
+bool Plane::EpsilonEquals(C_Pln other, double epsilon) const {
+  if (Origin().EpsilonEquals(other.Origin(), epsilon) &&
+      XAxis().EpsilonEquals(other.XAxis(), epsilon) &&
+      YAxis().EpsilonEquals(other.YAxis(), epsilon)) {
+    return ZAxis().EpsilonEquals(other.ZAxis(), epsilon);
+  }
+  return false;
+}
+
+bool Plane::Equals(C_Pln plane) const {
+  if (Origin() == plane.Origin() && XAxis() == plane.XAxis() &&
+      YAxis() == plane.YAxis()) {
+    return ZAxis() == plane.ZAxis();
+  }
+  return false;
+}
+
+void Plane::Flip() {
+  m_data.UReverse();
+  m_data.VReverse();
+}
+
+void Plane::GetPlaneEquation(double &a, double &b, double &c, double &d) const {
+  m_data.Coefficients(a, b, c, d);
+}
+
+Point3d Plane::PointAt(double u, double v) const {
+  return Point3d(u * XAxis() + v * YAxis());
+}
+
+bool Plane::RemapToPlaneSpace(C_Pnt ptSample, Point3d &ptPlane) const {
+  double s, t;
+  if (!ClosestParameter(ptSample, s, t)) {
+    return false;
+  }
+  double z = DistanceTo(ptSample);
+  ptPlane = Point3d(s, t, z);
+  return true;
+}
+
+bool Plane::Rotate(double angle, C_Vec axis) {
+  return Rotate(angle, axis, Point3d::Origin());
+}
+
+bool Plane::Rotate(double angle, C_Vec axis, C_Pnt centerOfRotation) {
+  m_data.Rotate(gp_Ax1(centerOfRotation.Data(), axis.Data()), angle);
+  return true;
+}
+
+bool Plane::Rotate(double sinAngle, double cosAngle, C_Vec axis) { NOT_IMPL }
+
+bool Plane::Rotate(double sinAngle, double cosAngle, C_Vec axis,
+                   C_Pnt centerOfRotation) {
+  NOT_IMPL
+}
+
+bool Plane::Transform(C_Trsf xform) {
+  if (!IsValid() || !xform.IsValid())
+    return false;
+  m_data.Transform(xform.Data().Trsf());
+  return true;
+}
+
+bool Plane::Translate(C_Vec delta) {
+  if (!IsValid() || !delta.IsValid())
+    return false;
+  m_data.Translate(delta.Data());
+  return true;
+}
+
+double Plane::ValueAt(C_Pnt p) const {
+  double a, b, c, d;
+  m_data.Coefficients(a, b, c, d);
+  return a * p.X() + b * p.Y() + c * p.Z() + d;
 }
 
 } // namespace Geometry

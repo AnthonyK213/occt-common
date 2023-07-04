@@ -496,7 +496,7 @@ public:
   /// @brief
   /// @param transform
   /// @return
-  void operator*=(C_Trsf transform);
+  Transform &operator*=(C_Trsf transform);
 };
 
 } // namespace Geometry

@@ -184,6 +184,26 @@ Transform Transform::Translation(C_Vec motion) {
   return Transform{translation};
 }
 
+bool Transform::TryGetInverse(Transform &inverseTransform) const {
+  try {
+    inverseTransform = m_data.Inverted();
+    return true;
+  } catch (...) {
+    return false;
+  }
+}
+
+bool Transform::operator!=(C_Trsf other) const {
+  for (int i = 1; i <= 3; ++i) {
+    for (int j = 1; j <= 4; ++j) {
+      if (m_data.Value(i, j) != other.m_data.Value(i, j)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 bool Transform::operator==(C_Trsf other) const {
   for (int i = 1; i <= 3; ++i) {
     for (int j = 1; j <= 4; ++j) {
@@ -193,6 +213,43 @@ bool Transform::operator==(C_Trsf other) const {
     }
   }
   return true;
+}
+
+const Transform Transform::operator*(C_Trsf transform) const {
+  return Transform(m_data.Multiplied(transform.m_data));
+}
+
+const Point3d Transform::operator*(C_Pnt point) const {
+  double x = point.X();
+  double y = point.Y();
+  double z = point.Z();
+  double rx = M00() * x + M01() * y + M02() * z + M03();
+  double ry = M10() * x + M11() * y + M12() * z + M13();
+  double rz = M20() * x + M21() * y + M22() * z + M23();
+  // FIXME: emm...
+  double rw = M30() * x + M31() * y + M32() * z + M33();
+  if (rw != 0.0) {
+    rw = 1.0 / rw;
+    rx *= rw;
+    ry *= rw;
+    rz *= rw;
+  }
+  return Point3d(rx, ry, rz);
+}
+
+const Vector3d Transform::operator*(C_Vec vector) const {
+  double x = vector.X();
+  double y = vector.Y();
+  double z = vector.Z();
+  double rx = M00() * x + M01() * y + M02() * z + M03();
+  double ry = M10() * x + M11() * y + M12() * z + M13();
+  double rz = M20() * x + M21() * y + M22() * z + M23();
+  return Vector3d(rx, ry, rz);
+}
+
+Transform &Transform::operator*=(C_Trsf transform) {
+  m_data.Multiply(transform.m_data);
+  return *this;
 }
 
 } // namespace Geometry

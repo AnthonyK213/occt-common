@@ -184,7 +184,7 @@ public:
 
   /// @brief
   /// @return
-  std::array<double, 4> GetPlaneEquation() const;
+  void GetPlaneEquation(double &a, double &b, double &c, double &d) const;
 
   /// @brief
   /// @param plane
@@ -247,13 +247,10 @@ public:
   /// @return
   bool Translate(C_Vec delta);
 
-  /// @brief
-  /// @return
-  bool UpdateEquation(); // ?
-
-  /// @brief
-  /// @param p
-  /// @return
+  /// @brief Get the value of the plane equation at the point.
+  /// @param p Evaluation point.
+  /// @return returns pe[0]*p.X + pe[1]*p.Y + pe[2]*p.Z + pe[3] where
+  /// pe[0], pe[1], pe[2] and pe[3] are the coefficients of the plane equation.
   double ValueAt(C_Pnt p) const;
 
 public:
