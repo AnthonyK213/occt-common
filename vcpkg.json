@@ -6,5 +6,11 @@
             "name": "opencascade",
             "host": true
         }
+    ],
+    "overrides": [
+        {
+            "name": "opencascade",
+            "version": "7.6.2#4"
+        }
     ]
 }
