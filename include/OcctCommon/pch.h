@@ -6,16 +6,23 @@
 #include <opencascade/CPnts_AbscissaPoint.hxx>
 #include <opencascade/Extrema_ExtPC.hxx>
 #include <opencascade/GC_MakeCircle.hxx>
+#include <opencascade/GeomAPI_Interpolate.hxx>
 #include <opencascade/GeomAbs_Shape.hxx>
 #include <opencascade/GeomAdaptor_Curve.hxx>
 #include <opencascade/GeomPlate_BuildAveragePlane.hxx>
 #include <opencascade/Geom_BSplineCurve.hxx>
+#include <opencascade/Geom_BoundedCurve.hxx>
 #include <opencascade/Geom_Circle.hxx>
 #include <opencascade/Geom_Curve.hxx>
 #include <opencascade/Geom_Geometry.hxx>
 #include <opencascade/Geom_Line.hxx>
+#include <opencascade/Geom_OffsetCurve.hxx>
+#include <opencascade/Geom_TrimmedCurve.hxx>
+#include <opencascade/Precision.hxx>
 #include <opencascade/Standard.hxx>
 #include <opencascade/Standard_Handle.hxx>
+#include <opencascade/Standard_TypeDef.hxx>
+#include <opencascade/TColgp_Array1OfPnt.hxx>
 #include <opencascade/TopoDS.hxx>
 #include <opencascade/TopoDS_Edge.hxx>
 #include <opencascade/TopoDS_Shape.hxx>
@@ -36,6 +43,8 @@
 #include <opencascade/gp_Vec.hxx>
 #include <opencascade/gp_XYZ.hxx>
 
+#include <algorithm>
+#include <iterator>
 #include <memory>
 #include <string>
 #include <vector>
@@ -47,6 +56,15 @@ public:                                                                        \
 #endif
 #ifndef NOT_IMPL
 #define NOT_IMPL throw std::runtime_error("Not implemented.");
+#endif
+#ifndef IS_CONTAINER_OF
+#define IS_CONTAINER_OF(Container, Class)                                      \
+  typename std::enable_if<                                                     \
+      std::is_same<                                                            \
+          typename std::iterator_traits<typename std::remove_reference<        \
+              Container>::type::iterator>::value_type,                         \
+          Class>::value,                                                       \
+      void>::type
 #endif
 
 /// @brief Contains commonly-used types used in OcctCommon.
@@ -238,6 +256,7 @@ using C_Circ = const OcctCommon::Geometry::Circle &;
 using C_Crv = const OcctCommon::Geometry::Curve &;
 using C_Intv = const OcctCommon::Geometry::Interval &;
 using C_Lin = const OcctCommon::Geometry::Line &;
+using C_NCrv = const OcctCommon::Geometry::NurbsCurve &;
 using C_Pln = const OcctCommon::Geometry::Plane &;
 using C_Pnt = const OcctCommon::Geometry::Point3d &;
 using C_Trsf = const OcctCommon::Geometry::Transform &;

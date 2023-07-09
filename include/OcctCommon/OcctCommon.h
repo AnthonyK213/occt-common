@@ -6,6 +6,7 @@
 #include <OcctCommon/Geometry/Circle.h>
 #include <OcctCommon/Geometry/Collections/BrepCurveList.h>
 #include <OcctCommon/Geometry/Curve.h>
+#include <OcctCommon/Geometry/CurveUtil.h>
 #include <OcctCommon/Geometry/Ellipse.h>
 #include <OcctCommon/Geometry/GeometryBase.h>
 #include <OcctCommon/Geometry/Intersect/Intersection.h>

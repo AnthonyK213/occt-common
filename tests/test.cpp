@@ -75,6 +75,21 @@ TEST(GeometryTests, interval_test) {
   EXPECT_TRUE(c == Interval(-1, 0));
 }
 
+TEST(GeometryTests, curve_interpolate_test) {
+  Vec_<Point3d> points = {
+      {0, 0, 0},
+      {1, 1, 0},
+      {2, 0, 0},
+      {3, 3, 0},
+  };
+  Curve *curve = CurveUtil::CreateInterpolatedCurve(points, 3);
+  if (curve) {
+    EXPECT_TRUE(curve->PointAtStart() == Point3d(0, 0, 0));
+    EXPECT_TRUE(curve->PointAtEnd() == Point3d(3, 3, 0));
+    delete curve;
+  }
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -605,7 +605,11 @@ bool Curve::TryGetPolyline(Polyline &polyline, Vec_<double> &parameters) const {
   NOT_IMPL
 }
 
-bool Curve::TryGetPolyline(Polyline &polyline) const { NOT_IMPL }
+bool Curve::TryGetPolyline(Polyline &polyline) const {NOT_IMPL}
+
+Curve::~Curve() noexcept {
+  std::cout << "Curve: AWSL" << std::endl;
+}
 
 } // namespace Geometry
 } // namespace OcctCommon
