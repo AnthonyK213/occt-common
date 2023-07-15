@@ -5,7 +5,7 @@ namespace Geometry {
 
 NurbsCurve::NurbsCurve(int32_t degree, int32_t pointCount) {}
 
-NurbsCurve::NurbsCurve(const Handle_Geom_BSplineCurve &curve) {
+NurbsCurve::NurbsCurve(const Handle(Geom_BSplineCurve) & curve) {
   m_data = std::make_shared<GeomAdaptor_Curve>(curve);
 }
 
