@@ -6,6 +6,7 @@
 #include <opencascade/CPnts_AbscissaPoint.hxx>
 #include <opencascade/Extrema_ExtPC.hxx>
 #include <opencascade/GC_MakeCircle.hxx>
+#include <opencascade/GProp_PEquation.hxx>
 #include <opencascade/GeomAPI_Interpolate.hxx>
 #include <opencascade/GeomAbs_Shape.hxx>
 #include <opencascade/GeomAdaptor_Curve.hxx>
@@ -22,6 +23,7 @@
 #include <opencascade/Standard.hxx>
 #include <opencascade/Standard_Handle.hxx>
 #include <opencascade/Standard_TypeDef.hxx>
+#include <opencascade/Standard_Version.hxx>
 #include <opencascade/TColgp_Array1OfPnt.hxx>
 #include <opencascade/TopoDS.hxx>
 #include <opencascade/TopoDS_Edge.hxx>
@@ -42,6 +44,11 @@
 #include <opencascade/gp_Trsf.hxx>
 #include <opencascade/gp_Vec.hxx>
 #include <opencascade/gp_XYZ.hxx>
+
+#if (OCC_VERSION_MAJOR < 7 ||                                                  \
+     (OCC_VERSION_MAJOR == 7 && OCC_VERSION_MINOR <= 5))
+#include <opencascade/Adaptor3d_HCurve.hxx>
+#endif
 
 #include <algorithm>
 #include <iterator>

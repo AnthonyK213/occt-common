@@ -22,6 +22,8 @@ public:
 
   virtual bool IsInPlane(C_Pln testPlane, double tolerance) const override;
 
+  virtual bool IsPlanar(double tolerance) const override;
+
   virtual Curve *Trim(double t0, double t1) const override;
 
   virtual ~NurbsCurve() noexcept override;

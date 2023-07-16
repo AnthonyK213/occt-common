@@ -242,7 +242,7 @@ public:
 
   virtual bool IsPlanar() const;
 
-  virtual bool IsPlanar(double tolerance) const;
+  virtual bool IsPlanar(double tolerance) const = 0;
 
   virtual bool IsPolyline() const;
 

@@ -186,6 +186,11 @@ public:
   /// @return
   void GetPlaneEquation(double &a, double &b, double &c, double &d) const;
 
+  /// @brief 
+  /// @param plane 
+  /// @return 
+  bool IsCoplanar(C_Pln plane) const;
+
   /// @brief
   /// @param plane
   /// @param tolerance

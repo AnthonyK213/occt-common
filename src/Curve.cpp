@@ -310,9 +310,9 @@ bool Curve::IsLinear() const { NOT_IMPL }
 
 bool Curve::IsLinear(double tolerance) const { NOT_IMPL }
 
-bool Curve::IsPlanar() const { NOT_IMPL }
-
-bool Curve::IsPlanar(double tolerance) const { NOT_IMPL }
+bool Curve::IsPlanar() const {
+  return IsPlanar(_Math::ZeroTolerance);
+}
 
 bool Curve::IsPolyline() const { NOT_IMPL }
 
@@ -607,9 +607,7 @@ bool Curve::TryGetPolyline(Polyline &polyline, Vec_<double> &parameters) const {
 
 bool Curve::TryGetPolyline(Polyline &polyline) const {NOT_IMPL}
 
-Curve::~Curve() noexcept {
-  std::cout << "Curve: AWSL" << std::endl;
-}
+Curve::~Curve() noexcept {}
 
 } // namespace Geometry
 } // namespace OcctCommon

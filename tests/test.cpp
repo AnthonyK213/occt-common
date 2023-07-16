@@ -86,6 +86,9 @@ TEST(GeometryTests, curve_interpolate_test) {
   if (curve) {
     EXPECT_TRUE(curve->PointAtStart() == Point3d(0, 0, 0));
     EXPECT_TRUE(curve->PointAtEnd() == Point3d(3, 3, 0));
+    EXPECT_EQ(curve->SpanCount(), 3);
+    EXPECT_TRUE(curve->IsPlanar());
+    EXPECT_TRUE(curve->IsInPlane(Plane::WorldXY()));
     delete curve;
   }
 }

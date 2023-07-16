@@ -148,6 +148,14 @@ void Plane::GetPlaneEquation(double &a, double &b, double &c, double &d) const {
   m_data.Coefficients(a, b, c, d);
 }
 
+bool Plane::IsCoplanar(C_Pln plane) const {
+  return IsCoplanar(plane, _Math::ZeroTolerance);
+}
+
+bool Plane::IsCoplanar(C_Pln plane, double tolerance) const {
+  return ZAxis().IsParallelTo(plane.ZAxis()) != 0;
+}
+
 Point3d Plane::PointAt(double u, double v) const {
   return Point3d(u * XAxis() + v * YAxis());
 }
