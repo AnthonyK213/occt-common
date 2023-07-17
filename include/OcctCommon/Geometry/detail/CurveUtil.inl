@@ -52,12 +52,10 @@ Vec_<Arc_<Curve>> JoinCurves(C &&curves, double joinTolerance,
   for (auto it = std::begin(curves); it != std::end(curves); ++it) {
     if ((*it)->Data()->GetType() == GeomAbs_OtherCurve) {
       Arc_<BRepAdaptor_CompCurve> compCurve =
-          std::reinterpret_pointer_cast<BRepAdaptor_CompCurve>(
-              (*it)->Data());
+          reinterpret_cast<const Arc_<BRepAdaptor_CompCurve> &>((*it)->Data());
       TopoDS_Wire wire = compCurve->Wire();
       BRepTools_WireExplorer expl(wire);
-      while (expl.More())
-      {
+      while (expl.More()) {
         TopoDS_Edge edge = TopoDS::Edge(expl.Current());
         edges->Append(edge);
       }
