@@ -265,6 +265,8 @@ template <typename T> using Arc_ = std::shared_ptr<T>;
 template <typename T> using Box_ = std::unique_ptr<T>;
 template <typename T> using Vec_ = std::vector<T>;
 
+using _Math = OcctCommon::OcctMath;
+
 using C_Arc = const OcctCommon::Geometry::Arc &;
 using C_BB = const OcctCommon::Geometry::BoundingBox &;
 using C_Box = const OcctCommon::Geometry::Box &;
@@ -285,6 +287,19 @@ using C_Srf = const OcctCommon::Geometry::Surface &;
 using C_Brp = const OcctCommon::Geometry::Brep &;
 using C_Msh = const OcctCommon::Geometry::Mesh &;
 using C_Rect = const OcctCommon::Geometry::Rectangle3d &;
-using _Math = OcctCommon::OcctMath;
+
+using H_Curve = Arc_<OcctCommon::Geometry::Curve>;
+using H_NurbsCurve = Arc_<OcctCommon::Geometry::NurbsCurve>;
+using H_PolyCurve = Arc_<OcctCommon::Geometry::PolyCurve>;
+using H_PolylineCurve = Arc_<OcctCommon::Geometry::PolylineCurve>;
+using H_LineCurve = Arc_<OcctCommon::Geometry::LineCurve>;
+using H_ArcCurve = Arc_<OcctCommon::Geometry::ArcCurve>;
+
+using V_Curve = Vec_<H_Curve>;
+using V_NurbsCurve = Vec_<H_NurbsCurve>;
+using V_PolyCurve = Vec_<H_PolyCurve>;
+using V_PolylineCurve = Vec_<H_PolylineCurve>;
+using V_LineCurve = Vec_<H_LineCurve>;
+using V_ArcCurve = Vec_<H_ArcCurve>;
 
 #endif

@@ -82,14 +82,13 @@ TEST(GeometryTests, curve_interpolate_test) {
       {2, 0, 0},
       {3, 3, 0},
   };
-  Curve *curve = CurveUtil::CreateInterpolatedCurve(points, 3);
+  H_Curve curve = CurveUtil::CreateInterpolatedCurve(points, 3);
   if (curve) {
     EXPECT_TRUE(curve->PointAtStart() == Point3d(0, 0, 0));
     EXPECT_TRUE(curve->PointAtEnd() == Point3d(3, 3, 0));
     EXPECT_EQ(curve->SpanCount(), 3);
     EXPECT_TRUE(curve->IsPlanar());
     EXPECT_TRUE(curve->IsInPlane(Plane::WorldXY()));
-    delete curve;
   }
 }
 
@@ -100,23 +99,21 @@ TEST(GeometryTests, curve_join_test) {
       {2, 0, 0},
       {3, 3, 0},
   };
-  Curve *curve1 = CurveUtil::CreateInterpolatedCurve(points1, 3);
+  H_Curve curve1 = CurveUtil::CreateInterpolatedCurve(points1, 3);
   Vec_<Point3d> points2 = {
       {3, 3, 0},
       {4, 6, 0},
       {5, 3, 0},
       {0, 1, 0},
   };
-  Curve *curve2 = CurveUtil::CreateInterpolatedCurve(points2, 3);
-  Vec_<Curve*> curves{curve1, curve2};
+  H_Curve curve2 = CurveUtil::CreateInterpolatedCurve(points2, 3);
+  V_Curve curves{curve1, curve2};
   auto result = CurveUtil::JoinCurves(curves, 0.001, true);
   EXPECT_EQ(result.size(), 1);
   EXPECT_TRUE(result[0]->PointAtStart() == Point3d(0, 0, 0));
   EXPECT_TRUE(result[0]->PointAtEnd() == Point3d(0, 1, 0));
   EXPECT_EQ(result[0]->SpanCount(), 6);
   EXPECT_EQ(result[0]->Degree(), 3);
-  delete curve1;
-  delete curve2;
 }
 
 int main(int argc, char **argv) {

@@ -3,34 +3,36 @@
 
 #include <OcctCommon/Geometry/Curve.h>
 #include <OcctCommon/Geometry/PolyCurve.h>
+#include <OcctCommon/OcctMath.h>
 
 namespace OcctCommon {
 namespace Geometry {
 namespace CurveUtil {
 
 template <typename C, typename T>
-Vec_<Arc_<Curve>> CreateBooleanUnion(C &&curves, double tolerance) {
+V_Curve CreateBooleanUnion(C &&curves, double tolerance) {
   NOT_IMPL
 }
 
 template <typename C, typename T>
-Curve *CreateControlPointCurve(C &&points, int32_t degree) {
+H_Curve CreateControlPointCurve(C &&points, int32_t degree) {
   NOT_IMPL
 }
 
-template <typename C, typename T> Curve *CreateControlPointCurve(C &&points) {
+template <typename C, typename T> H_Curve CreateControlPointCurve(C &&points) {
   NOT_IMPL
 }
 
 template <typename C, typename T>
-Curve *CreateInterpolatedCurve(C &&points, int32_t degree, CurveKnotStyle knots,
-                               C_Vec startTangent, C_Vec endTangent) {
+H_Curve CreateInterpolatedCurve(C &&points, int32_t degree,
+                                CurveKnotStyle knots, C_Vec startTangent,
+                                C_Vec endTangent) {
   NOT_IMPL
 }
 
 // TODO: degree?
 template <typename C, typename T>
-Curve *CreateInterpolatedCurve(C &&points, int32_t degree) {
+H_Curve CreateInterpolatedCurve(C &&points, int32_t degree) {
   size_t count = points.size();
   Handle_TColgp_HArray1OfPnt aPoints = new TColgp_HArray1OfPnt(1, count);
   for (auto it = std::begin(points); it != std::end(points); ++it) {
@@ -42,12 +44,11 @@ Curve *CreateInterpolatedCurve(C &&points, int32_t degree) {
   if (!aInterpolater.IsDone()) {
     return nullptr;
   }
-  return new NurbsCurve(aInterpolater.Curve());
+  return std::make_shared<NurbsCurve>(aInterpolater.Curve());
 }
 
 template <typename C, typename T>
-Vec_<Arc_<Curve>> JoinCurves(C &&curves, double joinTolerance,
-                             bool preserveDirection) {
+V_Curve JoinCurves(C &&curves, double joinTolerance, bool preserveDirection) {
   Handle(TopTools_HSequenceOfShape) edges = new TopTools_HSequenceOfShape();
   for (auto it = std::begin(curves); it != std::end(curves); ++it) {
     if ((*it)->Data()->GetType() == GeomAbs_OtherCurve) {
@@ -75,12 +76,12 @@ Vec_<Arc_<Curve>> JoinCurves(C &&curves, double joinTolerance,
 }
 
 template <typename C, typename T>
-Vec_<Arc_<Curve>> JoinCurves(C &&curves, double joinTolerance) {
-  NOT_IMPL
+V_Curve JoinCurves(C &&curves, double joinTolerance) {
+  return JoinCurves(curves, joinTolerance, false);
 }
 
-template <typename C, typename T> Vec_<Curve> JoinCurves(C &&curves) {
-  NOT_IMPL
+template <typename C, typename T> V_Curve JoinCurves(C &&curves) {
+  return JoinCurves(curves, _Math::ZeroTolerance, false);
 }
 
 } // namespace CurveUtil
