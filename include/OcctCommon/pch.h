@@ -55,6 +55,8 @@
 #define OCC_ADAPTOR3D_CURVE_IS_STANDARD_TRANSIENT
 #else
 #undef OCC_ADAPTOR3D_CURVE_IS_STANDARD_TRANSIENT
+#include <opencascade/Adaptor3d_HCurve.hxx>
+#include <opencascade/BRepAdaptor_HCompCurve.hxx>
 #endif
 
 #include <algorithm>
