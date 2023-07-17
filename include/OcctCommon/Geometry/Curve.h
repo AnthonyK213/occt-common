@@ -449,10 +449,13 @@ public:
 public:
   virtual ~Curve() noexcept;
 
+public:
+  const Arc_<Adaptor3d_Curve>& Data() const;
+
 protected:
   /// @brief Curve data.
-  /// `Adaptor3d_Curve` was made to derive from `Standard_Transient` since 7.6.
-  /// For compatibility, choose `std::shared_ptr<T>`.
+  /// NOTE: `Adaptor3d_Curve` was made to derive from `Standard_Transient`
+  /// since 7.6.
   Arc_<Adaptor3d_Curve> m_data;
 };
 

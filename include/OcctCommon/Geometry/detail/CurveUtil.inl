@@ -1,7 +1,8 @@
 #ifndef OCCTCOMMON_GEOMETRY_CURVEUTIL_INL
 #define OCCTCOMMON_GEOMETRY_CURVEUTIL_INL
 
-#include <OcctCommon/pch.h>
+#include <OcctCommon/Geometry/Curve.h>
+#include <OcctCommon/Geometry/PolyCurve.h>
 
 namespace OcctCommon {
 namespace Geometry {
@@ -17,8 +18,7 @@ Curve *CreateControlPointCurve(C &&points, int32_t degree) {
   NOT_IMPL
 }
 
-template <typename C, typename T>
-Curve *CreateControlPointCurve(C &&points) {
+template <typename C, typename T> Curve *CreateControlPointCurve(C &&points) {
   NOT_IMPL
 }
 
@@ -48,7 +48,32 @@ Curve *CreateInterpolatedCurve(C &&points, int32_t degree) {
 template <typename C, typename T>
 Vec_<Arc_<Curve>> JoinCurves(C &&curves, double joinTolerance,
                              bool preserveDirection) {
-  NOT_IMPL
+  Handle(TopTools_HSequenceOfShape) edges = new TopTools_HSequenceOfShape();
+  for (auto it = std::begin(curves); it != std::end(curves); ++it) {
+    if ((*it)->Data()->GetType() == GeomAbs_OtherCurve) {
+      Arc_<BRepAdaptor_CompCurve> compCurve =
+          std::reinterpret_pointer_cast<BRepAdaptor_CompCurve>(
+              (*it)->Data());
+      TopoDS_Wire wire = compCurve->Wire();
+      BRepTools_WireExplorer expl(wire);
+      while (expl.More())
+      {
+        TopoDS_Edge edge = TopoDS::Edge(expl.Current());
+        edges->Append(edge);
+      }
+    } else {
+      edges->Append(BRepBuilderAPI_MakeEdge((*it)->Data()->BSpline()).Edge());
+    }
+  }
+  Handle(TopTools_HSequenceOfShape) wires = new TopTools_HSequenceOfShape();
+  ShapeAnalysis_FreeBounds::ConnectEdgesToWires(edges, joinTolerance, false,
+                                                wires);
+  Vec_<Arc_<Curve>> result{};
+  for (auto it = wires->cbegin(); it != wires->cend(); ++it) {
+    TopoDS_Wire wire = TopoDS::Wire(*it);
+    result.push_back(std::make_shared<PolyCurve>(wire));
+  }
+  return result;
 }
 
 template <typename C, typename T>
@@ -56,8 +81,7 @@ Vec_<Arc_<Curve>> JoinCurves(C &&curves, double joinTolerance) {
   NOT_IMPL
 }
 
-template <typename C, typename T>
-Vec_<Curve> JoinCurves(C &&curves) {
+template <typename C, typename T> Vec_<Curve> JoinCurves(C &&curves) {
   NOT_IMPL
 }
 

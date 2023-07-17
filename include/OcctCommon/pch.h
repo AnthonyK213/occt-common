@@ -3,6 +3,9 @@
 
 #include <opencascade/Adaptor3d_Curve.hxx>
 #include <opencascade/BRepAdaptor_CompCurve.hxx>
+#include <opencascade/BRepBuilderAPI_MakeEdge.hxx>
+#include <opencascade/BRepBuilderAPI_MakeWire.hxx>
+#include <opencascade/BRepTools_WireExplorer.hxx>
 #include <opencascade/CPnts_AbscissaPoint.hxx>
 #include <opencascade/Extrema_ExtPC.hxx>
 #include <opencascade/GC_MakeCircle.hxx>
@@ -20,11 +23,14 @@
 #include <opencascade/Geom_OffsetCurve.hxx>
 #include <opencascade/Geom_TrimmedCurve.hxx>
 #include <opencascade/Precision.hxx>
+#include <opencascade/ShapeAnalysis_FreeBounds.hxx>
 #include <opencascade/Standard.hxx>
 #include <opencascade/Standard_Handle.hxx>
 #include <opencascade/Standard_TypeDef.hxx>
 #include <opencascade/Standard_Version.hxx>
 #include <opencascade/TColgp_Array1OfPnt.hxx>
+#include <opencascade/TopExp_Explorer.hxx>
+#include <opencascade/TopTools_HSequenceOfShape.hxx>
 #include <opencascade/TopoDS.hxx>
 #include <opencascade/TopoDS_Edge.hxx>
 #include <opencascade/TopoDS_Shape.hxx>
@@ -45,9 +51,10 @@
 #include <opencascade/gp_Vec.hxx>
 #include <opencascade/gp_XYZ.hxx>
 
-#if (OCC_VERSION_MAJOR < 7 ||                                                  \
-     (OCC_VERSION_MAJOR == 7 && OCC_VERSION_MINOR <= 5))
-#include <opencascade/Adaptor3d_HCurve.hxx>
+#if (OCC_VERSION_MAJOR > 7 || (OCC_VERSION_MAJOR == 7 && OCC_VERSION_MINOR > 5))
+#define OCC_ADAPTOR3D_CURVE_IS_STANDARD_TRANSIENT
+#else
+#undef OCC_ADAPTOR3D_CURVE_IS_STANDARD_TRANSIENT
 #endif
 
 #include <algorithm>
@@ -264,6 +271,10 @@ using C_Crv = const OcctCommon::Geometry::Curve &;
 using C_Intv = const OcctCommon::Geometry::Interval &;
 using C_Lin = const OcctCommon::Geometry::Line &;
 using C_NCrv = const OcctCommon::Geometry::NurbsCurve &;
+using C_PCrv = const OcctCommon::Geometry::PolyCurve &;
+using C_PlCrv = const OcctCommon::Geometry::PolylineCurve &;
+using C_LCrv = const OcctCommon::Geometry::LineCurve &;
+using C_ACrv = const OcctCommon::Geometry::ArcCurve &;
 using C_Pln = const OcctCommon::Geometry::Plane &;
 using C_Pnt = const OcctCommon::Geometry::Point3d &;
 using C_Trsf = const OcctCommon::Geometry::Transform &;
