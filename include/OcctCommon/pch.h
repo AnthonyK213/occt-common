@@ -68,7 +68,7 @@
 #ifndef GP_WRAPPER
 #define GP_WRAPPER                                                             \
 public:                                                                        \
-  using _gpWrapper::_gpWrapper;
+  using GpWrapper::GpWrapper;
 #endif
 #ifndef NOT_IMPL
 #define NOT_IMPL throw std::runtime_error("Not implemented.");
@@ -245,10 +245,10 @@ enum class SmoothingCoordinateSystem : int32_t {
 };
 
 /// @brief Transparent wrapper for gp_*.
-template <typename T> class _gpWrapper {
+template <typename T> class GpWrapper {
 public:
-  _gpWrapper() : m_data() {}
-  _gpWrapper(const T &t) noexcept : m_data(t) {}
+  GpWrapper() : m_data() {}
+  GpWrapper(const T &t) noexcept : m_data(t) {}
   const T &Data() const { return m_data; }
 
 protected:

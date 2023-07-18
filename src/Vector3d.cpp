@@ -7,11 +7,11 @@
 namespace OcctCommon {
 namespace Geometry {
 
-Vector3d::Vector3d(double x, double y, double z) : _gpWrapper({x, y, z}) {}
+Vector3d::Vector3d(double x, double y, double z) : GpWrapper({x, y, z}) {}
 
-Vector3d::Vector3d(C_Pnt point) : _gpWrapper(point.Data().Coord()) {}
+Vector3d::Vector3d(C_Pnt point) : GpWrapper(point.Data().Coord()) {}
 
-Vector3d::Vector3d(C_Vec vector) : _gpWrapper(vector.m_data) {}
+Vector3d::Vector3d(C_Vec vector) : GpWrapper(vector.m_data) {}
 
 bool Vector3d::IsUnitVector() const {
   return std::abs(m_data.Magnitude() - 1.0) <= _Math::SqrtEpsilon;
@@ -127,7 +127,7 @@ double Vector3d::VectorAngle(C_Vec a, C_Vec b) {
   return a.Data().Angle(b.Data());
 }
 
-int Vector3d::CompareTo(C_Vec other) const {
+int32_t Vector3d::CompareTo(C_Vec other) const {
   if (X() < other.X())
     return -1;
   if (X() > other.X())
@@ -153,7 +153,7 @@ bool Vector3d::EpsilonEquals(C_Vec other, double epsilon) const {
 bool Vector3d::Equals(C_Vec vector) const { return *this == vector; }
 
 // FIXME: VectorWithNullMagnitude exception
-int Vector3d::IsParallelTo(C_Vec other, double angleTolerance) const {
+int32_t Vector3d::IsParallelTo(C_Vec other, double angleTolerance) const {
   if (!m_data.IsParallel(other.m_data, angleTolerance))
     return 0;
   if (m_data * other.m_data > 0)
@@ -161,7 +161,7 @@ int Vector3d::IsParallelTo(C_Vec other, double angleTolerance) const {
   return -1;
 }
 
-int Vector3d::IsParallelTo(C_Vec other) const {
+int32_t Vector3d::IsParallelTo(C_Vec other) const {
   return IsParallelTo(other, _Math::DefaultAngleTolerance);
 }
 

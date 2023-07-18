@@ -67,7 +67,7 @@ V_Curve JoinCurves(C &&curves, double joinTolerance, bool preserveDirection) {
   Handle(TopTools_HSequenceOfShape) wires = new TopTools_HSequenceOfShape();
   ShapeAnalysis_FreeBounds::ConnectEdgesToWires(edges, joinTolerance, false,
                                                 wires);
-  Vec_<Arc_<Curve>> result{};
+  V_Curve result{};
   for (auto it = wires->cbegin(); it != wires->cend(); ++it) {
     TopoDS_Wire wire = TopoDS::Wire(*it);
     result.push_back(std::make_shared<PolyCurve>(wire));

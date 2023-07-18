@@ -53,7 +53,7 @@ Interval Interval::FromUnion(C_Intv a, C_Intv b) {
   return Interval::Unset();
 }
 
-int Interval::CompareTo(C_Intv other) const {
+int32_t Interval::CompareTo(C_Intv other) const {
   if (m_t0 < other.m_t0) {
     return -1;
   }

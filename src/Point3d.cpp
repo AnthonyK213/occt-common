@@ -6,11 +6,11 @@
 namespace OcctCommon {
 namespace Geometry {
 
-Point3d::Point3d(double x, double y, double z) : _gpWrapper({x, y, z}) {}
+Point3d::Point3d(double x, double y, double z) : GpWrapper({x, y, z}) {}
 
-Point3d::Point3d(C_Vec vector) : _gpWrapper(vector.Data().XYZ()) {}
+Point3d::Point3d(C_Vec vector) : GpWrapper(vector.Data().XYZ()) {}
 
-Point3d::Point3d(C_Pnt point) : _gpWrapper(point.m_data) {}
+Point3d::Point3d(C_Pnt point) : GpWrapper(point.m_data) {}
 
 C_Pnt Point3d::Origin() {
   static Point3d Point3d_Origin(gp::Origin());
@@ -66,6 +66,22 @@ double Point3d::Y() const { return m_data.Y(); };
 
 double Point3d::Z() const { return m_data.Z(); };
 
+int32_t Point3d::CompareTo(C_Pnt other) const {
+  if (X() < other.X())
+    return -1;
+  if (X() > other.X())
+    return 1;
+  if (Y() < other.Y())
+    return -1;
+  if (Y() > other.Y())
+    return 1;
+  if (Z() < other.Z())
+    return -1;
+  if (Z() > other.Z())
+    return 1;
+  return 0;
+}
+
 double Point3d::DistanceTo(C_Pnt point) const {
   return m_data.Distance(point.Data());
 }
@@ -82,9 +98,15 @@ bool Point3d::EpsilonEquals(C_Pnt other, double epsilon) const {
   return false;
 }
 
-bool Point3d::Equals(C_Pnt other) const {
-  return *this == other;
+bool Point3d::Equals(C_Pnt other) const { return *this == other; }
+
+void Point3d::Interpolate(C_Pnt pA, C_Pnt pB, double t) {
+  m_data.SetX(pA.X() + t * (pB.X() - pA.X()));
+  m_data.SetY(pA.Y() + t * (pB.Y() - pA.Y()));
+  m_data.SetZ(pA.Z() + t * (pB.Z() - pA.Z()));
 }
+
+void Point3d::Transform(C_Trsf xform) { m_data.Transform(xform.Data().Trsf()); }
 
 bool Point3d::operator!=(C_Pnt other) const {
   if (X() == other.X() && Y() == other.Y())
@@ -92,10 +114,26 @@ bool Point3d::operator!=(C_Pnt other) const {
   return true;
 }
 
+bool Point3d::operator<(C_Pnt other) const {
+  return CompareTo(other) < 0;
+}
+
+bool Point3d::operator<=(C_Pnt other) const {
+  return CompareTo(other) <= 0;
+}
+
 bool Point3d::operator==(C_Pnt other) const {
   if (X() == other.X() && Y() == other.Y())
     return Z() == other.Z();
   return false;
+}
+
+bool Point3d::operator>(C_Pnt other) const {
+  return CompareTo(other) > 0;
+}
+
+bool Point3d::operator>=(C_Pnt other) const {
+  return CompareTo(other) >= 0;
 }
 
 const Point3d Point3d::operator-(C_Vec vector) const {
@@ -122,6 +160,11 @@ const Point3d Point3d::operator+(C_Pnt other) const {
 
 const Vector3d Point3d::operator-(C_Pnt other) const {
   return Point3d::Subtract(*this, other);
+}
+
+Point3d &Point3d::operator-=(C_Vec vector) {
+  m_data.SetXYZ(m_data.Coord() - vector.Data().XYZ());
+  return *this;
 }
 
 Point3d &Point3d::operator*=(double t) {

@@ -7,7 +7,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-Transform::Transform(C_Trsf transform) : _gpWrapper(transform.m_data) {}
+Transform::Transform(C_Trsf transform) : GpWrapper(transform.m_data) {}
 
 C_Trsf Transform::Identity() noexcept {
   static Transform Transform_Identity{gp_GTrsf()};

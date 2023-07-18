@@ -8,7 +8,8 @@ namespace Geometry {
 
 class NurbsCurve final : public Curve {
 public:
-  NurbsCurve(int dimension, bool rational, int32_t order, int32_t pointCount);
+  NurbsCurve(int32_t dimension, bool rational, int32_t order,
+             int32_t pointCount);
 
   NurbsCurve(int32_t degree, int32_t pointCount);
 

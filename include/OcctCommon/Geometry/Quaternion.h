@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Quaternion : public _gpWrapper<gp_Quaternion> {
+class Quaternion : public GpWrapper<gp_Quaternion> {
   GP_WRAPPER
 };
 

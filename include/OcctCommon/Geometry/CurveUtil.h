@@ -49,14 +49,13 @@ H_Curve CreateCurve2View(const H_Curve &curveA, const H_Curve &curveB,
 Arc CreateFillet(const H_Curve &curve0, const H_Curve &curve1, double radius,
                  double t0Base, double t1Base);
 
-Curve *CreateFilletCornersCurve(const H_Curve &curve, double radius,
-                                double tolerance, double angleTolerance);
+H_Curve CreateFilletCornersCurve(const H_Curve &curve, double radius,
+                                 double tolerance, double angleTolerance);
 
-Vec_<Arc_<Curve>> CreateFilletCurves(const H_Curve &curve0, C_Pnt point0,
-                                     const H_Curve &curve1, C_Pnt point1,
-                                     double radius, bool join, bool trim,
-                                     bool arcExtension, double tolerance,
-                                     double angleTolerance);
+V_Curve CreateFilletCurves(const H_Curve &curve0, C_Pnt point0,
+                           const H_Curve &curve1, C_Pnt point1, double radius,
+                           bool join, bool trim, bool arcExtension,
+                           double tolerance, double angleTolerance);
 
 template <typename C, typename = IS_CONTAINER_OF(C, Point3d)>
 H_Curve CreateInterpolatedCurve(C &&points, int32_t degree,
@@ -70,17 +69,17 @@ V_Curve CreateMatchCurve(const H_Curve &curve0, bool reverse0,
                          BlendContinuity continuity, const H_Curve &curve1,
                          bool reverse1, PreserveEnd preserve, bool average);
 
-Curve *CreateMeanCurve(const H_Curve &curveA, const H_Curve &curveB,
-                       double angleToleranceRadians);
+H_Curve CreateMeanCurve(const H_Curve &curveA, const H_Curve &curveB,
+                        double angleToleranceRadians);
 
-Curve *CreateMeanCurve(const H_Curve &curveA, const H_Curve &curveB);
+H_Curve CreateMeanCurve(const H_Curve &curveA, const H_Curve &curveB);
 
-Curve *CreatePeriodicCurve(const H_Curve &curve, bool smooth);
+H_Curve CreatePeriodicCurve(const H_Curve &curve, bool smooth);
 
-Curve *CreatePeriodicCurve(const H_Curve &curve);
+H_Curve CreatePeriodicCurve(const H_Curve &curve);
 
-Curve *CreateSoftEditCurve(const H_Curve &curve, double t, C_Vec delta,
-                           double length, bool fixEnds);
+H_Curve CreateSoftEditCurve(const H_Curve &curve, double t, C_Vec delta,
+                            double length, bool fixEnds);
 
 V_Curve CreateTextOutlines();
 

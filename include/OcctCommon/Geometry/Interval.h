@@ -92,7 +92,7 @@ public:
   /// @brief
   /// @param other
   /// @return
-  int CompareTo(C_Intv other) const;
+  int32_t CompareTo(C_Intv other) const;
 
   /// @brief
   /// @param other

@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Circle final : public _gpWrapper<gp_Circ> {
+class Circle final : public GpWrapper<gp_Circ> {
   GP_WRAPPER
 
 public:

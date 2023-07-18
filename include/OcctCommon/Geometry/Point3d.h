@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Point3d final : public _gpWrapper<gp_Pnt> {
+class Point3d final : public GpWrapper<gp_Pnt> {
   GP_WRAPPER
 
 public:
@@ -101,13 +101,6 @@ public:
   /// @return
   static bool TryParse(std::string input, Point3d &result);
 
-  /// @brief
-  /// @param point1
-  /// @param point2
-  /// @param t
-  /// @return
-  static void Interpolate(C_Pnt point1, C_Pnt point2, double t);
-
 public:
   /// @brief
   /// @return
@@ -124,6 +117,11 @@ public:
   /// @brief
   /// @return
   double Z() const;
+  
+  /// @brief 
+  /// @param other 
+  /// @return 
+  int32_t CompareTo(C_Pnt other) const;
 
   /// @brief
   /// @param point
@@ -145,6 +143,13 @@ public:
   /// @param other
   /// @return
   bool Equals(C_Pnt other) const;
+
+  /// @brief
+  /// @param point1
+  /// @param point2
+  /// @param t
+  /// @return
+  void Interpolate(C_Pnt pA, C_Pnt pB, double t);
 
   /// @brief
   /// @return
@@ -219,6 +224,11 @@ public:
   /// @param other
   /// @return
   const Vector3d operator-(C_Pnt other) const;
+  
+  /// @brief 
+  /// @param vector 
+  /// @return 
+  Point3d &operator-=(C_Vec vector);
 
   /// @brief
   /// @param t

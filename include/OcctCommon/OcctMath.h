@@ -27,7 +27,7 @@ public:
   static constexpr double UnsetValue = -1.23432101234321e+308;
   static constexpr double ZeroTolerance = 2.3283064365386962890625e-10;
   static constexpr float UnsetSingle = -1.234321e+38f;
-  static constexpr int UnsetIntIndex = INT_MIN + 1;
+  static constexpr int32_t UnsetIntIndex = INT_MIN + 1;
 };
 
 } // namespace OcctCommon

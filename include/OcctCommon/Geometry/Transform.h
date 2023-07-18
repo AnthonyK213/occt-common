@@ -7,7 +7,7 @@ namespace OcctCommon {
 namespace Geometry {
 
 /// @brief Represents the values in a 4x4 transform matrix.
-class Transform final : public _gpWrapper<gp_GTrsf> {
+class Transform final : public GpWrapper<gp_GTrsf> {
   GP_WRAPPER
 
 public:

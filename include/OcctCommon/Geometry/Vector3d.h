@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Vector3d final : public _gpWrapper<gp_Vec> {
+class Vector3d final : public GpWrapper<gp_Vec> {
   GP_WRAPPER
 
 public:
@@ -187,7 +187,7 @@ public:
   /// @brief
   /// @param other
   /// @return
-  int CompareTo(C_Vec other) const;
+  int32_t CompareTo(C_Vec other) const;
 
   /// @brief
   /// @param other
@@ -204,12 +204,12 @@ public:
   /// @param other
   /// @param angleTolerance
   /// @return
-  int IsParallelTo(C_Vec other, double angleTolerance) const;
+  int32_t IsParallelTo(C_Vec other, double angleTolerance) const;
 
   /// @brief
   /// @param other
   /// @return
-  int IsParallelTo(C_Vec other) const;
+  int32_t IsParallelTo(C_Vec other) const;
 
   /// @brief
   /// @param other

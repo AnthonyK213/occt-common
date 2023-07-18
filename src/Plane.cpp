@@ -8,7 +8,7 @@ namespace OcctCommon {
 namespace Geometry {
 
 Plane::Plane(double a, double b, double c, double d)
-    : _gpWrapper({a, b, c, d}) {}
+    : GpWrapper({a, b, c, d}) {}
 
 Plane::Plane(C_Pnt origin, C_Pnt xPoint, C_Pnt yPoint) {
   if (origin.IsValid() && xPoint.IsValid() && yPoint.IsValid()) {
@@ -42,7 +42,7 @@ Plane::Plane(C_Pnt origin, C_Vec normal) {
   *this = Plane::Unset();
 }
 
-Plane::Plane(C_Pln plane) : _gpWrapper(plane.m_data) {}
+Plane::Plane(C_Pln plane) : GpWrapper(plane.m_data) {}
 
 C_Pln Plane::Unset() noexcept {
   static Plane Plane_Unset(gp_Pln(Point3d::Unset().Data(), gp::DZ()));

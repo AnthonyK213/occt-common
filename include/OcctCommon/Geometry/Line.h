@@ -36,7 +36,7 @@ public:
 
   /// @brief
   /// @param line
-  Line(C_Lin line);
+  Line(C_Lin line) = default;
 
   /// @brief
   /// @param line
@@ -141,7 +141,7 @@ public:
   /// @param testPoint
   /// @param limitToFiniteSegment
   /// @return
-  Point3d ClosestParameter(C_Pnt testPoint, bool limitToFiniteSegment) const;
+  Point3d ClosestPoint(C_Pnt testPoint, bool limitToFiniteSegment) const;
 
   /// @brief
   /// @param testPoint
@@ -217,7 +217,7 @@ public:
 
   /// @brief
   /// @return
-  NurbsCurve ToNurbsCurve() const;
+  H_NurbsCurve ToNurbsCurve() const;
 
   /// @brief
   /// @return

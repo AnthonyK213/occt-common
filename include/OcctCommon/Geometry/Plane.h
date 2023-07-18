@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Plane final : public _gpWrapper<gp_Pln> {
+class Plane final : public GpWrapper<gp_Pln> {
   GP_WRAPPER
 
 public:

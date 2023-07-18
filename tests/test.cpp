@@ -114,6 +114,7 @@ TEST(GeometryTests, curve_join_test) {
   EXPECT_TRUE(result[0]->PointAtEnd() == Point3d(0, 1, 0));
   EXPECT_EQ(result[0]->SpanCount(), 6);
   EXPECT_EQ(result[0]->Degree(), 3);
+  EXPECT_EQ(result[0]->Domain().T0(), curve1->Domain().T0());
 }
 
 int main(int argc, char **argv) {

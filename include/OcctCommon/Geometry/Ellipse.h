@@ -6,7 +6,7 @@
 namespace OcctCommon {
 namespace Geometry {
 
-class Ellipse final : public _gpWrapper<gp_Elips> {
+class Ellipse final : public GpWrapper<gp_Elips> {
   GP_WRAPPER
 };
 
