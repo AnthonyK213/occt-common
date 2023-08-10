@@ -141,7 +141,6 @@ bool Plane::Equals(C_Pln plane) const {
 
 void Plane::Flip() {
   m_data.UReverse();
-  m_data.VReverse();
 }
 
 void Plane::GetPlaneEquation(double &a, double &b, double &c, double &d) const {
