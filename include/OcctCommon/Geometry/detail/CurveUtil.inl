@@ -53,7 +53,7 @@ V_Curve JoinCurves(C &&curves, double joinTolerance, bool preserveDirection) {
   for (auto it = std::begin(curves); it != std::end(curves); ++it) {
     if ((*it)->Data()->GetType() == GeomAbs_OtherCurve) {
       Arc_<BRepAdaptor_CompCurve> compCurve =
-          reinterpret_cast<const Arc_<BRepAdaptor_CompCurve> &>((*it)->Data());
+          std::dynamic_pointer_cast<BRepAdaptor_CompCurve>((*it)->Data());
       TopoDS_Wire wire = compCurve->Wire();
       BRepTools_WireExplorer expl(wire);
       while (expl.More()) {
