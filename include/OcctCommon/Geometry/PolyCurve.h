@@ -22,7 +22,7 @@ public:
 
   virtual bool IsPlanar(double tolerance) const override;
 
-  virtual Curve *Trim(double t0, double t1) const override;
+  virtual H_Curve Trim(double t0, double t1) const override;
 
   virtual ~PolyCurve() noexcept override;
 };

@@ -111,37 +111,37 @@ public:
 
   virtual Curve *DuplicateCurve() const;
 
-  virtual Vec_<Arc_<Curve>> DuplicateSegments() const;
+  virtual V_Curve DuplicateSegments() const;
 
   virtual GeometryBase *DuplicateShallow() const override;
 
-  virtual Curve *Extend(CurveEnd side, CurveExtensionStyle style,
-                        Vec_<GeometryBase *> geometry) const;
+  virtual H_Curve Extend(CurveEnd side, CurveExtensionStyle style,
+                         Vec_<GeometryBase *> geometry) const;
 
-  virtual Curve *Extend(CurveEnd side, CurveExtensionStyle style,
-                        C_Pnt endPoint) const;
+  virtual H_Curve Extend(CurveEnd side, CurveExtensionStyle style,
+                         C_Pnt endPoint) const;
 
-  virtual Curve *Extend(CurveEnd side, double length,
-                        CurveExtensionStyle style) const;
+  virtual H_Curve Extend(CurveEnd side, double length,
+                         CurveExtensionStyle style) const;
 
-  virtual Curve *Extend(C_Intv domain) const;
+  virtual H_Curve Extend(C_Intv domain) const;
 
-  virtual Curve *Extend(double t0, double t1) const;
+  virtual H_Curve Extend(double t0, double t1) const;
 
-  virtual Curve *ExtendByArc(CurveEnd side,
-                             Vec_<GeometryBase *> geometry) const;
-
-  virtual Curve *ExtendByLine(CurveEnd side,
+  virtual H_Curve ExtendByArc(CurveEnd side,
                               Vec_<GeometryBase *> geometry) const;
 
+  virtual H_Curve ExtendByLine(CurveEnd side,
+                               Vec_<GeometryBase *> geometry) const;
+
   // TODO
-  virtual Curve *ExtendOnSurface() const;
+  virtual H_Curve ExtendOnSurface() const;
 
   virtual Vec_<double> ExtremeParameters(C_Vec direction) const;
 
-  virtual Curve *Fair(double distanceTolerance, double angleTolerance,
-                      int32_t clampStart, int32_t clampEnd,
-                      int32_t iterations) const;
+  virtual H_Curve Fair(double distanceTolerance, double angleTolerance,
+                       int32_t clampStart, int32_t clampEnd,
+                       int32_t iterations) const;
 
   // TODO
   virtual bool FilletSurfaceToCurve() const;
@@ -152,8 +152,8 @@ public:
                                    double &curveParameter,
                                    double &angleError) const;
 
-  virtual Curve *Fit(int32_t degree, double fitTolerance,
-                     double angleTolerance) const;
+  virtual H_Curve Fit(int32_t degree, double fitTolerance,
+                      double angleTolerance) const;
 
   virtual bool FrameAt(double t, Plane &plane) const;
 
@@ -298,24 +298,22 @@ public:
   virtual Vec_<double>
   NormalizedLengthParameters(Vec_<double>, double absoluteTolerance) const;
 
-  virtual Vec_<Arc_<Curve>> Offset(C_Pln plane, double distance,
-                                   double tolerance,
-                                   CurveOffsetCornerStyle cornerStyle) const;
+  virtual V_Curve Offset(C_Pln plane, double distance, double tolerance,
+                         CurveOffsetCornerStyle cornerStyle) const;
 
-  virtual Vec_<Arc_<Curve>> Offset(C_Pnt directionPoint, C_Vec normal,
-                                   double distance, double tolerance,
-                                   CurveOffsetCornerStyle cornerStyle) const;
+  virtual V_Curve Offset(C_Pnt directionPoint, C_Vec normal, double distance,
+                         double tolerance,
+                         CurveOffsetCornerStyle cornerStyle) const;
 
-  virtual Vec_<Arc_<Curve>> Offset(C_Pnt directionPoint, C_Vec normal,
-                                   double distance, double tolerance,
-                                   double angleTolerance, bool loose,
-                                   CurveOffsetCornerStyle cornerStyle,
-                                   CurveOffsetEndStyle endStyle) const;
+  virtual V_Curve Offset(C_Pnt directionPoint, C_Vec normal, double distance,
+                         double tolerance, double angleTolerance, bool loose,
+                         CurveOffsetCornerStyle cornerStyle,
+                         CurveOffsetEndStyle endStyle) const;
 
-  virtual Curve *OffsetNormalToSurface(C_Srf surface, double height) const;
+  virtual H_Curve OffsetNormalToSurface(C_Srf surface, double height) const;
 
   // TODO
-  virtual Vec_<Arc_<Curve>> OffsetOnSurface() const;
+  virtual V_Curve OffsetOnSurface() const;
 
   virtual bool PerpendicularFrameAt(double t, Plane &plane) const;
 
@@ -326,9 +324,9 @@ public:
   virtual Point3d PointAtNormalizedLength(double length) const;
 
   // TODO
-  virtual Vec_<Arc_<Curve>> PullToBrepFace() const;
+  virtual V_Curve PullToBrepFace() const;
 
-  virtual Vec_<PolylineCurve> PullToMesh(C_Msh mesh, double tolerance) const;
+  virtual V_PolylineCurve PullToMesh(C_Msh mesh, double tolerance) const;
 
   virtual NurbsCurve *Rebuild(int32_t pointCount, int32_t degree,
                               bool preserveTangents) const;
@@ -338,7 +336,7 @@ public:
   virtual bool Reverse();
 
   // TODO
-  virtual Curve *RibbonOffset() const;
+  virtual H_Curve RibbonOffset() const;
 
   virtual bool Rotate(double angleRadians, C_Vec rotaionAxis,
                       C_Pnt rotationCenter) override;
@@ -356,47 +354,47 @@ public:
                            double distanceTolerance,
                            double angleToleranceRadians);
 
-  virtual Curve *Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
-                        bool bZSmooth, bool bFixBoundaries,
-                        SmoothingCoordinateSystem coordinateSystem,
-                        C_Pln plane) const;
+  virtual H_Curve Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
+                         bool bZSmooth, bool bFixBoundaries,
+                         SmoothingCoordinateSystem coordinateSystem,
+                         C_Pln plane) const;
 
-  virtual Curve *Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
-                        bool bZSmooth, bool bFixBoundaries,
-                        SmoothingCoordinateSystem coordinateSystem) const;
+  virtual H_Curve Smooth(double smoothFactor, bool bXSmooth, bool bYSmooth,
+                         bool bZSmooth, bool bFixBoundaries,
+                         SmoothingCoordinateSystem coordinateSystem) const;
 
-  virtual Vec_<Arc_<Curve>> Split(C_Brp cutter, double tolerance,
-                                  double angleToleranceRadians) const;
+  virtual V_Curve Split(C_Brp cutter, double tolerance,
+                        double angleToleranceRadians) const;
 
-  virtual Vec_<Arc_<Curve>> Split(Vec_<double> t) const;
+  virtual V_Curve Split(Vec_<double> t) const;
 
-  virtual Vec_<Arc_<Curve>> Split(C_Srf cutter, double tolerance,
-                                  double angleToleranceRadians) const;
+  virtual V_Curve Split(C_Srf cutter, double tolerance,
+                        double angleToleranceRadians) const;
 
-  virtual Vec_<Arc_<Curve>> Split(double t) const;
+  virtual V_Curve Split(double t) const;
 
   virtual Vector3d TangentAt(double t) const;
 
-  virtual PolyCurve *ToArcsAndLines(double tolerance, double angleTolerance,
-                                    double minimumLength,
-                                    double maximumLength) const;
+  virtual H_PolyCurve ToArcsAndLines(double tolerance, double angleTolerance,
+                                     double minimumLength,
+                                     double maximumLength) const;
 
-  virtual NurbsCurve *ToNurbsCurve() const;
+  virtual H_NurbsCurve ToNurbsCurve() const;
 
-  virtual NurbsCurve *ToNurbsCurve(C_Intv subDomain) const;
+  virtual H_NurbsCurve ToNurbsCurve(C_Intv subDomain) const;
 
-  virtual PolylineCurve *ToPolyline(double tolerance, double angleTolerance,
-                                    double minimumLength,
-                                    double maximumLength) const;
+  virtual H_PolylineCurve ToPolyline(double tolerance, double angleTolerance,
+                                     double minimumLength,
+                                     double maximumLength) const;
 
-  virtual PolylineCurve *
+  virtual H_PolylineCurve
   ToPolyline(int32_t mainSegmentCount, int32_t subSegmentCount,
              double maxAngleRadians, double maxChordLengthRatio,
              double maxAspectRatio, double tolerance, double minEdgeLength,
              double maxEdgeLength, bool keepStartPoint,
              C_Intv curveDomain) const;
 
-  virtual PolylineCurve *
+  virtual H_PolylineCurve
   ToPolyline(int32_t mainSegmentCount, int32_t subSegmentCount,
              double maxAngleRadians, double maxChordLengthRatio,
              double maxAspectRatio, double tolerance, double minEdgeLength,
@@ -410,11 +408,11 @@ public:
 
   virtual bool Translate(C_Vec translationVector) override;
 
-  Curve *Trim(CurveEnd side, double length) const;
+  H_Curve Trim(CurveEnd side, double length) const;
 
-  Curve *Trim(C_Intv domain) const;
+  H_Curve Trim(C_Intv domain) const;
 
-  virtual Curve *Trim(double t0, double t1) const = 0;
+  virtual H_Curve Trim(double t0, double t1) const = 0;
 
   virtual bool TryGetArc(Arc &arc, double tolerance) const;
 
@@ -450,13 +448,11 @@ public:
   virtual ~Curve() noexcept;
 
 public:
-  const Arc_<Adaptor3d_Curve>& Data() const;
+  Handle(Adaptor3d_Curve) Data() const;
 
 protected:
   /// @brief Curve data.
-  /// NOTE: `Adaptor3d_Curve` was made to derive from `Standard_Transient`
-  /// since 7.6.
-  Arc_<Adaptor3d_Curve> m_data;
+  Handle(Adaptor3d_Curve) m_data;
 };
 
 } // namespace Geometry

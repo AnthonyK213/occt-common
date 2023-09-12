@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
-    "builtin-baseline": "1e334d770ac71a89d1c36d51019e60dd08b68f76",
+    "builtin-baseline": "1384becefca5c1511f0e070c43f66ad6a3783c8e",
     "dependencies": [
         {
             "name": "opencascade",
@@ -10,7 +10,7 @@
     "overrides": [
         {
             "name": "opencascade",
-            "version": "7.6.2#4"
+            "version": "7.6.2#7"
         }
     ]
 }

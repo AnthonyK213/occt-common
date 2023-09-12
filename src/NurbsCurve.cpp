@@ -9,7 +9,7 @@ namespace Geometry {
 NurbsCurve::NurbsCurve(int32_t degree, int32_t pointCount) {}
 
 NurbsCurve::NurbsCurve(const Handle(Geom_BSplineCurve) & curve) {
-  m_data = std::make_shared<GeomAdaptor_Curve>(curve);
+  m_data = new GeomAdaptor_Curve(curve);
 }
 
 int32_t NurbsCurve::Degree() const { return m_data->Degree(); }
@@ -35,9 +35,9 @@ bool NurbsCurve::IsInPlane(C_Pln testPlane, double tolerance) const {
   return false;
 }
 
-Curve *NurbsCurve::Trim(double t0, double t1) const {
+H_Curve NurbsCurve::Trim(double t0, double t1) const {
   auto result = m_data->Trim(t0, t1, _Math::ZeroTolerance);
-  return new NurbsCurve(result->BSpline());
+  return std::make_shared<NurbsCurve>(result->BSpline());
 }
 
 NurbsCurve::~NurbsCurve() noexcept {}
