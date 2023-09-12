@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install occt-draw occt-misc libocct-foundation-dev libocct-data-exchange-dev libocct-draw-dev libocct-modeling-algorithms-dev libocct-ocaf-dev libocct-visualization-dev libtbb2-dev
+        sudo apt-get install occt-draw occt-misc libocct-foundation-dev libocct-data-exchange-dev libocct-draw-dev libocct-modeling-algorithms-dev libocct-ocaf-dev libocct-visualization-dev libtbb2-dev libocct-data-exchange-7.6 libocct-draw-7.6 libocct-foundation-7.6 libocct-modeling-algorithms-7.6 libocct-modeling-data-7.6 libocct-modeling-data-dev libocct-ocaf-7.6 libocct-visualization-7.6
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
