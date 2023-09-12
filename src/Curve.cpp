@@ -445,8 +445,8 @@ V_Curve Curve::PullToBrepFace() const {NOT_IMPL}
 
 V_PolylineCurve Curve::PullToMesh(C_Msh mesh, double tolerance) const {NOT_IMPL}
 
-NurbsCurve *Curve::Rebuild(int32_t pointCount, int32_t degree,
-                           bool preserveTangents) const {
+H_NurbsCurve Curve::Rebuild(int32_t pointCount, int32_t degree,
+                            bool preserveTangents) const {
   NOT_IMPL
 }
 
@@ -603,7 +603,7 @@ bool Curve::TryGetPolyline(Polyline &polyline) const {NOT_IMPL}
 
 Curve::~Curve() noexcept {}
 
-Handle(Adaptor3d_Curve) Curve::Data() const { return m_data; }
+Arc_<Adaptor3d_Curve> Curve::Data() const { return m_data; }
 
 } // namespace Geometry
 } // namespace OcctCommon

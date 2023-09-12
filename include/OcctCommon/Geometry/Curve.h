@@ -328,8 +328,8 @@ public:
 
   virtual V_PolylineCurve PullToMesh(C_Msh mesh, double tolerance) const;
 
-  virtual NurbsCurve *Rebuild(int32_t pointCount, int32_t degree,
-                              bool preserveTangents) const;
+  virtual H_NurbsCurve Rebuild(int32_t pointCount, int32_t degree,
+                               bool preserveTangents) const;
 
   virtual bool RemoveShortSegments(double tolerance);
 
@@ -448,11 +448,11 @@ public:
   virtual ~Curve() noexcept;
 
 public:
-  Handle(Adaptor3d_Curve) Data() const;
+  Arc_<Adaptor3d_Curve> Data() const;
 
 protected:
   /// @brief Curve data.
-  Handle(Adaptor3d_Curve) m_data;
+  Arc_<Adaptor3d_Curve> m_data;
 };
 
 } // namespace Geometry
